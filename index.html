@@ -584,7 +584,7 @@
         }
 
         /* MODAIS */
-        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal {
+        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -597,7 +597,7 @@
             align-items: center;
             backdrop-filter: blur(5px);
         }
-        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content {
+        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content {
             background: #1E1E1E;
             width: 90%;
             max-width: 440px;
@@ -666,13 +666,18 @@
             margin-bottom: 8px;
             font-weight: 600;
         }
-        .custom-field input, .custom-field select {
+        .custom-field input, .custom-field select, .custom-field textarea {
             width: 100%;
             padding: 12px;
             background: #1A1A1A;
             border: 1px solid #444;
             border-radius: 30px;
             color: white;
+            font-family: inherit;
+        }
+        .custom-field textarea {
+            resize: vertical;
+            border-radius: 16px;
         }
         @keyframes zoomIn {
             from { opacity: 0; transform: scale(0.95); }
@@ -865,7 +870,6 @@
             cursor: pointer;
             border: none;
         }
-        /* Estilo para exibir preço dinâmico na personalização */
         .preco-dinamico {
             background: #2A2A2A;
             padding: 10px;
@@ -932,6 +936,7 @@
         <p>📞 WhatsApp: <a href="https://wa.me/5534991273427" target="_blank">(34) 99127-3427</a></p>
         <p>📸 Instagram: <a href="https://instagram.com/centercarnesskala2024" target="_blank">@centercarnesskala2024</a></p>
         <p>📍 Rua Saldanha Marinho, 300 - Bairro Pampulha, Uberlândia - MG</p>
+        <p>🕒 Horário de Funcionamento: Segunda a Sábado, 08:00 às 20:00 | Domingo, 08:00 às 13:00</p>
         <div class="footer-social">
             <a href="https://wa.me/5534991273427" target="_blank">💬 WhatsApp</a>
             <a href="https://instagram.com/centercarnesskala2024" target="_blank">📷 Instagram</a>
@@ -955,6 +960,29 @@
 
 <!-- MODAIS -->
 <div id="cartModal" class="cart-modal"><div class="cart-modal-content"><div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div><div id="cartItemsContainer" class="cart-items-list"></div><div class="order-details-area" id="orderDetailsArea"><div class="detail-section"><div class="section-header"><span>💳</span> Forma de Pagamento</div><div class="payment-option"><label><input type="radio" name="payment" value="Pix" checked> Pix</label><label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão Crédito</label><label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label></div><div id="changeField" class="conditional-field hidden-field"><label>💰 Troco para quanto?</label><input type="text" id="changeAmount" placeholder="Ex: R$ 100,00"></div></div><div class="detail-section"><div class="section-header"><span>🚚</span> Entrega</div><div class="delivery-option"><label><input type="radio" name="delivery" value="Retirada no Balcão" checked> Retirada no Balcão</label><label><input type="radio" name="delivery" value="Delivery"> Delivery</label></div><div id="addressField" class="conditional-field hidden-field"><label>🏠 Endereço completo</label><input type="text" id="deliveryAddress" placeholder="Rua, número, bairro"></div></div></div><div class="cart-total" id="cartTotalDisplay">💰 TOTAL: R$ 0,00</div><div class="cart-buttons"><button id="continueShoppingBtn" class="cart-btn cart-btn-secondary">➕ Continuar</button><button id="sendOrderBtn" class="cart-btn cart-btn-primary">📲 Enviar Pedido</button></div></div></div>
+
+<!-- MODAL DE AGENDAMENTO -->
+<div id="scheduleModal" class="schedule-modal">
+    <div class="schedule-modal-content">
+        <div class="cart-modal-header">
+            <h2>📅 Agendamento de Pedido</h2>
+            <span class="close-modal" id="closeScheduleModal">&times;</span>
+        </div>
+        <p style="margin-bottom: 16px;">⚠️ No momento estamos fora do horário de funcionamento. Deseja agendar este pedido?</p>
+        <div class="custom-field">
+            <label>📅 Data e Hora desejada para entrega/retirada:</label>
+            <input type="datetime-local" id="scheduleDatetime">
+        </div>
+        <div class="custom-field">
+            <label>📝 Observações (opcional):</label>
+            <textarea id="scheduleObs" rows="2" placeholder="Ex: Deixar no portão, tocar interfone, melhor horário..."></textarea>
+        </div>
+        <div class="custom-buttons">
+            <button id="cancelScheduleBtn" class="btn-cancel">Voltar</button>
+            <button id="confirmScheduleBtn" class="btn-confirm">Confirmar Agendamento</button>
+        </div>
+    </div>
+</div>
 
 <div id="customModal" class="custom-modal">
     <div class="custom-modal-content">
@@ -1003,7 +1031,35 @@
 <div id="quantityModal" class="quantity-modal"><div class="quantity-modal-content"><h3>⚖️ Selecione o peso</h3><div id="quantityProductName" style="margin-bottom: 10px;"></div><div class="weight-grid" id="weightGrid"></div><div class="quantity-modal-buttons"><button id="cancelQuantityBtn" class="btn-cancel">Cancelar</button><button id="confirmQuantityBtn" class="btn-confirm">Adicionar ao carrinho</button></div></div></div>
 
 <script>
-    // Função para animar badge
+    // Funções auxiliares
+    function formatCurrency(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+    
+    // Verifica se está dentro do horário de funcionamento
+    function isWithinBusinessHours() {
+        const now = new Date();
+        const day = now.getDay(); // 0 = Domingo, 1 = Segunda ... 6 = Sábado
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const currentMinutes = hours * 60 + minutes;
+
+        if (day === 0) { // Domingo
+            const open = 8 * 60;      // 08:00
+            const close = 13 * 60;    // 13:00
+            return currentMinutes >= open && currentMinutes < close;
+        } else if (day >= 1 && day <= 6) { // Segunda a Sábado
+            const open = 8 * 60;      // 08:00
+            const close = 20 * 60;    // 20:00
+            return currentMinutes >= open && currentMinutes < close;
+        }
+        return false;
+    }
+
+    let cart = [];
+    let currentEditIndex = null;
+    let currentEditingCustomIndex = null;
+    let pendingTipProduct = null;
+    let pendingOrderData = null; // para armazenar dados antes do agendamento
+
     function animateBadge() {
         const badge = document.getElementById('cartBadge');
         if (badge && badge.style.display !== 'none') {
@@ -1028,29 +1084,21 @@
         }
     };
     
-    let cart = [];
-    let currentEditIndex = null;
-    let currentEditingCustomIndex = null;
-    let pendingTipProduct = null;
-    
-    // Mapa de preços por nome do corte (baseado nos produtos cadastrados)
+    // Mapa de preços por nome do corte
     function buildPrecoMap() {
         const map = new Map();
         const categorias = ['bovinos', 'suinos', 'aves', 'premium', 'variedades'];
         for (let cat of categorias) {
             if (productsData[cat]) {
                 productsData[cat].forEach(p => {
-                    // Adiciona o nome original e versão minúscula
                     map.set(p.name, p.basePrice);
                     map.set(p.name.toLowerCase(), p.basePrice);
                 });
             }
         }
-        // Adicionar mapeamentos extras para cortes que podem ser solicitados via "Outro"
-        map.set("maminha", 49.99);   // valor aproximado (não tem no catálogo)
+        map.set("maminha", 49.99);
         map.set("peixinho", 37.99);
-        map.set("lagarto", 39.99);   // estimado
-        map.set("peito", 37.99);     // mapeado para Peixinho
+        map.set("lagarto", 39.99);
         return map;
     }
     
@@ -1058,10 +1106,9 @@
         const precoMap = buildPrecoMap();
         if (precoMap.has(tipo)) return precoMap.get(tipo);
         if (precoMap.has(tipo.toLowerCase())) return precoMap.get(tipo.toLowerCase());
-        return null; // não encontrado
+        return null;
     }
     
-    // Atualizar exibição do preço na personalização
     function atualizarPrecoPersonalizacao() {
         let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
         if (tipo === 'Outro') {
@@ -1082,12 +1129,10 @@
         if (preco) {
             document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ ${preco.toFixed(2)} / kg`;
         } else {
-            // Isso não deve mais ocorrer pois todos os tipos da grade têm preço
             document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ 29,90 / kg (estimado)`;
         }
     }
     
-    // Obter preço atual do tipo selecionado na personalização
     function getPrecoAtualPersonalizacao() {
         let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
         if (tipo === 'Outro') {
@@ -1095,11 +1140,9 @@
             if (nomeDigitado === "") return null;
             return getPrecoPorTipo(nomeDigitado);
         }
-        const preco = getPrecoPorTipo(tipo);
-        return preco !== null ? preco : 29.90; // fallback seguro
+        return getPrecoPorTipo(tipo) || 29.90;
     }
     
-    // Adicionar carne moída com preço dinâmico
     function addCarneMoidaToCart(tipo, kg, vezes, precoPorKg, editIndex = null) {
         let q = parseFloat(kg);
         if (isNaN(q) || q <= 0) return false;
@@ -1127,7 +1170,6 @@
         return true;
     }
     
-    // Função padrão addToCart (para produtos normais)
     function addToCart(product, selectedValue) {
         let q = parseFloat(selectedValue);
         if (isNaN(q) || q <= 0) return false;
@@ -1172,7 +1214,6 @@
         }
         return null;
     }
-    function formatCurrency(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
     
     function renderCartModal() {
         const container = document.getElementById('cartItemsContainer');
@@ -1250,6 +1291,7 @@
             });
         });
     }
+    
     function showQuantityModal(product) {
         pendingTipProduct = product;
         document.getElementById('quantityProductName').innerHTML = `<strong>${product.name}</strong> - ${formatCurrency(product.basePrice)}/kg`;
@@ -1261,7 +1303,8 @@
         document.getElementById('quantityModal').style.display = 'flex';
     }
     
-    function sendOrderToWhatsApp() {
+    // Função principal de envio com suporte a agendamento
+    function sendOrderToWhatsApp(isScheduled = false, scheduleDatetime = null, scheduleObs = '') {
         if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; }
         const payment = document.querySelector('input[name="payment"]:checked')?.value;
         let changeText = '';
@@ -1283,7 +1326,16 @@
             }
             addressText = `\n📍 Endereço: ${addr}`;
         }
-        let message = `🍖 *CENTER CARNES SKALA* 🍖\n\n`;
+        
+        let message = ``;
+        if (isScheduled) {
+            message += `⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;
+            message += `📅 *Agendamento solicitado:* ${scheduleDatetime || 'A combinar'}\n`;
+            if (scheduleObs) message += `✏️ *Observações:* ${scheduleObs}\n`;
+            message += `🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;
+        }
+        
+        message += `🍖 *CENTER CARNES SKALA* 🍖\n\n`;
         let total = 0;
         cart.forEach(item => {
             let nome = item.name;
@@ -1295,6 +1347,7 @@
         message += `\n💳 Pagamento: ${payment}${changeText}`;
         message += `\n🚚 Entrega: ${delivery}${addressText}`;
         message += `\n\n🔔 Peço que confirmem meu pedido.`;
+        
         window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`, '_blank');
         return true;
     }
@@ -1308,6 +1361,22 @@
         document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', updateAddress));
         updateChange(); updateAddress();
     }
+    
+    function validateAndSend() {
+        if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; }
+        const payment = document.querySelector('input[name="payment"]:checked')?.value;
+        if (payment === 'Dinheiro') {
+            const changeRaw = document.getElementById('changeAmount').value;
+            if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; }
+        }
+        const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
+        if (delivery === 'Delivery') {
+            const addr = document.getElementById('deliveryAddress').value.trim();
+            if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; }
+        }
+        return true;
+    }
+    
     function smoothScrollToTitle() {
         requestAnimationFrame(() => {
             const sectionTitle = document.getElementById('sectionTitle');
@@ -1320,12 +1389,14 @@
             }
         });
     }
+    
     function renderAnunciantes() {
         const grid = document.getElementById('advertisersGrid');
         grid.innerHTML = `<div class="ad-card" id="adCard1"><div class="ad-icon">🚀</div><div class="ad-title">Destaque sua Marca</div><div class="ad-description">Seu negócio visto por milhares de clientes.</div><div class="ad-cta">Quero Anunciar →</div></div><div class="ad-card" id="adCard2"><div class="ad-icon">📈</div><div class="ad-title">Aumente suas Vendas</div><div class="ad-description">Público fiel e engajado.</div><div class="ad-cta">Saiba Mais →</div></div>`;
         document.getElementById('adCard1')?.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank'));
         document.getElementById('adCard2')?.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank'));
     }
+    
     function renderProducts(category) {
         const feed = document.getElementById('productFeed');
         let products = productsData[category];
@@ -1501,7 +1572,6 @@
                 atualizarPrecoPersonalizacao();
             });
         });
-        // Evento de digitação para busca automática do preço
         document.getElementById('outroTipoInput')?.addEventListener('input', () => atualizarPrecoPersonalizacao());
         document.getElementById('moedaKg')?.addEventListener('input', () => atualizarPrecoPersonalizacao());
         document.getElementById('cancelCustomBtn')?.addEventListener('click', () => document.getElementById('customModal').style.display = 'none');
@@ -1518,8 +1588,7 @@
                     return;
                 }
             } else {
-                // Para tipos pré-definidos, precoKg já foi calculado e não será null
-                if (precoKg === null || precoKg === undefined) precoKg = 29.90; // fallback seguro
+                if (precoKg === null || precoKg === undefined) precoKg = 29.90;
             }
             const vezes = parseInt(document.getElementById('moedaVezes').value);
             if (addCarneMoidaToCart(tipo, kg, vezes, precoKg, currentEditingCustomIndex)) {
@@ -1541,6 +1610,11 @@
         const closeCart = document.getElementById('closeCartModal');
         const continueBtn = document.getElementById('continueShoppingBtn');
         const sendOrderBtn = document.getElementById('sendOrderBtn');
+        const scheduleModal = document.getElementById('scheduleModal');
+        const closeSchedule = document.getElementById('closeScheduleModal');
+        const cancelSchedule = document.getElementById('cancelScheduleBtn');
+        const confirmSchedule = document.getElementById('confirmScheduleBtn');
+        
         orderBtn.addEventListener('click', (e) => {
             e.preventDefault();
             renderCartModal();
@@ -1549,7 +1623,34 @@
         });
         closeCart.addEventListener('click', () => cartModal.style.display = 'none');
         continueBtn.addEventListener('click', () => cartModal.style.display = 'none');
-        sendOrderBtn.addEventListener('click', () => { if (sendOrderToWhatsApp()) cartModal.style.display = 'none'; });
+        
+        sendOrderBtn.addEventListener('click', () => {
+            if (!validateAndSend()) return;
+            if (isWithinBusinessHours()) {
+                sendOrderToWhatsApp(false);
+                cartModal.style.display = 'none';
+            } else {
+                cartModal.style.display = 'none';
+                scheduleModal.style.display = 'flex';
+            }
+        });
+        
+        closeSchedule.addEventListener('click', () => scheduleModal.style.display = 'none');
+        cancelSchedule.addEventListener('click', () => scheduleModal.style.display = 'none');
+        confirmSchedule.addEventListener('click', () => {
+            const datetime = document.getElementById('scheduleDatetime').value;
+            const obs = document.getElementById('scheduleObs').value;
+            if (!datetime) {
+                if (confirm("Você não selecionou uma data/hora. Deseja enviar o pedido mesmo assim para agendamento?")) {
+                    sendOrderToWhatsApp(true, "A combinar com o estabelecimento", obs);
+                    scheduleModal.style.display = 'none';
+                }
+            } else {
+                sendOrderToWhatsApp(true, datetime, obs);
+                scheduleModal.style.display = 'none';
+            }
+        });
+        
         document.getElementById('confirmEditBtn').addEventListener('click', () => {
             if (currentEditIndex !== null) {
                 const newVal = parseFloat(document.getElementById('editQuantitySelect').value);
