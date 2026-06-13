@@ -10,13 +10,7 @@
     
     <style>
         /* ===== ESTILOS COMPLETOS (MANTIDOS) ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #1A1A1A;
@@ -27,7 +21,7 @@
             overflow-x: hidden;
             overflow-y: auto;
         }
-
+        /* Splash Screen (mantido) */
         #splashScreen {
             position: fixed;
             top: 0;
@@ -47,7 +41,6 @@
             transition: opacity 0.5s ease, visibility 0.5s ease;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
-
         .splash-glow {
             position: absolute;
             width: 300px;
@@ -59,826 +52,148 @@
             z-index: 1;
             animation: pulseGlow 3s ease-in-out infinite alternate;
         }
-
-        .splash-content {
-            position: relative;
-            z-index: 2;
+        .splash-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .splash-logo { width: 220px; height: auto; filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.8)); animation: bounceLogo 2s ease-in-out infinite alternate; }
+        .splash-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #FED100; text-shadow: 2px 3px 6px rgba(0,0,0,0.9); font-weight: 900; letter-spacing: 1px; }
+        .splash-subtitle { font-size: 1rem; font-weight: 700; color: #FFFFFF; background-color: rgba(0, 74, 23, 0.8); padding: 8px 16px; border-radius: 30px; border: 1px solid #FED100; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+        @keyframes pulseGlow { 0% { transform: scale(0.9); opacity: 0.1; } 100% { transform: scale(1.2); opacity: 0.25; } }
+        @keyframes bounceLogo { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+        
+        /* Badge e demais estilos (mantidos) */
+        @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.3); background-color: #ff4d00; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.6); } 100% { transform: scale(1); opacity: 1; } }
+        .badge-pulse { animation: badgePop 0.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards !important; }
+        .app-container { width: 100%; max-width: 480px; background: #1A1A1A; min-height: 100vh; position: relative; padding-top: 80px; padding-bottom: 90px; box-shadow: 0 0 30px rgba(0,0,0,0.8); overflow-x: hidden; transition: opacity 0.5s ease; }
+        .header { text-align: center; padding: 25px 20px 15px 20px; position: relative; z-index: 5; }
+        .logo-container { width: 200px; margin: 0 auto 15px auto; }
+        .logo-container img { width: 100%; height: auto; display: block; filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.7)); }
+        .welcome-text { font-size: 0.9rem; color: #cccccc; font-style: italic; }
+        .hero-banner { width: calc(100% - 30px); margin: 0 auto 25px auto; height: 170px; border-radius: 15px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://i.ibb.co/pjBKnNgd/file-00000000f54871f5a6158a58fbffd347.png') center center / cover no-repeat; background-size: cover; display: flex; align-items: flex-end; padding: 15px; }
+        .hero-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .category-nav-container { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background-color: #1A1A1A; padding: 10px 0 15px 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); border-radius: 0 0 12px 12px; }
+        .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 0 15px; gap: 10px; scrollbar-width: thin; }
+        .category-nav::-webkit-scrollbar { height: 4px; }
+        .category-nav::-webkit-scrollbar-track { background: #333; border-radius: 10px; }
+        .category-nav::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        .category-btn { background-color: #262626; color: #FFFFFF; border: 1px solid #333; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; flex-shrink: 0; }
+        .category-btn.active { background-color: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
+        .category-hint { text-align: center; font-size: 0.7rem; color: #D4AF37; margin-top: 6px; padding: 0 16px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; padding: 10px 20px; color: #E65100; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); scroll-margin-top: 80px; }
+        .product-feed { padding: 0 15px; display: flex; flex-direction: column; gap: 25px; }
+        .product-card { background: transparent; display: flex; gap: 12px; }
+        .product-image { width: 110px; min-width: 110px; height: 110px; background-size: cover; background-position: center; border-radius: 12px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); }
+        .product-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-title { font-size: 1rem; font-weight: 700; color: #FFFFFF; }
+        .product-desc { font-size: 0.8rem; color: #DDDDDD; margin: 5px 0 8px 0; line-height: 1.3; white-space: pre-line; }
+        .weight-input-area { margin: 10px 0; }
+        .weight-input-area label { font-size: 0.75rem; color: #D4AF37; display: block; margin-bottom: 4px; }
+        .weight-input-area input { background: #2A2A2A; border: 1px solid #444; color: white; padding: 6px 10px; border-radius: 20px; width: 100%; font-size: 0.85rem; }
+        .weight-input-area input:focus { outline: none; border-color: #D4AF37; }
+        .product-price { font-size: 1.2rem; font-weight: 700; color: #D4AF37; }
+        .add-btn, .customize-btn { background-color: #E65100; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(230, 81, 0, 0.4); transition: all 0.2s ease; }
+        .add-btn:active, .customize-btn:active { transform: scale(0.95); background-color: #2ecc71; box-shadow: 0 0 12px #2ecc71; }
+        .tips-section { margin: 20px 15px; background: #252525; border-radius: 20px; padding: 16px; border-left: 4px solid #D4AF37; }
+        .tips-title { font-size: 1rem; font-weight: 700; color: #D4AF37; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+        .tip-card { background: #1E1E1E; border-radius: 16px; padding: 12px; text-align: center; cursor: pointer; transition: all 0.2s; border: 1px solid #3A3A3A; }
+        .tip-card:hover { border-color: #D4AF37; background: #2A2A2A; transform: translateY(-2px); }
+        .tip-icon { font-size: 1.8rem; margin-bottom: 6px; }
+        .tip-name { font-weight: 700; font-size: 0.8rem; }
+        .tip-cuts { font-size: 0.65rem; color: #BBBBBB; margin-top: 6px; }
+        
+        /* NOVOS ESTILOS PARA ANÚNCIOS 16:9 DISCRETOS - ALTURA REDUZIDA EM 50% */
+        .inline-ads-container {
+            margin-top: 32px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 20px;
+            border-top: 1px solid #3A3A3A;
+            padding-top: 24px;
         }
-
-        .splash-logo {
-            width: 220px;
-            height: auto;
-            filter: drop-shadow(0px 6px 12px rgba(0, 0, 0, 0.8));
-            animation: bounceLogo 2s ease-in-out infinite alternate;
-        }
-
-        .splash-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: #FED100;
-            text-shadow: 2px 3px 6px rgba(0,0,0,0.9);
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-
-        .splash-subtitle {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            background-color: rgba(0, 74, 23, 0.8);
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 1px solid #FED100;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(0.9); opacity: 0.1; }
-            100% { transform: scale(1.2); opacity: 0.25; }
-        }
-
-        @keyframes bounceLogo {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
-        }
-
-        /* Animações do badge */
-        @keyframes badgePop {
-            0% { transform: scale(0.8); opacity: 0; }
-            50% { transform: scale(1.3); background-color: #ff4d00; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.6); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .badge-pulse {
-            animation: badgePop 0.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards !important;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 480px;
-            background: #1A1A1A;
-            min-height: 100vh;
-            position: relative;
-            padding-top: 80px;
-            padding-bottom: 90px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            overflow-x: hidden;
-            transition: opacity 0.5s ease;
-        }
-
-        .header {
-            text-align: center;
-            padding: 25px 20px 15px 20px;
-            position: relative;
-            z-index: 5;
-        }
-
-        .logo-container {
-            width: 200px;
-            margin: 0 auto 15px auto;
-        }
-
-        .logo-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.7));
-        }
-
-        .welcome-text {
-            font-size: 0.9rem;
-            color: #cccccc;
-            font-style: italic;
-        }
-
-        .hero-banner {
-            width: calc(100% - 30px);
-            margin: 0 auto 25px auto;
-            height: 170px;
-            border-radius: 15px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://i.ibb.co/pjBKnNgd/file-00000000f54871f5a6158a58fbffd347.png') center center / cover no-repeat;
-            background-size: cover;
-            display: flex;
-            align-items: flex-end;
-            padding: 15px;
-        }
-
-        .hero-banner h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .category-nav-container {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background-color: #1A1A1A;
-            padding: 10px 0 15px 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-            border-radius: 0 0 12px 12px;
-        }
-
-        .category-nav {
-            display: flex;
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 0 15px;
-            gap: 10px;
-            scrollbar-width: thin;
-        }
-
-        .category-nav::-webkit-scrollbar {
-            height: 4px;
-        }
-        .category-nav::-webkit-scrollbar-track {
-            background: #333;
-            border-radius: 10px;
-        }
-        .category-nav::-webkit-scrollbar-thumb {
-            background: #D4AF37;
-            border-radius: 10px;
-        }
-
-        .category-btn {
-            background-color: #262626;
-            color: #FFFFFF;
-            border: 1px solid #333;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .category-btn.active {
-            background-color: #D4AF37;
-            color: #1A1A1A;
-            border-color: #D4AF37;
-        }
-
-        .category-hint {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #D4AF37;
-            margin-top: 6px;
-            padding: 0 16px;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            padding: 10px 20px;
-            color: #E65100;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            scroll-margin-top: 80px;
-        }
-
-        .product-feed {
-            padding: 0 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .product-card {
-            background: transparent;
-            display: flex;
-            gap: 12px;
-        }
-
-        .product-image {
-            width: 110px;
-            min-width: 110px;
-            height: 110px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-        }
-
-        .product-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .product-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #FFFFFF;
-        }
-
-        .product-desc {
-            font-size: 0.8rem;
-            color: #DDDDDD;
-            margin: 5px 0 8px 0;
-            line-height: 1.3;
-            white-space: pre-line;
-        }
-
-        .weight-input-area {
-            margin: 10px 0;
-        }
-        .weight-input-area label {
-            font-size: 0.75rem;
-            color: #D4AF37;
-            display: block;
-            margin-bottom: 4px;
-        }
-        .weight-input-area input {
-            background: #2A2A2A;
-            border: 1px solid #444;
-            color: white;
-            padding: 6px 10px;
-            border-radius: 20px;
-            width: 100%;
-            font-size: 0.85rem;
-        }
-        .weight-input-area input:focus {
-            outline: none;
-            border-color: #D4AF37;
-        }
-
-        .product-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #D4AF37;
-        }
-
-        .add-btn, .customize-btn {
-            background-color: #E65100;
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            box-shadow: 0 4px 10px rgba(230, 81, 0, 0.4);
-            transition: all 0.2s ease;
-        }
-
-        .add-btn:active, .customize-btn:active {
-            transform: scale(0.95);
-            background-color: #2ecc71;
-            box-shadow: 0 0 12px #2ecc71;
-        }
-
-        .tips-section {
-            margin: 20px 15px;
-            background: #252525;
-            border-radius: 20px;
-            padding: 16px;
-            border-left: 4px solid #D4AF37;
-        }
-        .tips-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #D4AF37;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-        }
-        .tip-card {
-            background: #1E1E1E;
-            border-radius: 16px;
-            padding: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid #3A3A3A;
-        }
-        .tip-card:hover {
-            border-color: #D4AF37;
-            background: #2A2A2A;
-            transform: translateY(-2px);
-        }
-        .tip-icon {
-            font-size: 1.8rem;
-            margin-bottom: 6px;
-        }
-        .tip-name {
-            font-weight: 700;
-            font-size: 0.8rem;
-        }
-        .tip-cuts {
-            font-size: 0.65rem;
-            color: #BBBBBB;
-            margin-top: 6px;
-        }
-
-        .advertisers-section {
-            margin: 30px 15px 20px 15px;
-            transition: margin-top 0.2s ease;
-        }
-        .advertisers-section.spaced {
-            margin-top: 60px;
-        }
-        .advertisers-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: #D4AF37;
-            text-align: center;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #3A3A3A;
-            display: inline-block;
-            width: auto;
-            padding-bottom: 5px;
-        }
-        .advertisers-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .ad-card {
+        .ad-card-16x9 {
+            aspect-ratio: 16 / 4.5;  /* Altura 50% menor que o original 16/9 */
             background: linear-gradient(145deg, #252525 0%, #1E1E1E 100%);
             border-radius: 16px;
-            padding: 16px 12px;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            border: 1px solid #3A3A3A;
-            transition: transform 0.2s, border-color 0.2s;
             cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 8px 16px;  /* Padding vertical reduzido para manter o conteúdo proporcional */
         }
-        .ad-card:hover {
+        .ad-card-16x9:hover {
             transform: translateY(-3px);
             border-color: #D4AF37;
             background: linear-gradient(145deg, #2A2A2A 0%, #222222 100%);
         }
-        .ad-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-        .ad-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #D4AF37;
-            margin-bottom: 6px;
-        }
-        .ad-description {
-            font-size: 0.7rem;
-            color: #CCCCCC;
-            line-height: 1.4;
-            margin-bottom: 10px;
-        }
-        .ad-cta {
-            font-size: 0.7rem;
-            font-weight: 700;
-            background-color: #E65100;
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 30px;
-            color: white;
-            transition: background 0.2s;
-        }
-        .ad-card:hover .ad-cta {
-            background-color: #D4AF37;
-            color: #1A1A1A;
-        }
+        .ad-card-16x9 .ad-icon { font-size: 1.8rem; margin-bottom: 4px; }
+        .ad-card-16x9 .ad-title { font-size: 0.9rem; font-weight: 700; color: #D4AF37; margin-bottom: 4px; }
+        .ad-card-16x9 .ad-description { font-size: 0.65rem; color: #CCCCCC; line-height: 1.3; margin-bottom: 6px; }
+        .ad-card-16x9 .ad-cta { font-size: 0.65rem; font-weight: 700; background-color: #E65100; display: inline-block; padding: 4px 10px; border-radius: 30px; color: white; transition: background 0.2s; }
+        .ad-card-16x9:hover .ad-cta { background-color: #D4AF37; color: #1A1A1A; }
 
-        .footer-info {
-            margin-top: 40px;
-            padding: 20px 15px 25px;
-            background-color: rgba(17, 17, 17, 0.95);
-            border-top: 1px solid #2d2d2d;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #CCCCCC;
-        }
-        .footer-info a {
-            color: #D4AF37;
-            text-decoration: none;
-        }
-        .footer-info p {
-            margin: 6px 0;
-        }
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 12px;
-        }
+        .footer-info { margin-top: 40px; padding: 20px 15px 25px; background-color: rgba(17, 17, 17, 0.95); border-top: 1px solid #2d2d2d; text-align: center; font-size: 0.85rem; color: #CCCCCC; }
+        .footer-info a { color: #D4AF37; text-decoration: none; }
+        .footer-info p { margin: 6px 0; }
+        .footer-social { display: flex; justify-content: center; gap: 20px; margin-top: 12px; }
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background-color: #111111; border-top: 1px solid #292929; display: flex; justify-content: center; padding: 10px 20px; gap: 16px; z-index: 1000; }
+        .nav-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; background: #1e1e1e; border: 1px solid #333; color: #cccccc; border-radius: 40px; padding: 10px 8px; font-size: 0.8rem; font-weight: 600; text-decoration: none; cursor: pointer; position: relative; }
+        .nav-btn-main { background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%); color: #1A1A1A; border: none; }
+        .cart-badge { position: absolute; top: -12px; right: -10px; background-color: #E65100; color: white; border-radius: 50px; font-size: 0.85rem; font-weight: 900; min-width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; padding: 0 7px; box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 4px 12px rgba(0,0,0,0.5); letter-spacing: 0.5px; backdrop-filter: blur(1px); transition: all 0.15s ease; font-family: 'Montserrat', monospace; z-index: 15; border: 1px solid rgba(255,215,0,0.6); }
+        @keyframes subtleBadgeGlow { 0% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 0 0 6px #E65100; transform: scale(1);} 70% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 6px #FFB347, 0 0 0 10px rgba(230,81,0,0.4); transform: scale(1.08);} 100% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 4px 12px rgba(0,0,0,0.5); transform: scale(1);} }
+        .whatsapp-float { position: fixed; bottom: 90px; right: 20px; background-color: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000; transition: all 0.2s ease; cursor: pointer; text-decoration: none; }
+        .whatsapp-float:hover { transform: scale(1.05); background-color: #20b359; }
+        .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
 
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 480px;
-            background-color: #111111;
-            border-top: 1px solid #292929;
-            display: flex;
-            justify-content: center;
-            padding: 10px 20px;
-            gap: 16px;
-            z-index: 1000;
-        }
-        .nav-btn {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: #1e1e1e;
-            border: 1px solid #333;
-            color: #cccccc;
-            border-radius: 40px;
-            padding: 10px 8px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            position: relative;
-        }
-        .nav-btn-main {
-            background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%);
-            color: #1A1A1A;
-            border: none;
-        }
-
-        /* BADGE DO CARRINHO - DESTACADO */
-        .cart-badge {
-            position: absolute;
-            top: -12px;
-            right: -10px;
-            background-color: #E65100;
-            color: white;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 900;
-            min-width: 26px;
-            height: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 7px;
-            box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 4px 12px rgba(0,0,0,0.5);
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(1px);
-            transition: all 0.15s ease;
-            font-family: 'Montserrat', monospace;
-            z-index: 15;
-            border: 1px solid rgba(255,215,0,0.6);
-        }
-
-        .cart-badge:not([style*="display: none"]) {
-            animation: subtleBadgeGlow 0.4s ease-out;
-        }
-
-        @keyframes subtleBadgeGlow {
-            0% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 0 0 6px #E65100; transform: scale(1);}
-            70% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 6px #FFB347, 0 0 0 10px rgba(230,81,0,0.4); transform: scale(1.08);}
-            100% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 4px 12px rgba(0,0,0,0.5); transform: scale(1);}
-        }
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            background-color: #25D366;
-            color: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.05);
-            background-color: #20b359;
-        }
-        .whatsapp-float svg {
-            width: 32px;
-            height: 32px;
-            fill: white;
-        }
-
-        /* MODAIS */
-        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.85);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
-        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content {
-            background: #1E1E1E;
-            width: 90%;
-            max-width: 440px;
-            max-height: 90vh;
-            border-radius: 28px;
-            border-top: 4px solid #D4AF37;
-            padding: 24px;
-            overflow-y: auto;
-            animation: zoomIn 0.3s ease;
-        }
-        .quantity-modal-content h3 {
-            color: #D4AF37;
-            margin-bottom: 16px;
-        }
-        .weight-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-            justify-content: center;
-        }
-        .weight-option {
-            background: #2A2A2A;
-            border: 1px solid #444;
-            padding: 8px 16px;
-            border-radius: 40px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .weight-option.active-weight-option {
-            background: #D4AF37;
-            color: #1A1A1A;
-            border-color: #D4AF37;
-        }
-        .quantity-modal-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .type-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .type-btn {
-            background: #2A2A2A;
-            border: 1px solid #444;
-            padding: 10px;
-            border-radius: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .type-btn.active-type {
-            background: #D4AF37;
-            color: #1A1A1A;
-            border-color: #D4AF37;
-        }
-        .custom-field {
-            margin-bottom: 20px;
-        }
-        .custom-field label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        .custom-field input, .custom-field select, .custom-field textarea {
-            width: 100%;
-            padding: 12px;
-            background: #1A1A1A;
-            border: 1px solid #444;
-            border-radius: 30px;
-            color: white;
-            font-family: inherit;
-        }
-        .custom-field textarea {
-            resize: vertical;
-            border-radius: 16px;
-        }
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .cart-modal-header, .custom-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-        .close-modal {
-            font-size: 28px;
-            cursor: pointer;
-            color: #aaa;
-        }
-        .cart-items-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .cart-item {
-            background: #262626;
-            border-radius: 20px;
-            padding: 12px;
-            display: flex;
-            gap: 14px;
-            border-left: 4px solid #D4AF37;
-        }
-        .cart-item-img {
-            width: 60px;
-            height: 60px;
-            background-size: cover;
-            border-radius: 16px;
-        }
-        .cart-item-details {
-            flex: 1;
-        }
-        .cart-item-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        .cart-item-qty {
-            font-size: 0.7rem;
-            color: #D4AF37;
-            margin: 4px 0;
-        }
-        .cart-item-price {
-            font-weight: 800;
-            color: #E65100;
-        }
-        .cart-item-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .cart-icon-btn {
-            background: rgba(0,0,0,0.4);
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-            border-radius: 30px;
-        }
-        .order-details-area {
-            margin-top: 16px;
-        }
-        .detail-section {
-            background: #252525;
-            border-radius: 20px;
-            padding: 12px 16px;
-            margin-bottom: 12px;
-        }
-        .section-header {
-            display: flex;
-            gap: 8px;
-            font-weight: 700;
-            color: #D4AF37;
-            margin-bottom: 12px;
-            border-bottom: 1px dashed #3A3A3A;
-            padding-bottom: 6px;
-        }
-        .payment-option, .delivery-option {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .payment-option label, .delivery-option label {
-            background: #1E1E1E;
-            padding: 6px 14px;
-            border-radius: 40px;
-            border: 1px solid #3A3A3A;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-        .payment-option label:has(input:checked), 
-        .delivery-option label:has(input:checked) {
-            background: #D4AF37;
-            color: #1A1A1A;
-        }
-        .conditional-field {
-            margin-top: 12px;
-            padding-top: 8px;
-            border-top: 1px solid #3A3A3A;
-        }
-        .conditional-field input {
-            width: 100%;
-            padding: 10px;
-            background: #1A1A1A;
-            border: 1px solid #444;
-            border-radius: 30px;
-            color: white;
-        }
-        .cart-total {
-            text-align: right;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #D4AF37;
-            padding: 12px 0;
-            border-top: 1px solid #3A3A3A;
-            border-bottom: 1px solid #3A3A3A;
-            margin: 12px 0;
-        }
-        .cart-buttons {
-            display: flex;
-            gap: 12px;
-        }
-        .cart-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-        }
-        .cart-btn-secondary {
-            background: #2C2C2C;
-            color: #EEEEEE;
-            border: 1px solid #444;
-        }
-        .cart-btn-primary {
-            background: #25D366;
-            color: #1A1A1A;
-        }
-        .hidden-field {
-            display: none;
-        }
-        .moagem-buttons {
-            display: flex;
-            gap: 12px;
-        }
-        .moagem-btn {
-            flex: 1;
-            background: #2A2A2A;
-            border: 1px solid #444;
-            color: white;
-            padding: 8px;
-            border-radius: 40px;
-            cursor: pointer;
-            text-align: center;
-        }
-        .moagem-btn.active-moagem {
-            background: #D4AF37;
-            color: #1A1A1A;
-        }
-        .custom-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-        }
-        .btn-cancel {
-            background: #2C2C2C;
-            color: #EEEEEE;
-            border: 1px solid #444;
-            flex: 1;
-            padding: 10px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        .btn-confirm {
-            background: #E65100;
-            color: white;
-            flex: 1;
-            padding: 10px;
-            border-radius: 40px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-        }
-        .preco-dinamico {
-            background: #2A2A2A;
-            padding: 10px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 15px;
-            font-weight: bold;
-            color: #D4AF37;
-        }
+        /* MODAIS (mantidos) */
+        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content { background: #1E1E1E; width: 90%; max-width: 440px; max-height: 90vh; border-radius: 28px; border-top: 4px solid #D4AF37; padding: 24px; overflow-y: auto; animation: zoomIn 0.3s ease; }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .cart-modal-header, .custom-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .close-modal { font-size: 28px; cursor: pointer; color: #aaa; }
+        .cart-items-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 16px; }
+        .cart-item { background: #262626; border-radius: 20px; padding: 12px; display: flex; gap: 14px; border-left: 4px solid #D4AF37; }
+        .cart-item-img { width: 60px; height: 60px; background-size: cover; border-radius: 16px; }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-weight: 700; font-size: 0.9rem; }
+        .cart-item-qty { font-size: 0.7rem; color: #D4AF37; margin: 4px 0; }
+        .cart-item-price { font-weight: 800; color: #E65100; }
+        .cart-item-actions { display: flex; gap: 10px; align-items: center; }
+        .cart-icon-btn { background: rgba(0,0,0,0.4); border: none; font-size: 1.2rem; cursor: pointer; width: 32px; height: 32px; border-radius: 30px; }
+        .order-details-area { margin-top: 16px; }
+        .detail-section { background: #252525; border-radius: 20px; padding: 12px 16px; margin-bottom: 12px; }
+        .section-header { display: flex; gap: 8px; font-weight: 700; color: #D4AF37; margin-bottom: 12px; border-bottom: 1px dashed #3A3A3A; padding-bottom: 6px; }
+        .payment-option, .delivery-option { display: flex; gap: 16px; flex-wrap: wrap; }
+        .payment-option label, .delivery-option label { background: #1E1E1E; padding: 6px 14px; border-radius: 40px; border: 1px solid #3A3A3A; font-size: 0.8rem; cursor: pointer; }
+        .payment-option label:has(input:checked), .delivery-option label:has(input:checked) { background: #D4AF37; color: #1A1A1A; }
+        .conditional-field { margin-top: 12px; padding-top: 8px; border-top: 1px solid #3A3A3A; }
+        .conditional-field input { width: 100%; padding: 10px; background: #1A1A1A; border: 1px solid #444; border-radius: 30px; color: white; }
+        .cart-total { text-align: right; font-size: 1.2rem; font-weight: 800; color: #D4AF37; padding: 12px 0; border-top: 1px solid #3A3A3A; border-bottom: 1px solid #3A3A3A; margin: 12px 0; }
+        .cart-buttons { display: flex; gap: 12px; }
+        .cart-btn { flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; border: none; }
+        .cart-btn-secondary { background: #2C2C2C; color: #EEEEEE; border: 1px solid #444; }
+        .cart-btn-primary { background: #25D366; color: #1A1A1A; }
+        .hidden-field { display: none; }
+        .moagem-buttons { display: flex; gap: 12px; }
+        .moagem-btn { flex: 1; background: #2A2A2A; border: 1px solid #444; color: white; padding: 8px; border-radius: 40px; cursor: pointer; text-align: center; }
+        .moagem-btn.active-moagem { background: #D4AF37; color: #1A1A1A; }
+        .custom-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .btn-cancel { background: #2C2C2C; color: #EEEEEE; border: 1px solid #444; flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; }
+        .btn-confirm { background: #E65100; color: white; flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; border: none; }
+        .preco-dinamico { background: #2A2A2A; padding: 10px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-weight: bold; color: #D4AF37; }
+        .required-field { border: 1px solid #E65100 !important; }
+        .error-message { color: #E65100; font-size: 0.7rem; margin-top: 4px; display: block; }
+        .weight-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; justify-content: center; }
+        .weight-option { background: #2A2A2A; border: 1px solid #444; padding: 8px 16px; border-radius: 40px; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .weight-option.active-weight-option { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
+        .quantity-modal-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .type-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .type-btn { background: #2A2A2A; border: 1px solid #444; padding: 10px; border-radius: 40px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .type-btn.active-type { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
+        .custom-field { margin-bottom: 20px; }
+        .custom-field label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #1A1A1A; border: 1px solid #444; border-radius: 30px; color: white; font-family: inherit; }
     </style>
 </head>
 <body>
@@ -922,14 +237,8 @@
             <div class="tips-title">📘 Dica do Açougueiro</div>
             <div class="tips-grid" id="tipsGrid"></div>
         </div>
-
         <h3 class="section-title" id="sectionTitle">🔥 Destaques da Semana</h3>
         <div class="product-feed" id="productFeed"></div>
-        
-        <div class="advertisers-section" id="advertisersSection">
-            <div style="text-align: center;"><span class="advertisers-title">📢 Espaço para Anunciantes</span></div>
-            <div class="advertisers-grid" id="advertisersGrid"></div>
-        </div>
     </main>
     
     <div class="footer-info">
@@ -952,47 +261,62 @@
 </div>
 
 <!-- ÍCONE FLUTUANTE DO WHATSAPP -->
-<a href="https://wa.me/5534991273427" class="whatsapp-float" target="_blank" id="whatsappFloatBtn">
+<a href="https://wa.me/5534991273427" class="whatsapp-float" target="_blank">
     <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
         <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.8 3.08 1.24 4.74 1.24 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.91-9.91-9.91zm0 18.2c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-3.12.82.83-3.04-.2-.31c-.86-1.35-1.32-2.88-1.32-4.44 0-4.58 3.73-8.31 8.31-8.31 4.58 0 8.31 3.73 8.31 8.31 0 4.58-3.73 8.31-8.31 8.31zm4.56-6.21c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.13-.57.13-.17.26-.66.81-.81.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.24-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.78-1.89-.21-.51-.42-.44-.57-.44h-.49c-.17 0-.45.06-.69.31-.24.25-.91.89-.91 2.17 0 1.28.93 2.52 1.06 2.69.13.17 1.83 2.8 4.44 3.92.62.27 1.11.43 1.49.55.63.2 1.2.17 1.65.1.5-.08 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.17-.5-.3z"/>
     </svg>
 </a>
 
 <!-- MODAIS -->
-<div id="cartModal" class="cart-modal"><div class="cart-modal-content"><div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div><div id="cartItemsContainer" class="cart-items-list"></div><div class="order-details-area" id="orderDetailsArea"><div class="detail-section"><div class="section-header"><span>💳</span> Forma de Pagamento</div><div class="payment-option"><label><input type="radio" name="payment" value="Pix" checked> Pix</label><label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão Crédito</label><label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label></div><div id="changeField" class="conditional-field hidden-field"><label>💰 Troco para quanto?</label><input type="text" id="changeAmount" placeholder="Ex: R$ 100,00"></div></div><div class="detail-section"><div class="section-header"><span>🚚</span> Entrega</div><div class="delivery-option"><label><input type="radio" name="delivery" value="Retirada no Balcão" checked> Retirada no Balcão</label><label><input type="radio" name="delivery" value="Delivery"> Delivery</label></div><div id="addressField" class="conditional-field hidden-field"><label>🏠 Endereço completo</label><input type="text" id="deliveryAddress" placeholder="Rua, número, bairro"></div></div></div><div class="cart-total" id="cartTotalDisplay">💰 TOTAL: R$ 0,00</div><div class="cart-buttons"><button id="continueShoppingBtn" class="cart-btn cart-btn-secondary">➕ Continuar</button><button id="sendOrderBtn" class="cart-btn cart-btn-primary">📲 Enviar Pedido</button></div></div></div>
+<div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+        <div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div>
+        <div id="cartItemsContainer" class="cart-items-list"></div>
+        <div class="order-details-area" id="orderDetailsArea">
+            <div class="detail-section" id="nameSection">
+                <div class="section-header"><span>👤</span> Identificação</div>
+                <div class="custom-field" style="margin-bottom: 0;">
+                    <label for="customerName">Nome completo <span style="color: #E65100;">*</span></label>
+                    <input type="text" id="customerName" placeholder="Digite seu nome completo" autocomplete="off">
+                    <span id="nameError" class="error-message" style="display: none;">⚠️ O nome é obrigatório para realizar o pedido.</span>
+                </div>
+            </div>
+            <div class="detail-section"><div class="section-header"><span>💳</span> Forma de Pagamento</div>
+                <div class="payment-option">
+                    <label><input type="radio" name="payment" value="Pix" checked> Pix</label>
+                    <label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão Crédito</label>
+                    <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
+                </div>
+                <div id="changeField" class="conditional-field hidden-field"><label>💰 Troco para quanto?</label><input type="text" id="changeAmount" placeholder="Ex: R$ 100,00"></div>
+            </div>
+            <div class="detail-section"><div class="section-header"><span>🚚</span> Entrega</div>
+                <div class="delivery-option">
+                    <label><input type="radio" name="delivery" value="Retirada no Balcão" checked> Retirada no Balcão</label>
+                    <label><input type="radio" name="delivery" value="Delivery"> Delivery</label>
+                </div>
+                <div id="addressField" class="conditional-field hidden-field"><label>🏠 Endereço completo</label><input type="text" id="deliveryAddress" placeholder="Rua, número, bairro"></div>
+            </div>
+        </div>
+        <div class="cart-total" id="cartTotalDisplay">💰 TOTAL: R$ 0,00</div>
+        <div class="cart-buttons"><button id="continueShoppingBtn" class="cart-btn cart-btn-secondary">➕ Continuar</button><button id="sendOrderBtn" class="cart-btn cart-btn-primary">📲 Enviar Pedido</button></div>
+    </div>
+</div>
 
-<!-- MODAL DE AGENDAMENTO -->
 <div id="scheduleModal" class="schedule-modal">
     <div class="schedule-modal-content">
-        <div class="cart-modal-header">
-            <h2>📅 Agendamento de Pedido</h2>
-            <span class="close-modal" id="closeScheduleModal">&times;</span>
-        </div>
+        <div class="cart-modal-header"><h2>📅 Agendamento de Pedido</h2><span class="close-modal" id="closeScheduleModal">&times;</span></div>
         <p style="margin-bottom: 16px;">⚠️ No momento estamos fora do horário de funcionamento. Deseja agendar este pedido?</p>
-        <div class="custom-field">
-            <label>📅 Data e Hora desejada para entrega/retirada:</label>
-            <input type="datetime-local" id="scheduleDatetime">
-        </div>
-        <div class="custom-field">
-            <label>📝 Observações (opcional):</label>
-            <textarea id="scheduleObs" rows="2" placeholder="Ex: Deixar no portão, tocar interfone, melhor horário..."></textarea>
-        </div>
-        <div class="custom-buttons">
-            <button id="cancelScheduleBtn" class="btn-cancel">Voltar</button>
-            <button id="confirmScheduleBtn" class="btn-confirm">Confirmar Agendamento</button>
-        </div>
+        <div class="custom-field"><label>📅 Data e Hora desejada para entrega/retirada:</label><input type="datetime-local" id="scheduleDatetime"></div>
+        <div class="custom-field"><label>📝 Observações (opcional):</label><textarea id="scheduleObs" rows="2" placeholder="Ex: Deixar no portão, tocar interfone, melhor horário..."></textarea></div>
+        <div class="custom-buttons"><button id="cancelScheduleBtn" class="btn-cancel">Voltar</button><button id="confirmScheduleBtn" class="btn-confirm">Confirmar Agendamento</button></div>
     </div>
 </div>
 
 <div id="customModal" class="custom-modal">
     <div class="custom-modal-content">
         <h3>🥩 Personalizar Carne Moída</h3>
-        <div class="custom-field">
-            <label>Quantidade (kg):</label>
-            <input type="number" id="moedaKg" step="0.5" min="0.5" value="1.0">
-        </div>
-        <div class="custom-field">
-            <label>Escolha o tipo de carne:</label>
+        <div class="custom-field"><label>Quantidade (kg):</label><input type="number" id="moedaKg" step="0.5" min="0.5" value="1.0"></div>
+        <div class="custom-field"><label>Escolha o tipo de carne:</label>
             <div class="type-grid" id="carneTipoGrid">
                 <div data-tipo="Patinho" class="type-btn active-type">Patinho</div>
                 <div data-tipo="Acém" class="type-btn">Acém</div>
@@ -1002,13 +326,9 @@
                 <div data-tipo="Paleta" class="type-btn">Paleta</div>
                 <div data-tipo="Outro" class="type-btn">Outro</div>
             </div>
-            <div id="outroTipoField" class="custom-field hidden-field">
-                <label>Digite o tipo:</label>
-                <input type="text" id="outroTipoInput" placeholder="Ex: Maminha, Peixinho, Lagarto, etc.">
-            </div>
+            <div id="outroTipoField" class="custom-field hidden-field"><label>Digite o tipo:</label><input type="text" id="outroTipoInput" placeholder="Ex: Maminha, Peixinho, Lagarto, etc."></div>
         </div>
-        <div class="custom-field">
-            <label>Moer quantas vezes?</label>
+        <div class="custom-field"><label>Moer quantas vezes?</label>
             <div class="moagem-buttons">
                 <div data-vezes="1" class="moagem-btn active-moagem">1 vez</div>
                 <div data-vezes="2" class="moagem-btn">2 vezes</div>
@@ -1017,40 +337,26 @@
             <input type="hidden" id="moedaVezes" value="1">
         </div>
         <div class="preco-dinamico" id="precoDinamicoDisplay">Preço: R$ 47,99 / kg</div>
-        <div class="custom-buttons">
-            <button id="cancelCustomBtn" class="btn-cancel">Cancelar</button>
-            <button id="confirmCustomBtn" class="btn-confirm">Adicionar</button>
-        </div>
+        <div class="custom-buttons"><button id="cancelCustomBtn" class="btn-cancel">Cancelar</button><button id="confirmCustomBtn" class="btn-confirm">Adicionar</button></div>
     </div>
 </div>
 
 <div id="editModal" class="edit-modal"><div class="edit-modal-box"><h3>✏️ Editar quantidade</h3><select id="editQuantitySelect"></select><div style="display:flex; gap:12px; margin-top:10px;"><button id="confirmEditBtn" class="cart-btn" style="background:#D4AF37;">Confirmar</button><button id="cancelEditBtn" class="cart-btn cart-btn-secondary">Cancelar</button></div></div></div>
-
 <div id="tipsModal" class="tips-modal"><div class="tips-modal-content"><div class="cart-modal-header"><h3 id="tipsModalTitle"></h3><span class="close-modal" id="closeTipsModal">&times;</span></div><div id="tipsModalList" class="tips-list"></div></div></div>
-
 <div id="quantityModal" class="quantity-modal"><div class="quantity-modal-content"><h3>⚖️ Selecione o peso</h3><div id="quantityProductName" style="margin-bottom: 10px;"></div><div class="weight-grid" id="weightGrid"></div><div class="quantity-modal-buttons"><button id="cancelQuantityBtn" class="btn-cancel">Cancelar</button><button id="confirmQuantityBtn" class="btn-confirm">Adicionar ao carrinho</button></div></div></div>
 
 <script>
-    // Funções auxiliares
+    // ====================== FUNÇÕES AUXILIARES ======================
     function formatCurrency(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
     
-    // Verifica se está dentro do horário de funcionamento
     function isWithinBusinessHours() {
         const now = new Date();
-        const day = now.getDay(); // 0 = Domingo, 1 = Segunda ... 6 = Sábado
+        const day = now.getDay();
         const hours = now.getHours();
         const minutes = now.getMinutes();
         const currentMinutes = hours * 60 + minutes;
-
-        if (day === 0) { // Domingo
-            const open = 8 * 60;      // 08:00
-            const close = 13 * 60;    // 13:00
-            return currentMinutes >= open && currentMinutes < close;
-        } else if (day >= 1 && day <= 6) { // Segunda a Sábado
-            const open = 8 * 60;      // 08:00
-            const close = 20 * 60;    // 20:00
-            return currentMinutes >= open && currentMinutes < close;
-        }
+        if (day === 0) { const open = 8*60, close = 13*60; return currentMinutes >= open && currentMinutes < close; }
+        else if (day >= 1 && day <= 6) { const open = 8*60, close = 20*60; return currentMinutes >= open && currentMinutes < close; }
         return false;
     }
 
@@ -1058,7 +364,7 @@
     let currentEditIndex = null;
     let currentEditingCustomIndex = null;
     let pendingTipProduct = null;
-    let pendingOrderData = null; // para armazenar dados antes do agendamento
+    let selectedQuantity = null;
 
     function animateBadge() {
         const badge = document.getElementById('cartBadge');
@@ -1070,130 +376,25 @@
         }
     }
 
-    const originalUpdateCartBadge = function() { 
+    function updateCartBadge() {
         const badge = document.getElementById('cartBadge');
-        if (badge) { 
+        if (badge) {
             const count = cart.length;
-            if(count > 0) {
-                badge.style.display = 'flex'; 
-                badge.textContent = count;
-                animateBadge();
-            } else {
-                badge.style.display = 'none';
-            }
-        }
-    };
-    
-    // Mapa de preços por nome do corte
-    function buildPrecoMap() {
-        const map = new Map();
-        const categorias = ['bovinos', 'suinos', 'aves', 'premium', 'variedades'];
-        for (let cat of categorias) {
-            if (productsData[cat]) {
-                productsData[cat].forEach(p => {
-                    map.set(p.name, p.basePrice);
-                    map.set(p.name.toLowerCase(), p.basePrice);
-                });
-            }
-        }
-        map.set("maminha", 49.99);
-        map.set("peixinho", 37.99);
-        map.set("lagarto", 39.99);
-        return map;
-    }
-    
-    function getPrecoPorTipo(tipo) {
-        const precoMap = buildPrecoMap();
-        if (precoMap.has(tipo)) return precoMap.get(tipo);
-        if (precoMap.has(tipo.toLowerCase())) return precoMap.get(tipo.toLowerCase());
-        return null;
-    }
-    
-    function atualizarPrecoPersonalizacao() {
-        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
-        if (tipo === 'Outro') {
-            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
-            if (nomeDigitado === "") {
-                document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: aguardando digitar o corte...`;
-                return;
-            }
-            const preco = getPrecoPorTipo(nomeDigitado);
-            if (preco !== null) {
-                document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ ${preco.toFixed(2)} / kg`;
-            } else {
-                document.getElementById('precoDinamicoDisplay').innerHTML = `❌ Corte não encontrado. Verifique o nome ou escolha um da lista.`;
-            }
-            return;
-        }
-        const preco = getPrecoPorTipo(tipo);
-        if (preco) {
-            document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ ${preco.toFixed(2)} / kg`;
-        } else {
-            document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ 29,90 / kg (estimado)`;
+            if (count > 0) { badge.style.display = 'flex'; badge.textContent = count; animateBadge(); }
+            else badge.style.display = 'none';
         }
     }
-    
-    function getPrecoAtualPersonalizacao() {
-        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
-        if (tipo === 'Outro') {
-            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
-            if (nomeDigitado === "") return null;
-            return getPrecoPorTipo(nomeDigitado);
-        }
-        return getPrecoPorTipo(tipo) || 29.90;
-    }
-    
-    function addCarneMoidaToCart(tipo, kg, vezes, precoPorKg, editIndex = null) {
-        let q = parseFloat(kg);
-        if (isNaN(q) || q <= 0) return false;
-        let total = precoPorKg * q;
-        let desc = `${tipo} - ${q.toString().replace('.',',')} kg - moer ${vezes} vez${vezes>1?'es':''} - R$ ${precoPorKg.toFixed(2)}/kg`;
-        let item = {
-            id: "cm1",
-            name: "Carne Moída",
-            descricaoCustom: desc,
-            tipo: tipo,
-            kg: q,
-            vezes: vezes,
-            precoKg: precoPorKg,
-            basePrice: precoPorKg,
-            unit: "KG",
-            quantityValue: q,
-            quantityLabel: `${q.toString().replace('.',',')} kg`,
-            totalPrice: total,
-            image: productsData.carneMoida[0].image,
-            isCustom: true
-        };
-        if (editIndex !== null) cart[editIndex] = item;
-        else cart.push(item);
-        originalUpdateCartBadge();
-        return true;
-    }
-    
-    function addToCart(product, selectedValue) {
-        let q = parseFloat(selectedValue);
-        if (isNaN(q) || q <= 0) return false;
-        let label = product.unit === 'KG' ? `${q.toString().replace('.',',')} kg` : `${selectedValue} ${product.unit}${q>1?'s':''}`;
-        cart.push({
-            ...product,
-            quantityValue: q,
-            quantityLabel: label,
-            totalPrice: product.basePrice * q,
-            isCustom: false
-        });
-        originalUpdateCartBadge();
-        return true;
-    }
-    
+
+    // ====================== DADOS DOS PRODUTOS (COMPLETOS) ======================
     const dicasPreparo = [
         { nome: "🍲 Carne de Panela", icone: "🍲", cortes: ["Músculo Dianteiro", "Músculo Traseiro", "Maçã de Peito"] },
         { nome: "🔥 Grelhar", icone: "🔥", cortes: ["Ponta de Picanha", "Alcatra", "Contrafilé", "Fraldinha"] },
         { nome: "🍖 Churrasco", icone: "🍖", cortes: ["Coxão Mole", "Ponta de Picanha", "Paletão"] },
         { nome: "🥘 Ensopados", icone: "🥘", cortes: ["Músculo Dianteiro", "Acém", "Peixinho"] }
     ];
-    
+
     const productsData = {
-        bovinos: [{ id: "b1", name: "Coxão Mole", desc: "Corte macio e suculento, ideal para bifes e churrasco.", basePrice: 49.99, unit: "KG", image: "https://i.ibb.co/r2MJXyQy/1780091398643.png" },{ id: "b2", name: "Ponta de Picanha", desc: "Sabor incomparável, perfeita para grelha e assados.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/Zz8MVSyF/1780091522406.png" },{ id: "b3", name: "Patinho", desc: "Versátil, ótimo para bifes, carne moída e refogados.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/FkKcf64W/1780092680484.png" },{ id: "b4", name: "Alcatra", desc: "Corte nobre, macia e suculenta. Excelente para churrasco.", basePrice: 59.99, unit: "KG", image: "https://i.ibb.co/Z1TPwXPP/Screenshot-20260530-080735-Fotos.png" },{ id: "b5", name: "Contrafilé", desc: "Sabor marcante e marmorizado, ideal para grelha.", basePrice: 59.99, unit: "KG", image: "https://i.ibb.co/QjdyVRVK/file-000000002798720e973507cc99d0a3c9.png" },{ id: "b6", name: "Músculo Dianteiro", desc: "Perfeito para cozidos, caldos e carne de panela.", basePrice: 32.99, unit: "KG", image: "https://i.ibb.co/tMgJ8rZP/1780109278994.png" },{ id: "b7", name: "Músculo Traseiro", desc: "Ótimo para ensopados, suculento e cheio de sabor.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/qYb8s1bw/file-0000000073d4720e848b42607fecb7de.png" },{ id: "b8", name: "Maçã de Peito", desc: "Corte com gordura entremeada, ideal para assar.", basePrice: 37.98, unit: "KG", image: "https://i.ibb.co/FLG2rk00/1780110004482.png" },{ id: "b9", name: "Acém", desc: "Muito saboroso, perfeito para churrasco e ensopados.", basePrice: 32.99, unit: "KG", image: "https://i.ibb.co/r268tjw1/Screenshot-20260530-082358-Fotos.png" },{ id: "b10", name: "Peixinho", desc: "Corte versátil, ótimo para bifes e refogados.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/39WSytqW/Screenshot-20260530-074409-Fotos.png" },{ id: "b11", name: "Capa de Contrafilé", desc: "Marmorizada e suculenta, excelente para grelha.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/5XWqJRx8/Screenshot-20260529-163950-Instagram.png" },{ id: "b12", name: "Paleta", desc: "Ideal para assar, desfiar ou cozinhar lentamente.", basePrice: 35.99, unit: "KG", image: "https://i.ibb.co/S7wNbPMC/Screenshot-20260530-080027-Fotos.png" },{ id: "b13", name: "Fraldinha", desc: "Muito saborosa, ótima para churrasco e grelha.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/7J99shzC/Screenshot-20260530-080253-Fotos.png" },{ id: "b14", name: "Paletão", desc: "Corte com osso, perfeito para assados de longa duração.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/dwYGwgMc/Screenshot-20260530-081007-Fotos.png" }],
+        bovinos: [{ id: "b1", name: "Coxão Mole", desc: "Corte macio e suculento, ideal para bifes e churrasco.", basePrice: 49.99, unit: "KG", image: "https://i.ibb.co/93h6J63F/Screenshot-20260613-094752-Fotos.png" },{ id: "b2", name: "Ponta de Picanha", desc: "Sabor incomparável, perfeita para grelha e assados.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/Zz8MVSyF/1780091522406.png" },{ id: "b3", name: "Patinho", desc: "Versátil, ótimo para bifes, carne moída e refogados.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/FkKcf64W/1780092680484.png" },{ id: "b4", name: "Alcatra", desc: "Corte nobre, macia e suculenta. Excelente para churrasco.", basePrice: 59.99, unit: "KG", image: "https://i.ibb.co/Z1TPwXPP/Screenshot-20260530-080735-Fotos.png" },{ id: "b5", name: "Contrafilé", desc: "Sabor marcante e marmorizado, ideal para grelha.", basePrice: 59.99, unit: "KG", image: "https://i.ibb.co/QjdyVRVK/file-000000002798720e973507cc99d0a3c9.png" },{ id: "b6", name: "Músculo Dianteiro", desc: "Perfeito para cozidos, caldos e carne de panela.", basePrice: 32.99, unit: "KG", image: "https://i.ibb.co/tMgJ8rZP/1780109278994.png" },{ id: "b7", name: "Músculo Traseiro", desc: "Ótimo para ensopados, suculento e cheio de sabor.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/qYb8s1bw/file-0000000073d4720e848b42607fecb7de.png" },{ id: "b8", name: "Maçã de Peito", desc: "Corte com gordura entremeada, ideal para assar.", basePrice: 37.98, unit: "KG", image: "https://i.ibb.co/FLG2rk00/1780110004482.png" },{ id: "b9", name: "Acém", desc: "Muito saboroso, perfeito para churrasco e ensopados.", basePrice: 32.99, unit: "KG", image: "https://i.ibb.co/r268tjw1/Screenshot-20260530-082358-Fotos.png" },{ id: "b10", name: "Peixinho", desc: "Corte versátil, ótimo para bifes e refogados.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/39WSytqW/Screenshot-20260530-074409-Fotos.png" },{ id: "b11", name: "Capa de Contrafilé", desc: "Marmorizada e suculenta, excelente para grelha.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/5XWqJRx8/Screenshot-20260529-163950-Instagram.png" },{ id: "b12", name: "Paleta", desc: "Ideal para assar, desfiar ou cozinhar lentamente.", basePrice: 35.99, unit: "KG", image: "https://i.ibb.co/S7wNbPMC/Screenshot-20260530-080027-Fotos.png" },{ id: "b13", name: "Fraldinha", desc: "Muito saborosa, ótima para churrasco e grelha.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/7J99shzC/Screenshot-20260530-080253-Fotos.png" },{ id: "b14", name: "Paletão", desc: "Corte com osso, perfeito para assados de longa duração.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/dwYGwgMc/Screenshot-20260530-081007-Fotos.png" }],
         suinos: [{ id: "su1", name: "Pernil sem Osso", desc: "Corte magro e suculento, ideal para assar ou desfiar.", basePrice: 22.99, unit: "KG", image: "https://i.ibb.co/xNj01km/Screenshot-20260530-083908-Instagram.png" },{ id: "su2", name: "Costelinha", desc: "Defumada naturalmente, macia e cheia de sabor para churrasco.", basePrice: 25.99, unit: "KG", image: "https://i.ibb.co/hFTZNMP7/Screenshot-20260530-084418-Fotos.png" },{ id: "su3", name: "Lombo", desc: "Corte nobre, muito macio e versátil para grelhar ou assar.", basePrice: 29.99, unit: "KG", image: "https://i.ibb.co/GvzLcPfD/Screenshot-20260530-141530-Fotos.png" },{ id: "su4", name: "Miúdos para Feijoada", desc: "Conjunto com orelha, pé, rabo e outras partes para feijoada completa.", basePrice: 17.99, unit: "KG", image: "https://i.ibb.co/CpQFNdSL/Screenshot-20260530-141547-Fotos.png" },{ id: "su5", name: "Suã Especial", desc: "Paleta suína, ótima para assar ou cozinhar lentamente.", basePrice: 9.99, unit: "KG", image: "https://i.ibb.co/v6pv07HH/Screenshot-20260530-142006-Fotos.png" },{ id: "su6", name: "Bisteca", desc: "Bisteca suína com osso, perfeita para grelha ou frigideira.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/b5vkg8nn/Screenshot-20260530-142210-Fotos.png" },{ id: "su7", name: "Rabo de Porco", desc: "Ideal para caldos, feijoadas e moquecas, sabor marcante.", basePrice: 24.99, unit: "KG", image: "https://i.ibb.co/sZFttN8/Screenshot-20260530-144318-Fotos.png" }],
         aves: [{ id: "a1", name: "Filé de Frango", desc: "Peito de frango sem osso, limpo e fresco.", basePrice: 26.99, unit: "KG", image: "https://i.ibb.co/LdSN5xtT/Screenshot-20260530-213340-Fotos.png" }, { id: "a2", name: "Coxa e Sobrecoxa", desc: "Parte suculenta da ave.", basePrice: 14.99, unit: "KG", image: "https://i.ibb.co/39H641rT/Screenshot-20260530-213430-Fotos.png" },{ id: "a3", name: "Coxinha da Asa", desc: "Asinhas de frango.", basePrice: 19.99, unit: "KG", image: "https://i.ibb.co/84MCCF0y/Screenshot-20260530-213619-Fotos.png" },{ id: "a4", name: "Tulipa", desc: "Sobrecoxa desossada enrolada.", basePrice: 29.99, unit: "KG", image: "https://i.ibb.co/KpwvBk5K/Screenshot-20260530-213851-Fotos.png" },{ id: "a5", name: "Tulipa na Mostarda", desc: "Temperada com mostarda.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/ZpZcM4XK/Screenshot-20260530-214026-Fotos.png" },{ id: "a6", name: "Coxa Recheada", desc: "Recheada com presunto e queijo.", basePrice: 27.99, unit: "KG", image: "https://i.ibb.co/qMQr1PMS/Screenshot-20260530-214206-Fotos.png" },{ id: "a7", name: "Almôndega de Frango", desc: "Almôndegas artesanais.", basePrice: 27.99, unit: "KG", image: "https://i.ibb.co/23dHC2h4/Screenshot-20260530-214422-Fotos.png" },{ id: "a8", name: "Pé de Frango", desc: "Para caldos.", basePrice: 10.99, unit: "KG", image: "https://i.ibb.co/fY1648wD/Screenshot-20260530-214556-Fotos.png" },{ id: "a9", name: "Franbacon", desc: "Filé envolto em bacon.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/ZzVW4hzh/Screenshot-20260529-164029-Instagram.png" }],
         kits: [
@@ -1206,23 +407,88 @@
         premium: [{ id: "p1", name: "Cupim Grill", desc: "Marmorizado.", basePrice: 69.99, unit: "KG", image: "https://i.ibb.co/htzsVWR/Screenshot-20260531-075929-Fotos.png" },{ id: "p2", name: "Picanha", desc: "Corte nobre.", basePrice: 79.99, unit: "KG", image: "https://i.ibb.co/k2Cz061k/Screenshot-20260531-074806-Fotos.png" },{ id: "p3", name: "Filé Mignon", desc: "Maciez incomparável.", basePrice: 74.99, unit: "KG", image: "https://i.ibb.co/jP04PfHL/Screenshot-20260531-074945-Fotos.png" },{ id: "p4", name: "Bananinha", desc: "Macio e suculento.", basePrice: 36.99, unit: "KG", image: "https://i.ibb.co/d4gwcfK1/Screenshot-20260531-075151-Fotos.png" }],
         variedades: [{ id: "v1", name: "Costela Gaúcha", desc: "Tradicional.", basePrice: 29.99, unit: "KG", image: "https://i.ibb.co/v48TrWC5/pexels-mohamed9380-36669802.jpg" },{ id: "v2", name: "Costela Ripa", desc: "Corte achatado.", basePrice: 27.99, unit: "KG", image: "https://i.ibb.co/4nGBFfT3/Screenshot-20260531-124812-Fotos.png" },{ id: "v3", name: "Osso Buco", desc: "Com tutano.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/FqVZWzjG/Screenshot-20260531-124857-Fotos.png" },{ id: "v4", name: "Rabada", desc: "Para ensopados.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/KxQ1wvch/Screenshot-20260531-125048-Fotos.png" },{ id: "v5", name: "Mocotó", desc: "Pé bovino.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/0pqVPzLg/Screenshot-20260531-125347-Fotos.png" },{ id: "v6", name: "Dobradinha", desc: "Bucho bovino.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/4Cm4rYv/Screenshot-20260531-130356-Fotos.png" },{ id: "v7", name: "Fígado", desc: "Rico em ferro.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/gZgVkGYC/Screenshot-20260531-130438-Fotos.png" }]
     };
-    
+
     function findProductByName(name) {
         for (let cat in productsData) {
-            let f = productsData[cat].find(p => p.name === name);
-            if (f) return f;
+            let found = productsData[cat].find(p => p.name === name);
+            if (found) return found;
         }
         return null;
     }
-    
+
+    // ====================== LÓGICA DE PREÇOS PARA CARNE MOÍDA ======================
+    function buildPrecoMap() {
+        const map = new Map();
+        const categorias = ['bovinos', 'suinos', 'aves', 'premium', 'variedades'];
+        for (let cat of categorias) {
+            if (productsData[cat]) productsData[cat].forEach(p => { map.set(p.name, p.basePrice); map.set(p.name.toLowerCase(), p.basePrice); });
+        }
+        map.set("maminha", 49.99); map.set("peixinho", 37.99); map.set("lagarto", 39.99);
+        return map;
+    }
+
+    function getPrecoPorTipo(tipo) {
+        const precoMap = buildPrecoMap();
+        if (precoMap.has(tipo)) return precoMap.get(tipo);
+        if (precoMap.has(tipo.toLowerCase())) return precoMap.get(tipo.toLowerCase());
+        return null;
+    }
+
+    function atualizarPrecoPersonalizacao() {
+        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
+        if (tipo === 'Outro') {
+            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
+            if (nomeDigitado === "") { document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: aguardando digitar o corte...`; return; }
+            const preco = getPrecoPorTipo(nomeDigitado);
+            if (preco !== null) document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`;
+            else document.getElementById('precoDinamicoDisplay').innerHTML = `❌ Corte não encontrado. Verifique o nome ou escolha um da lista.`;
+            return;
+        }
+        const preco = getPrecoPorTipo(tipo);
+        if (preco) document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`;
+        else document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ 29,90 / kg (estimado)`;
+    }
+
+    function getPrecoAtualPersonalizacao() {
+        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
+        if (tipo === 'Outro') {
+            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
+            if (nomeDigitado === "") return null;
+            return getPrecoPorTipo(nomeDigitado);
+        }
+        return getPrecoPorTipo(tipo) || 29.90;
+    }
+
+    function addCarneMoidaToCart(tipo, kg, vezes, precoPorKg, editIndex = null) {
+        let q = parseFloat(kg);
+        if (isNaN(q) || q <= 0) return false;
+        let total = precoPorKg * q;
+        let desc = `${tipo} - ${q.toString().replace('.',',')} kg - moer ${vezes} vez${vezes>1?'es':''} - ${formatCurrency(precoPorKg)}/kg`;
+        let item = {
+            id: "cm1", name: "Carne Moída", descricaoCustom: desc, tipo: tipo, kg: q, vezes: vezes, precoKg: precoPorKg,
+            basePrice: precoPorKg, unit: "KG", quantityValue: q, quantityLabel: `${q.toString().replace('.',',')} kg`,
+            totalPrice: total, image: productsData.carneMoida[0].image, isCustom: true
+        };
+        if (editIndex !== null) cart[editIndex] = item;
+        else cart.push(item);
+        updateCartBadge();
+        return true;
+    }
+
+    function addToCart(product, selectedValue) {
+        let q = parseFloat(selectedValue);
+        if (isNaN(q) || q <= 0) return false;
+        let label = product.unit === 'KG' ? `${q.toString().replace('.',',')} kg` : `${selectedValue} ${product.unit}${q>1?'s':''}`;
+        cart.push({ ...product, quantityValue: q, quantityLabel: label, totalPrice: product.basePrice * q, isCustom: false });
+        updateCartBadge();
+        return true;
+    }
+
+    // ====================== FUNÇÕES DO CARRINHO ======================
     function renderCartModal() {
         const container = document.getElementById('cartItemsContainer');
         if (!container) return;
-        if (cart.length === 0) {
-            container.innerHTML = '<div class="empty-cart">🛒 Seu pedido está vazio.</div>';
-            updateTotalDisplay();
-            return;
-        }
+        if (cart.length === 0) { container.innerHTML = '<div class="empty-cart">🛒 Seu pedido está vazio.</div>'; updateTotalDisplay(); return; }
         let html = '', totalSum = 0;
         cart.forEach((item, idx) => {
             totalSum += item.totalPrice;
@@ -1234,18 +500,20 @@
         document.getElementById('cartTotalDisplay').innerHTML = `💰 TOTAL: ${formatCurrency(totalSum)}`;
         attachCartEvents();
     }
+
     function updateTotalDisplay() {
         let sum = cart.reduce((a, i) => a + i.totalPrice, 0);
         const totalDiv = document.getElementById('cartTotalDisplay');
         if (totalDiv) totalDiv.innerHTML = `💰 TOTAL: ${formatCurrency(sum)}`;
     }
+
     function attachCartEvents() {
         document.querySelectorAll('.delete-item').forEach(btn => {
             btn.addEventListener('click', () => {
                 const idx = parseInt(btn.dataset.index);
                 cart.splice(idx, 1);
                 renderCartModal();
-                originalUpdateCartBadge();
+                updateCartBadge();
             });
         });
         document.querySelectorAll('.edit-item').forEach(btn => {
@@ -1258,18 +526,13 @@
                     document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
                     let found = false;
                     document.querySelectorAll('.type-btn').forEach(b => {
-                        if (b.dataset.tipo === item.tipo) {
-                            b.classList.add('active-type');
-                            found = true;
-                        }
+                        if (b.dataset.tipo === item.tipo) { b.classList.add('active-type'); found = true; }
                     });
                     if (!found) {
                         document.querySelector('.type-btn[data-tipo="Outro"]').classList.add('active-type');
                         document.getElementById('outroTipoField').classList.remove('hidden-field');
                         document.getElementById('outroTipoInput').value = item.tipo;
-                    } else {
-                        document.getElementById('outroTipoField').classList.add('hidden-field');
-                    }
+                    } else document.getElementById('outroTipoField').classList.add('hidden-field');
                     document.querySelectorAll('.moagem-btn').forEach(b => {
                         if (parseInt(b.dataset.vezes) === item.vezes) b.classList.add('active-moagem');
                         else b.classList.remove('active-moagem');
@@ -1282,16 +545,14 @@
                     const select = document.getElementById('editQuantitySelect');
                     let opts = item.unit === 'KG' ? [0.5, 1, 1.5, 2, 2.5, 3] : [1, 2, 3, 4, 5];
                     let options = '';
-                    opts.forEach(v => {
-                        options += `<option value="${v}" ${item.quantityValue == v ? 'selected' : ''}>${item.unit === 'KG' ? v.toString().replace('.',',')+' kg' : v+' '+item.unit+(v>1?'s':'')}</option>`;
-                    });
+                    opts.forEach(v => { options += `<option value="${v}" ${item.quantityValue == v ? 'selected' : ''}>${item.unit === 'KG' ? v.toString().replace('.',',')+' kg' : v+' '+item.unit+(v>1?'s':'')}</option>`; });
                     select.innerHTML = options;
                     document.getElementById('editModal').style.display = 'flex';
                 }
             });
         });
     }
-    
+
     function showQuantityModal(product) {
         pendingTipProduct = product;
         document.getElementById('quantityProductName').innerHTML = `<strong>${product.name}</strong> - ${formatCurrency(product.basePrice)}/kg`;
@@ -1302,31 +563,40 @@
         if (opts.length) document.querySelector('.weight-option').classList.add('active-weight-option');
         document.getElementById('quantityModal').style.display = 'flex';
     }
-    
-    // Função principal de envio com suporte a agendamento
+
+    function isValidName() {
+        const nomeInput = document.getElementById('customerName');
+        const nome = nomeInput ? nomeInput.value.trim() : '';
+        const nameError = document.getElementById('nameError');
+        if (nome === '') {
+            if (nameError) nameError.style.display = 'block';
+            if (nomeInput) nomeInput.classList.add('required-field');
+            return false;
+        } else {
+            if (nameError) nameError.style.display = 'none';
+            if (nomeInput) nomeInput.classList.remove('required-field');
+            return true;
+        }
+    }
+
     function sendOrderToWhatsApp(isScheduled = false, scheduleDatetime = null, scheduleObs = '') {
         if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; }
+        if (!isValidName()) { alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido."); return false; }
+        const nomeCliente = document.getElementById('customerName').value.trim();
         const payment = document.querySelector('input[name="payment"]:checked')?.value;
         let changeText = '';
         if (payment === 'Dinheiro') {
             const changeRaw = document.getElementById('changeAmount').value;
-            if (!changeRaw.trim()) {
-                alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");
-                return false;
-            }
+            if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; }
             changeText = `\n💰 Troco para: ${changeRaw}`;
         }
         const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
         let addressText = '';
         if (delivery === 'Delivery') {
             const addr = document.getElementById('deliveryAddress').value.trim();
-            if (!addr) {
-                alert("⚠️ Para delivery, informe o endereço completo.");
-                return false;
-            }
+            if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; }
             addressText = `\n📍 Endereço: ${addr}`;
         }
-        
         let message = ``;
         if (isScheduled) {
             message += `⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;
@@ -1334,8 +604,8 @@
             if (scheduleObs) message += `✏️ *Observações:* ${scheduleObs}\n`;
             message += `🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;
         }
-        
-        message += `🍖 *CENTER CARNES SKALA* 🍖\n\n`;
+        message += `🍖 *CENTER CARNES SKALA* 🍖\n`;
+        message += `👤 *Cliente:* ${nomeCliente}\n\n`;
         let total = 0;
         cart.forEach(item => {
             let nome = item.name;
@@ -1347,11 +617,10 @@
         message += `\n💳 Pagamento: ${payment}${changeText}`;
         message += `\n🚚 Entrega: ${delivery}${addressText}`;
         message += `\n\n🔔 Peço que confirmem meu pedido.`;
-        
         window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`, '_blank');
         return true;
     }
-    
+
     function setupOrderForm() {
         const changeDiv = document.getElementById('changeField');
         const addressDiv = document.getElementById('addressField');
@@ -1360,23 +629,20 @@
         document.querySelectorAll('input[name="payment"]').forEach(r => r.addEventListener('change', updateChange));
         document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', updateAddress));
         updateChange(); updateAddress();
+        const nomeInput = document.getElementById('customerName');
+        if (nomeInput) nomeInput.addEventListener('input', () => { const err = document.getElementById('nameError'); if (nomeInput.value.trim() !== '') { if (err) err.style.display = 'none'; nomeInput.classList.remove('required-field'); } });
     }
-    
+
     function validateAndSend() {
         if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; }
+        if (!isValidName()) { alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido."); return false; }
         const payment = document.querySelector('input[name="payment"]:checked')?.value;
-        if (payment === 'Dinheiro') {
-            const changeRaw = document.getElementById('changeAmount').value;
-            if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; }
-        }
+        if (payment === 'Dinheiro') { const changeRaw = document.getElementById('changeAmount').value; if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; } }
         const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
-        if (delivery === 'Delivery') {
-            const addr = document.getElementById('deliveryAddress').value.trim();
-            if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; }
-        }
+        if (delivery === 'Delivery') { const addr = document.getElementById('deliveryAddress').value.trim(); if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; } }
         return true;
     }
-    
+
     function smoothScrollToTitle() {
         requestAnimationFrame(() => {
             const sectionTitle = document.getElementById('sectionTitle');
@@ -1389,14 +655,31 @@
             }
         });
     }
-    
-    function renderAnunciantes() {
-        const grid = document.getElementById('advertisersGrid');
-        grid.innerHTML = `<div class="ad-card" id="adCard1"><div class="ad-icon">🚀</div><div class="ad-title">Destaque sua Marca</div><div class="ad-description">Seu negócio visto por milhares de clientes.</div><div class="ad-cta">Quero Anunciar →</div></div><div class="ad-card" id="adCard2"><div class="ad-icon">📈</div><div class="ad-title">Aumente suas Vendas</div><div class="ad-description">Público fiel e engajado.</div><div class="ad-cta">Saiba Mais →</div></div>`;
-        document.getElementById('adCard1')?.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank'));
-        document.getElementById('adCard2')?.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank'));
+
+    // ====================== ANÚNCIOS 16:9 (APENAS NAS SEÇÕES SOLICITADAS) ======================
+    function getInlineAdsHTML() {
+        return `
+            <div class="inline-ads-container">
+                <div class="ad-card-16x9" data-ad="1">
+                    <div>
+                        <div class="ad-icon">🚀</div>
+                        <div class="ad-title">Destaque sua Marca</div>
+                        <div class="ad-description">Seu negócio visto por milhares de clientes.</div>
+                        <div class="ad-cta">Quero Anunciar →</div>
+                    </div>
+                </div>
+                <div class="ad-card-16x9" data-ad="2">
+                    <div>
+                        <div class="ad-icon">📈</div>
+                        <div class="ad-title">Aumente suas Vendas</div>
+                        <div class="ad-description">Público fiel e engajado.</div>
+                        <div class="ad-cta">Saiba Mais →</div>
+                    </div>
+                </div>
+            </div>
+        `;
     }
-    
+
     function renderProducts(category) {
         const feed = document.getElementById('productFeed');
         let products = productsData[category];
@@ -1410,16 +693,24 @@
         else if (category === 'premium') title = "⭐ Linha Premium";
         else if (category === 'variedades') title = "🍖 Variedades";
         document.getElementById('sectionTitle').innerHTML = title;
-        feed.innerHTML = products.map(p => {
+        
+        let productsHTML = products.map(p => {
             if (p.isSpecial) {
                 return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div><span class="product-price">a partir de ${formatCurrency(p.basePrice)}/kg</span><button class="customize-btn" data-id="${p.id}"><span>⚙️</span> Personalizar</button></div></div></div>`;
+            } else if (p.unit === 'KIT') {
+                return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div style="display:flex; justify-content:flex-end;"><span class="product-price">${formatCurrency(p.basePrice)}</span><button class="add-btn kit-add" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;
             } else {
-                if (p.unit === 'KIT') {
-                    return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div style="display:flex; justify-content:flex-end;"><span class="product-price">${formatCurrency(p.basePrice)}</span><button class="add-btn kit-add" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;
-                }
                 return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div class="weight-input-area"><label>⚖️ Peso (kg):</label><input type="number" class="weight-input" id="weight-${p.id}" step="0.1" min="0.1" value="1.0"></div><div style="display:flex; justify-content:space-between;"><span class="product-price" id="price-${p.id}">${formatCurrency(p.basePrice)}</span><button class="add-btn" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;
             }
         }).join('');
+        
+        // ADICIONA ANÚNCIOS 16:9 APENAS NAS SEÇÕES BOVINOS, AVES E CARNE MOÍDA
+        if (category === 'bovinos' || category === 'aves' || category === 'carneMoida') {
+            productsHTML += getInlineAdsHTML();
+        }
+        feed.innerHTML = productsHTML;
+        
+        // Eventos para produtos comuns (KG)
         if (category !== 'carneMoida' && category !== 'kits') {
             products.forEach(p => {
                 if (p.unit === 'KG') {
@@ -1482,12 +773,14 @@
                 });
             }
         }
-        const adsSection = document.getElementById('advertisersSection');
-        if (category === 'carneMoida') adsSection.classList.add('spaced');
-        else adsSection.classList.remove('spaced');
-        renderAnunciantes();
+        
+        // Eventos de clique para os anúncios (abrir WhatsApp do anunciante)
+        document.querySelectorAll('.ad-card-16x9').forEach(ad => {
+            ad.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank'));
+        });
     }
-    
+
+    // ====================== INICIALIZAÇÃO ======================
     window.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             document.getElementById('splashScreen').style.opacity = '0';
@@ -1495,6 +788,7 @@
             document.getElementById('appContainer').style.opacity = '1';
         }, 2500);
         renderProducts('bovinos');
+        
         const tipsGrid = document.getElementById('tipsGrid');
         tipsGrid.innerHTML = dicasPreparo.map(d => `<div class="tip-card" data-dica="${d.nome}"><div class="tip-icon">${d.icone}</div><div class="tip-name">${d.nome}</div><div class="tip-cuts">${d.cortes.join(', ')}</div></div>`).join('');
         document.querySelectorAll('.tip-card').forEach(card => {
@@ -1505,11 +799,8 @@
                 const listDiv = document.getElementById('tipsModalList');
                 listDiv.innerHTML = dica.cortes.map(corte => {
                     let produto = findProductByName(corte);
-                    if (produto) {
-                        return `<div class="tips-list-item"><span>🥩 ${produto.name}</span><button onclick="addProdutoDireto('${produto.id}')">Adicionar</button></div>`;
-                    } else {
-                        return `<div class="tips-list-item"><span>❌ ${corte}</span><button disabled>Indisponível</button></div>`;
-                    }
+                    if (produto) return `<div class="tips-list-item"><span>🥩 ${produto.name}</span><button onclick="addProdutoDireto('${produto.id}')">Adicionar</button></div>`;
+                    else return `<div class="tips-list-item"><span>❌ ${corte}</span><button disabled>Indisponível</button></div>`;
                 }).join('');
                 document.getElementById('tipsModal').style.display = 'flex';
             });
@@ -1517,16 +808,11 @@
         document.getElementById('closeTipsModal')?.addEventListener('click', () => document.getElementById('tipsModal').style.display = 'none');
         window.addProdutoDireto = (id) => {
             let produto = null;
-            for (let cat in productsData) {
-                produto = productsData[cat].find(p => p.id === id);
-                if (produto) break;
-            }
-            if (produto) {
-                showQuantityModal(produto);
-                document.getElementById('tipsModal').style.display = 'none';
-            } else alert("Erro");
+            for (let cat in productsData) { produto = productsData[cat].find(p => p.id === id); if (produto) break; }
+            if (produto) { showQuantityModal(produto); document.getElementById('tipsModal').style.display = 'none'; }
+            else alert("Erro");
         };
-        let selectedQuantity = null;
+        
         document.getElementById('weightGrid').addEventListener('click', (e) => {
             if (e.target.classList.contains('weight-option')) {
                 document.querySelectorAll('.weight-option').forEach(el => el.classList.remove('active-weight-option'));
@@ -1537,11 +823,7 @@
         document.getElementById('confirmQuantityBtn').addEventListener('click', () => {
             if (!pendingTipProduct) return;
             let qty = selectedQuantity;
-            if (!qty) {
-                const first = document.querySelector('.weight-option');
-                if (first) qty = parseFloat(first.dataset.weight);
-                else { alert("Selecione o peso."); return; }
-            }
+            if (!qty) { const first = document.querySelector('.weight-option'); if (first) qty = parseFloat(first.dataset.weight); else { alert("Selecione o peso."); return; } }
             if (addToCart(pendingTipProduct, qty)) {
                 document.getElementById('quantityModal').style.display = 'none';
                 pendingTipProduct = null;
@@ -1552,6 +834,7 @@
             document.getElementById('quantityModal').style.display = 'none';
             pendingTipProduct = null;
         });
+        
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
@@ -1560,15 +843,13 @@
                 smoothScrollToTitle();
             });
         });
+        
         document.querySelectorAll('.type-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
                 btn.classList.add('active-type');
-                if (btn.dataset.tipo === 'Outro') {
-                    document.getElementById('outroTipoField').classList.remove('hidden-field');
-                } else {
-                    document.getElementById('outroTipoField').classList.add('hidden-field');
-                }
+                if (btn.dataset.tipo === 'Outro') document.getElementById('outroTipoField').classList.remove('hidden-field');
+                else document.getElementById('outroTipoField').classList.add('hidden-field');
                 atualizarPrecoPersonalizacao();
             });
         });
@@ -1583,18 +864,13 @@
             if (tipo === 'Outro') {
                 tipo = document.getElementById('outroTipoInput').value.trim();
                 if (!tipo) { alert("Digite o tipo de carne."); return; }
-                if (precoKg === null || precoKg === undefined) {
-                    alert("Corte não encontrado. Verifique o nome ou escolha um da lista.");
-                    return;
-                }
-            } else {
-                if (precoKg === null || precoKg === undefined) precoKg = 29.90;
-            }
+                if (precoKg === null || precoKg === undefined) { alert("Corte não encontrado. Verifique o nome ou escolha um da lista."); return; }
+            } else { if (precoKg === null || precoKg === undefined) precoKg = 29.90; }
             const vezes = parseInt(document.getElementById('moedaVezes').value);
             if (addCarneMoidaToCart(tipo, kg, vezes, precoKg, currentEditingCustomIndex)) {
                 document.getElementById('customModal').style.display = 'none';
                 renderCartModal();
-                originalUpdateCartBadge();
+                updateCartBadge();
             }
             currentEditingCustomIndex = null;
         });
@@ -1605,6 +881,7 @@
                 document.getElementById('moedaVezes').value = btn.dataset.vezes;
             });
         });
+        
         const orderBtn = document.getElementById('orderBtn');
         const cartModal = document.getElementById('cartModal');
         const closeCart = document.getElementById('closeCartModal');
@@ -1615,26 +892,14 @@
         const cancelSchedule = document.getElementById('cancelScheduleBtn');
         const confirmSchedule = document.getElementById('confirmScheduleBtn');
         
-        orderBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            renderCartModal();
-            setupOrderForm();
-            cartModal.style.display = 'flex';
-        });
+        orderBtn.addEventListener('click', (e) => { e.preventDefault(); renderCartModal(); setupOrderForm(); cartModal.style.display = 'flex'; });
         closeCart.addEventListener('click', () => cartModal.style.display = 'none');
         continueBtn.addEventListener('click', () => cartModal.style.display = 'none');
-        
         sendOrderBtn.addEventListener('click', () => {
             if (!validateAndSend()) return;
-            if (isWithinBusinessHours()) {
-                sendOrderToWhatsApp(false);
-                cartModal.style.display = 'none';
-            } else {
-                cartModal.style.display = 'none';
-                scheduleModal.style.display = 'flex';
-            }
+            if (isWithinBusinessHours()) { sendOrderToWhatsApp(false); cartModal.style.display = 'none'; }
+            else { cartModal.style.display = 'none'; scheduleModal.style.display = 'flex'; }
         });
-        
         closeSchedule.addEventListener('click', () => scheduleModal.style.display = 'none');
         cancelSchedule.addEventListener('click', () => scheduleModal.style.display = 'none');
         confirmSchedule.addEventListener('click', () => {
@@ -1645,10 +910,7 @@
                     sendOrderToWhatsApp(true, "A combinar com o estabelecimento", obs);
                     scheduleModal.style.display = 'none';
                 }
-            } else {
-                sendOrderToWhatsApp(true, datetime, obs);
-                scheduleModal.style.display = 'none';
-            }
+            } else { sendOrderToWhatsApp(true, datetime, obs); scheduleModal.style.display = 'none'; }
         });
         
         document.getElementById('confirmEditBtn').addEventListener('click', () => {
@@ -1659,7 +921,7 @@
                 item.quantityLabel = item.unit === 'KG' ? `${newVal.toString().replace('.',',')} kg` : `${newVal} ${item.unit}${newVal>1?'s':''}`;
                 item.totalPrice = item.basePrice * newVal;
                 renderCartModal();
-                originalUpdateCartBadge();
+                updateCartBadge();
                 document.getElementById('editModal').style.display = 'none';
                 currentEditIndex = null;
             }
@@ -1668,7 +930,7 @@
             document.getElementById('editModal').style.display = 'none';
             currentEditIndex = null;
         });
-        originalUpdateCartBadge();
+        updateCartBadge();
     });
 </script>
 </body>
