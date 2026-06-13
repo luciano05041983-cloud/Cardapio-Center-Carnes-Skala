@@ -67,8 +67,97 @@
         .logo-container { width: 200px; margin: 0 auto 15px auto; }
         .logo-container img { width: 100%; height: auto; display: block; filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.7)); }
         .welcome-text { font-size: 0.9rem; color: #cccccc; font-style: italic; }
-        .hero-banner { width: calc(100% - 30px); margin: 0 auto 25px auto; height: 170px; border-radius: 15px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://i.ibb.co/pjBKnNgd/file-00000000f54871f5a6158a58fbffd347.png') center center / cover no-repeat; background-size: cover; display: flex; align-items: flex-end; padding: 15px; }
+        .hero-banner { width: calc(100% - 30px); margin: 0 auto 15px auto; height: 170px; border-radius: 15px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://i.ibb.co/pjBKnNgd/file-00000000f54871f5a6158a58fbffd347.png') center center / cover no-repeat; background-size: cover; display: flex; align-items: flex-end; padding: 15px; }
         .hero-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        
+        /* ESTILOS DO CAMPO DE PESQUISA 🔎 */
+        .search-container {
+            width: calc(100% - 30px);
+            margin: 0 auto 12px auto;
+            position: relative;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #252525;
+            border: 1px solid #3A3A3A;
+            border-radius: 50px;
+            padding: 8px 16px;
+            transition: all 0.2s ease;
+        }
+        .search-box:focus-within {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        .search-icon {
+            font-size: 1.2rem;
+            color: #D4AF37;
+            margin-right: 8px;
+        }
+        .search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+        }
+        .search-input::placeholder {
+            color: #888;
+            font-weight: 400;
+        }
+        .clear-search {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0 4px;
+            transition: color 0.2s;
+            display: none;
+        }
+        .clear-search:hover {
+            color: #E65100;
+        }
+        .search-results-count {
+            font-size: 0.7rem;
+            color: #D4AF37;
+            text-align: right;
+            margin-top: 6px;
+            padding-right: 8px;
+        }
+        
+        /* ===== LETREIRO DESLIZANTE (TICKER) ===== */
+        .ticker-wrapper {
+            width: calc(100% - 30px);
+            margin: 8px auto 12px auto;
+            background: #2A2A2A;
+            border-radius: 40px;
+            border-left: 4px solid #D4AF37;
+            border-right: 4px solid #D4AF37;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+        .ticker-content {
+            display: inline-block;
+            padding: 8px 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #FED100;
+            letter-spacing: 0.5px;
+            animation: tickerScroll 22s linear infinite;
+            white-space: nowrap;
+        }
+        .ticker-content span {
+            margin-right: 40px;
+        }
+        @keyframes tickerScroll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        
         .category-nav-container { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background-color: #1A1A1A; padding: 10px 0 15px 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7); border-radius: 0 0 12px 12px; }
         .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 0 15px; gap: 10px; scrollbar-width: thin; }
         .category-nav::-webkit-scrollbar { height: 4px; }
@@ -88,7 +177,8 @@
         .weight-input-area label { font-size: 0.75rem; color: #D4AF37; display: block; margin-bottom: 4px; }
         .weight-input-area input { background: #2A2A2A; border: 1px solid #444; color: white; padding: 6px 10px; border-radius: 20px; width: 100%; font-size: 0.85rem; }
         .weight-input-area input:focus { outline: none; border-color: #D4AF37; }
-        .product-price { font-size: 1.2rem; font-weight: 700; color: #D4AF37; }
+        .product-price-kg { font-size: 0.9rem; font-weight: 600; color: #D4AF37; display: block; margin-bottom: 4px; }
+        .product-subtotal { font-size: 1rem; font-weight: 700; color: #E65100; margin: 6px 0 8px 0; }
         .add-btn, .customize-btn { background-color: #E65100; color: white; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(230, 81, 0, 0.4); transition: all 0.2s ease; }
         .add-btn:active, .customize-btn:active { transform: scale(0.95); background-color: #2ecc71; box-shadow: 0 0 12px #2ecc71; }
         .tips-section { margin: 20px 15px; background: #252525; border-radius: 20px; padding: 16px; border-left: 4px solid #D4AF37; }
@@ -100,7 +190,7 @@
         .tip-name { font-weight: 700; font-size: 0.8rem; }
         .tip-cuts { font-size: 0.65rem; color: #BBBBBB; margin-top: 6px; }
         
-        /* NOVOS ESTILOS PARA ANÚNCIOS 16:9 DISCRETOS - ALTURA REDUZIDA EM 50% */
+        /* ANÚNCIOS 16:9 DISCRETOS */
         .inline-ads-container {
             margin-top: 32px;
             display: flex;
@@ -110,7 +200,7 @@
             padding-top: 24px;
         }
         .ad-card-16x9 {
-            aspect-ratio: 16 / 4.5;  /* Altura 50% menor que o original 16/9 */
+            aspect-ratio: 16 / 4.5;
             background: linear-gradient(145deg, #252525 0%, #1E1E1E 100%);
             border-radius: 16px;
             border: 1px solid #333;
@@ -120,7 +210,7 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            padding: 8px 16px;  /* Padding vertical reduzido para manter o conteúdo proporcional */
+            padding: 8px 16px;
         }
         .ad-card-16x9:hover {
             transform: translateY(-3px);
@@ -141,12 +231,11 @@
         .nav-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; background: #1e1e1e; border: 1px solid #333; color: #cccccc; border-radius: 40px; padding: 10px 8px; font-size: 0.8rem; font-weight: 600; text-decoration: none; cursor: pointer; position: relative; }
         .nav-btn-main { background: linear-gradient(135deg, #D4AF37 0%, #AA820A 100%); color: #1A1A1A; border: none; }
         .cart-badge { position: absolute; top: -12px; right: -10px; background-color: #E65100; color: white; border-radius: 50px; font-size: 0.85rem; font-weight: 900; min-width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; padding: 0 7px; box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 4px 12px rgba(0,0,0,0.5); letter-spacing: 0.5px; backdrop-filter: blur(1px); transition: all 0.15s ease; font-family: 'Montserrat', monospace; z-index: 15; border: 1px solid rgba(255,215,0,0.6); }
-        @keyframes subtleBadgeGlow { 0% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 0 0 6px #E65100; transform: scale(1);} 70% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 6px #FFB347, 0 0 0 10px rgba(230,81,0,0.4); transform: scale(1.08);} 100% { box-shadow: 0 0 0 2px #1A1A1A, 0 0 0 4px #D4AF37, 0 4px 12px rgba(0,0,0,0.5); transform: scale(1);} }
         .whatsapp-float { position: fixed; bottom: 90px; right: 20px; background-color: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000; transition: all 0.2s ease; cursor: pointer; text-decoration: none; }
         .whatsapp-float:hover { transform: scale(1.05); background-color: #20b359; }
         .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
 
-        /* MODAIS (mantidos) */
+        /* MODAIS (COMPLETOS) */
         .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content { background: #1E1E1E; width: 90%; max-width: 440px; max-height: 90vh; border-radius: 28px; border-top: 4px solid #D4AF37; padding: 24px; overflow-y: auto; animation: zoomIn 0.3s ease; }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
@@ -182,8 +271,6 @@
         .btn-cancel { background: #2C2C2C; color: #EEEEEE; border: 1px solid #444; flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; }
         .btn-confirm { background: #E65100; color: white; flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; border: none; }
         .preco-dinamico { background: #2A2A2A; padding: 10px; border-radius: 12px; text-align: center; margin-bottom: 15px; font-weight: bold; color: #D4AF37; }
-        .required-field { border: 1px solid #E65100 !important; }
-        .error-message { color: #E65100; font-size: 0.7rem; margin-top: 4px; display: block; }
         .weight-grid { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; justify-content: center; }
         .weight-option { background: #2A2A2A; border: 1px solid #444; padding: 8px 16px; border-radius: 40px; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
         .weight-option.active-weight-option { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
@@ -217,6 +304,23 @@
 
     <div class="hero-banner">
         <h2>Seleção do Assador</h2>
+    </div>
+
+    <!-- 🔎 CAMPO DE PESQUISA -->
+    <div class="search-container">
+        <div class="search-box">
+            <span class="search-icon">🔎</span>
+            <input type="text" class="search-input" id="globalSearchInput" placeholder="Pesquise por cortes, carnes, kits..." autocomplete="off">
+            <button class="clear-search" id="clearSearchBtn" aria-label="Limpar busca">✖</button>
+        </div>
+        <div class="search-results-count" id="searchResultsCount"></div>
+    </div>
+
+    <!-- LETREIRO DESLIZANTE (CORRIGIDO) -->
+    <div class="ticker-wrapper" id="tickerWrapper">
+        <div class="ticker-content" id="tickerContent">
+            <!-- Conteúdo preenchido via JS -->
+        </div>
     </div>
 
     <div class="category-nav-container" id="categoryNavContainer">
@@ -267,7 +371,7 @@
     </svg>
 </a>
 
-<!-- MODAIS -->
+<!-- MODAIS COMPLETOS -->
 <div id="cartModal" class="cart-modal">
     <div class="cart-modal-content">
         <div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div>
@@ -342,149 +446,219 @@
 </div>
 
 <div id="editModal" class="edit-modal"><div class="edit-modal-box"><h3>✏️ Editar quantidade</h3><select id="editQuantitySelect"></select><div style="display:flex; gap:12px; margin-top:10px;"><button id="confirmEditBtn" class="cart-btn" style="background:#D4AF37;">Confirmar</button><button id="cancelEditBtn" class="cart-btn cart-btn-secondary">Cancelar</button></div></div></div>
+
 <div id="tipsModal" class="tips-modal"><div class="tips-modal-content"><div class="cart-modal-header"><h3 id="tipsModalTitle"></h3><span class="close-modal" id="closeTipsModal">&times;</span></div><div id="tipsModalList" class="tips-list"></div></div></div>
+
 <div id="quantityModal" class="quantity-modal"><div class="quantity-modal-content"><h3>⚖️ Selecione o peso</h3><div id="quantityProductName" style="margin-bottom: 10px;"></div><div class="weight-grid" id="weightGrid"></div><div class="quantity-modal-buttons"><button id="cancelQuantityBtn" class="btn-cancel">Cancelar</button><button id="confirmQuantityBtn" class="btn-confirm">Adicionar ao carrinho</button></div></div></div>
 
 <script>
-    // ====================== FUNÇÕES AUXILIARES ======================
+    // ====================== FUNÇÕES AUXILIARES (MANTIDAS) ======================
     function formatCurrency(v) { return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }); }
+    function isWithinBusinessHours() { const now = new Date(); const day = now.getDay(); const hours = now.getHours(); const minutes = now.getMinutes(); const currentMinutes = hours * 60 + minutes; if (day === 0) { const open = 8*60, close = 13*60; return currentMinutes >= open && currentMinutes < close; } else if (day >= 1 && day <= 6) { const open = 8*60, close = 20*60; return currentMinutes >= open && currentMinutes < close; } return false; }
+    let cart = []; let currentEditIndex = null; let currentEditingCustomIndex = null; let pendingTipProduct = null; let selectedQuantity = null;
+    let currentSearchTerm = "";
+    let currentActiveCategory = "bovinos";
     
-    function isWithinBusinessHours() {
-        const now = new Date();
-        const day = now.getDay();
-        const hours = now.getHours();
-        const minutes = now.getMinutes();
-        const currentMinutes = hours * 60 + minutes;
-        if (day === 0) { const open = 8*60, close = 13*60; return currentMinutes >= open && currentMinutes < close; }
-        else if (day >= 1 && day <= 6) { const open = 8*60, close = 20*60; return currentMinutes >= open && currentMinutes < close; }
-        return false;
-    }
-
-    let cart = [];
-    let currentEditIndex = null;
-    let currentEditingCustomIndex = null;
-    let pendingTipProduct = null;
-    let selectedQuantity = null;
-
-    function animateBadge() {
-        const badge = document.getElementById('cartBadge');
-        if (badge && badge.style.display !== 'none') {
-            badge.classList.remove('badge-pulse');
-            void badge.offsetWidth;
-            badge.classList.add('badge-pulse');
-            setTimeout(() => badge.classList.remove('badge-pulse'), 400);
-        }
-    }
-
-    function updateCartBadge() {
-        const badge = document.getElementById('cartBadge');
-        if (badge) {
-            const count = cart.length;
-            if (count > 0) { badge.style.display = 'flex'; badge.textContent = count; animateBadge(); }
-            else badge.style.display = 'none';
-        }
-    }
-
-    // ====================== DADOS DOS PRODUTOS (COMPLETOS) ======================
-    const dicasPreparo = [
-        { nome: "🍲 Carne de Panela", icone: "🍲", cortes: ["Músculo Dianteiro", "Músculo Traseiro", "Maçã de Peito"] },
-        { nome: "🔥 Grelhar", icone: "🔥", cortes: ["Ponta de Picanha", "Alcatra", "Contrafilé", "Fraldinha"] },
-        { nome: "🍖 Churrasco", icone: "🍖", cortes: ["Coxão Mole", "Ponta de Picanha", "Paletão"] },
-        { nome: "🥘 Ensopados", icone: "🥘", cortes: ["Músculo Dianteiro", "Acém", "Peixinho"] }
-    ];
-
+    function animateBadge() { const badge = document.getElementById('cartBadge'); if (badge && badge.style.display !== 'none') { badge.classList.remove('badge-pulse'); void badge.offsetWidth; badge.classList.add('badge-pulse'); setTimeout(() => badge.classList.remove('badge-pulse'), 400); } }
+    function updateCartBadge() { const badge = document.getElementById('cartBadge'); if (badge) { const count = cart.length; if (count > 0) { badge.style.display = 'flex'; badge.textContent = count; animateBadge(); } else badge.style.display = 'none'; } }
+    
+    // Dados completos (produtos, etc - mantidos)
+    const dicasPreparo = [ { nome: "🍲 Carne de Panela", icone: "🍲", cortes: ["Músculo Dianteiro", "Músculo Traseiro", "Maçã de Peito"] }, { nome: "🔥 Grelhar", icone: "🔥", cortes: ["Ponta de Picanha", "Alcatra", "Contrafilé", "Fraldinha"] }, { nome: "🍖 Churrasco", icone: "🍖", cortes: ["Coxão Mole", "Ponta de Picanha", "Paletão"] }, { nome: "🥘 Ensopados", icone: "🥘", cortes: ["Músculo Dianteiro", "Acém", "Peixinho"] } ];
     const productsData = {
         bovinos: [{ id: "b1", name: "Coxão Mole", desc: "Corte macio e suculento, ideal para bifes e churrasco.", basePrice: 49.99, unit: "KG", image: "https://i.ibb.co/93h6J63F/Screenshot-20260613-094752-Fotos.png" },{ id: "b2", name: "Ponta de Picanha", desc: "Sabor incomparável, perfeita para grelha e assados.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/Zz8MVSyF/1780091522406.png" },{ id: "b3", name: "Patinho", desc: "Versátil, ótimo para bifes, carne moída e refogados.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/FkKcf64W/1780092680484.png" },{ id: "b4", name: "Alcatra", desc: "Corte nobre, macia e suculenta. Excelente para churrasco.", basePrice: 59.99, unit: "KG", image: "https://i.ibb.co/Z1TPwXPP/Screenshot-20260530-080735-Fotos.png" },{ id: "b5", name: "Contrafilé", desc: "Sabor marcante e marmorizado, ideal para grelha.", basePrice: 59.99, unit: "KG", image: "https://i.ibb.co/QjdyVRVK/file-000000002798720e973507cc99d0a3c9.png" },{ id: "b6", name: "Músculo Dianteiro", desc: "Perfeito para cozidos, caldos e carne de panela.", basePrice: 32.99, unit: "KG", image: "https://i.ibb.co/tMgJ8rZP/1780109278994.png" },{ id: "b7", name: "Músculo Traseiro", desc: "Ótimo para ensopados, suculento e cheio de sabor.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/qYb8s1bw/file-0000000073d4720e848b42607fecb7de.png" },{ id: "b8", name: "Maçã de Peito", desc: "Corte com gordura entremeada, ideal para assar.", basePrice: 37.98, unit: "KG", image: "https://i.ibb.co/FLG2rk00/1780110004482.png" },{ id: "b9", name: "Acém", desc: "Muito saboroso, perfeito para churrasco e ensopados.", basePrice: 32.99, unit: "KG", image: "https://i.ibb.co/r268tjw1/Screenshot-20260530-082358-Fotos.png" },{ id: "b10", name: "Peixinho", desc: "Corte versátil, ótimo para bifes e refogados.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/39WSytqW/Screenshot-20260530-074409-Fotos.png" },{ id: "b11", name: "Capa de Contrafilé", desc: "Marmorizada e suculenta, excelente para grelha.", basePrice: 37.99, unit: "KG", image: "https://i.ibb.co/5XWqJRx8/Screenshot-20260529-163950-Instagram.png" },{ id: "b12", name: "Paleta", desc: "Ideal para assar, desfiar ou cozinhar lentamente.", basePrice: 35.99, unit: "KG", image: "https://i.ibb.co/S7wNbPMC/Screenshot-20260530-080027-Fotos.png" },{ id: "b13", name: "Fraldinha", desc: "Muito saborosa, ótima para churrasco e grelha.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/7J99shzC/Screenshot-20260530-080253-Fotos.png" },{ id: "b14", name: "Paletão", desc: "Corte com osso, perfeito para assados de longa duração.", basePrice: 47.99, unit: "KG", image: "https://i.ibb.co/dwYGwgMc/Screenshot-20260530-081007-Fotos.png" }],
         suinos: [{ id: "su1", name: "Pernil sem Osso", desc: "Corte magro e suculento, ideal para assar ou desfiar.", basePrice: 22.99, unit: "KG", image: "https://i.ibb.co/xNj01km/Screenshot-20260530-083908-Instagram.png" },{ id: "su2", name: "Costelinha", desc: "Defumada naturalmente, macia e cheia de sabor para churrasco.", basePrice: 25.99, unit: "KG", image: "https://i.ibb.co/hFTZNMP7/Screenshot-20260530-084418-Fotos.png" },{ id: "su3", name: "Lombo", desc: "Corte nobre, muito macio e versátil para grelhar ou assar.", basePrice: 29.99, unit: "KG", image: "https://i.ibb.co/GvzLcPfD/Screenshot-20260530-141530-Fotos.png" },{ id: "su4", name: "Miúdos para Feijoada", desc: "Conjunto com orelha, pé, rabo e outras partes para feijoada completa.", basePrice: 17.99, unit: "KG", image: "https://i.ibb.co/CpQFNdSL/Screenshot-20260530-141547-Fotos.png" },{ id: "su5", name: "Suã Especial", desc: "Paleta suína, ótima para assar ou cozinhar lentamente.", basePrice: 9.99, unit: "KG", image: "https://i.ibb.co/v6pv07HH/Screenshot-20260530-142006-Fotos.png" },{ id: "su6", name: "Bisteca", desc: "Bisteca suína com osso, perfeita para grelha ou frigideira.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/b5vkg8nn/Screenshot-20260530-142210-Fotos.png" },{ id: "su7", name: "Rabo de Porco", desc: "Ideal para caldos, feijoadas e moquecas, sabor marcante.", basePrice: 24.99, unit: "KG", image: "https://i.ibb.co/sZFttN8/Screenshot-20260530-144318-Fotos.png" }],
         aves: [{ id: "a1", name: "Filé de Frango", desc: "Peito de frango sem osso, limpo e fresco.", basePrice: 26.99, unit: "KG", image: "https://i.ibb.co/LdSN5xtT/Screenshot-20260530-213340-Fotos.png" }, { id: "a2", name: "Coxa e Sobrecoxa", desc: "Parte suculenta da ave.", basePrice: 14.99, unit: "KG", image: "https://i.ibb.co/39H641rT/Screenshot-20260530-213430-Fotos.png" },{ id: "a3", name: "Coxinha da Asa", desc: "Asinhas de frango.", basePrice: 19.99, unit: "KG", image: "https://i.ibb.co/84MCCF0y/Screenshot-20260530-213619-Fotos.png" },{ id: "a4", name: "Tulipa", desc: "Sobrecoxa desossada enrolada.", basePrice: 29.99, unit: "KG", image: "https://i.ibb.co/KpwvBk5K/Screenshot-20260530-213851-Fotos.png" },{ id: "a5", name: "Tulipa na Mostarda", desc: "Temperada com mostarda.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/ZpZcM4XK/Screenshot-20260530-214026-Fotos.png" },{ id: "a6", name: "Coxa Recheada", desc: "Recheada com presunto e queijo.", basePrice: 27.99, unit: "KG", image: "https://i.ibb.co/qMQr1PMS/Screenshot-20260530-214206-Fotos.png" },{ id: "a7", name: "Almôndega de Frango", desc: "Almôndegas artesanais.", basePrice: 27.99, unit: "KG", image: "https://i.ibb.co/23dHC2h4/Screenshot-20260530-214422-Fotos.png" },{ id: "a8", name: "Pé de Frango", desc: "Para caldos.", basePrice: 10.99, unit: "KG", image: "https://i.ibb.co/fY1648wD/Screenshot-20260530-214556-Fotos.png" },{ id: "a9", name: "Franbacon", desc: "Filé envolto em bacon.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/ZzVW4hzh/Screenshot-20260529-164029-Instagram.png" }],
-        kits: [
-            { id: "k1", name: "Kit Fitness", desc: "SKALA\n• 500g Patinho Moído\n• 500g Patinho Bife\n• 500g Filé de Frango (Bife)\n• 500g Filé de Frango (Estrogonofe)\n• 1kg Filé de Tilápia\n• 500g Peixinho (Pedaço)", basePrice: 140.00, unit: "KIT", image: "https://i.ibb.co/Cp0f3Hqy/IMG-20260529-WA0003.jpg" },
-            { id: "k2", name: "Kit Família", desc: "SKALA\n• 600g Coxão Mole Bife\n• 600g Filé de Frango Estrogonofe\n• 600g Filé de Frango Bife\n• 600g Coxinha da Asa\n• 600g Acém Moído\n• 600g Paleta Pedaço\n• 600g Almôndega Bovina\n• 600g Linguiça de Pernil\n• 1 Pct Farinha D' Rocha", basePrice: 175.00, unit: "KIT", image: "https://i.ibb.co/pBXNFGvZ/IMG-20260529-WA0001.jpg" },
-            { id: "k3", name: "Kit Super Econômico", desc: "SKALA\n• 800g Suã Especial\n• 800g Acém Moído\n• 800g Frango a Passarinho ou Coxa e Sobrecoxa\n• 800g Fígado\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Pernil (Bife ou Panela)", basePrice: 115.00, unit: "KIT", image: "https://i.ibb.co/WNGrVP8T/IMG-20260529-WA0007.jpg" },
-            { id: "k4", name: "Kit Econômico", desc: "SKALA\n• 800g Almôndega (Frango ou Bovina)\n• 800g Acém (Moído ou Panela)\n• 800g Coxão Duro Bife\n• 800g Costelinha Suína ou Costela Ripa\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Frango Passarinho ou Coxa e Sobrecoxa", basePrice: 145.00, unit: "KIT", image: "https://i.ibb.co/1tyJ6CXF/IMG-20260529-WA0006.jpg" }
-        ],
+        kits: [ { id: "k1", name: "Kit Fitness", desc: "SKALA\n• 500g Patinho Moído\n• 500g Patinho Bife\n• 500g Filé de Frango (Bife)\n• 500g Filé de Frango (Estrogonofe)\n• 1kg Filé de Tilápia\n• 500g Peixinho (Pedaço)", basePrice: 140.00, unit: "KIT", image: "https://i.ibb.co/Cp0f3Hqy/IMG-20260529-WA0003.jpg" }, { id: "k2", name: "Kit Família", desc: "SKALA\n• 600g Coxão Mole Bife\n• 600g Filé de Frango Estrogonofe\n• 600g Filé de Frango Bife\n• 600g Coxinha da Asa\n• 600g Acém Moído\n• 600g Paleta Pedaço\n• 600g Almôndega Bovina\n• 600g Linguiça de Pernil\n• 1 Pct Farinha D' Rocha", basePrice: 175.00, unit: "KIT", image: "https://i.ibb.co/pBXNFGvZ/IMG-20260529-WA0001.jpg" }, { id: "k3", name: "Kit Super Econômico", desc: "SKALA\n• 800g Suã Especial\n• 800g Acém Moído\n• 800g Frango a Passarinho ou Coxa e Sobrecoxa\n• 800g Fígado\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Pernil (Bife ou Panela)", basePrice: 115.00, unit: "KIT", image: "https://i.ibb.co/WNGrVP8T/IMG-20260529-WA0007.jpg" }, { id: "k4", name: "Kit Econômico", desc: "SKALA\n• 800g Almôndega (Frango ou Bovina)\n• 800g Acém (Moído ou Panela)\n• 800g Coxão Duro Bife\n• 800g Costelinha Suína ou Costela Ripa\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Frango Passarinho ou Coxa e Sobrecoxa", basePrice: 145.00, unit: "KIT", image: "https://i.ibb.co/1tyJ6CXF/IMG-20260529-WA0006.jpg" } ],
         carneMoida: [{ id: "cm1", name: "Carne Moída Personalizada", desc: "Escolha tipo, kg e moagem.", basePrice: 29.90, unit: "KG", isSpecial: true, image: "https://i.ibb.co/HDW3pRZB/Screenshot-20260531-142140-Fotos.png" }],
         premium: [{ id: "p1", name: "Cupim Grill", desc: "Marmorizado.", basePrice: 69.99, unit: "KG", image: "https://i.ibb.co/htzsVWR/Screenshot-20260531-075929-Fotos.png" },{ id: "p2", name: "Picanha", desc: "Corte nobre.", basePrice: 79.99, unit: "KG", image: "https://i.ibb.co/k2Cz061k/Screenshot-20260531-074806-Fotos.png" },{ id: "p3", name: "Filé Mignon", desc: "Maciez incomparável.", basePrice: 74.99, unit: "KG", image: "https://i.ibb.co/jP04PfHL/Screenshot-20260531-074945-Fotos.png" },{ id: "p4", name: "Bananinha", desc: "Macio e suculento.", basePrice: 36.99, unit: "KG", image: "https://i.ibb.co/d4gwcfK1/Screenshot-20260531-075151-Fotos.png" }],
         variedades: [{ id: "v1", name: "Costela Gaúcha", desc: "Tradicional.", basePrice: 29.99, unit: "KG", image: "https://i.ibb.co/v48TrWC5/pexels-mohamed9380-36669802.jpg" },{ id: "v2", name: "Costela Ripa", desc: "Corte achatado.", basePrice: 27.99, unit: "KG", image: "https://i.ibb.co/4nGBFfT3/Screenshot-20260531-124812-Fotos.png" },{ id: "v3", name: "Osso Buco", desc: "Com tutano.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/FqVZWzjG/Screenshot-20260531-124857-Fotos.png" },{ id: "v4", name: "Rabada", desc: "Para ensopados.", basePrice: 33.99, unit: "KG", image: "https://i.ibb.co/KxQ1wvch/Screenshot-20260531-125048-Fotos.png" },{ id: "v5", name: "Mocotó", desc: "Pé bovino.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/0pqVPzLg/Screenshot-20260531-125347-Fotos.png" },{ id: "v6", name: "Dobradinha", desc: "Bucho bovino.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/4Cm4rYv/Screenshot-20260531-130356-Fotos.png" },{ id: "v7", name: "Fígado", desc: "Rico em ferro.", basePrice: 21.99, unit: "KG", image: "https://i.ibb.co/gZgVkGYC/Screenshot-20260531-130438-Fotos.png" }]
     };
-
-    function findProductByName(name) {
+    function findProductByName(name) { for (let cat in productsData) { let found = productsData[cat].find(p => p.name === name); if (found) return found; } return null; }
+    function addToCart(product, selectedValue) { let q = parseFloat(selectedValue); if (isNaN(q) || q <= 0) return false; let label = product.unit === 'KG' ? `${q.toString().replace('.',',')} kg` : `${selectedValue} ${product.unit}${q>1?'s':''}`; cart.push({ ...product, quantityValue: q, quantityLabel: label, totalPrice: product.basePrice * q, isCustom: false }); updateCartBadge(); return true; }
+    function showQuantityModal(product) { pendingTipProduct = product; document.getElementById('quantityProductName').innerHTML = `<strong>${product.name}</strong> - ${formatCurrency(product.basePrice)}/kg`; const grid = document.getElementById('weightGrid'); const opts = [0.5, 1, 1.5, 2, 2.5, 3]; grid.innerHTML = opts.map(w => `<div class="weight-option" data-weight="${w}">${w.toString().replace('.',',')} kg</div>`).join(''); document.querySelectorAll('.weight-option').forEach(opt => opt.classList.remove('active-weight-option')); if (opts.length) document.querySelector('.weight-option').classList.add('active-weight-option'); document.getElementById('quantityModal').style.display = 'flex'; }
+    
+    // 🔧 BUSCA CORRIGIDA (ignora espaços extras)
+    function filterProductsBySearch(rawTerm) {
+        let term = rawTerm.trim();
+        if (term === "") return [];
+        const lowerTerm = term.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const results = [];
         for (let cat in productsData) {
-            let found = productsData[cat].find(p => p.name === name);
-            if (found) return found;
+            productsData[cat].forEach(p => {
+                const nameNorm = p.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                if (nameNorm.includes(lowerTerm)) {
+                    results.push({ ...p, originalCategory: cat });
+                }
+            });
         }
-        return null;
+        return results;
     }
-
-    // ====================== LÓGICA DE PREÇOS PARA CARNE MOÍDA ======================
-    function buildPrecoMap() {
-        const map = new Map();
-        const categorias = ['bovinos', 'suinos', 'aves', 'premium', 'variedades'];
-        for (let cat of categorias) {
-            if (productsData[cat]) productsData[cat].forEach(p => { map.set(p.name, p.basePrice); map.set(p.name.toLowerCase(), p.basePrice); });
-        }
-        map.set("maminha", 49.99); map.set("peixinho", 37.99); map.set("lagarto", 39.99);
-        return map;
-    }
-
-    function getPrecoPorTipo(tipo) {
-        const precoMap = buildPrecoMap();
-        if (precoMap.has(tipo)) return precoMap.get(tipo);
-        if (precoMap.has(tipo.toLowerCase())) return precoMap.get(tipo.toLowerCase());
-        return null;
-    }
-
-    function atualizarPrecoPersonalizacao() {
-        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
-        if (tipo === 'Outro') {
-            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
-            if (nomeDigitado === "") { document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: aguardando digitar o corte...`; return; }
-            const preco = getPrecoPorTipo(nomeDigitado);
-            if (preco !== null) document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`;
-            else document.getElementById('precoDinamicoDisplay').innerHTML = `❌ Corte não encontrado. Verifique o nome ou escolha um da lista.`;
+    
+    function getInlineAdsHTML() { return `<div class="inline-ads-container"><div class="ad-card-16x9" data-ad="1"><div><div class="ad-icon">🚀</div><div class="ad-title">Destaque sua Marca</div><div class="ad-description">Seu negócio visto por milhares de clientes.</div><div class="ad-cta">Quero Anunciar →</div></div></div><div class="ad-card-16x9" data-ad="2"><div><div class="ad-icon">📈</div><div class="ad-title">Aumente suas Vendas</div><div class="ad-description">Público fiel e engajado.</div><div class="ad-cta">Saiba Mais →</div></div></div></div>`; }
+    
+    // RENDERIZAÇÃO (com subtotal dinâmico) - mantida
+    function renderProductsFromSource(productsArray, sourceCategory = null, isSearch = false) {
+        const feed = document.getElementById('productFeed');
+        if (!productsArray.length) {
+            feed.innerHTML = '<div style="text-align:center; padding:40px;">🔎 Nenhum produto encontrado para sua busca.</div>';
+            document.getElementById('sectionTitle').innerHTML = isSearch ? `🔎 Resultados para "${currentSearchTerm}"` : "🔥 Destaques da Semana";
             return;
         }
-        const preco = getPrecoPorTipo(tipo);
-        if (preco) document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`;
-        else document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ 29,90 / kg (estimado)`;
-    }
-
-    function getPrecoAtualPersonalizacao() {
-        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
-        if (tipo === 'Outro') {
-            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
-            if (nomeDigitado === "") return null;
-            return getPrecoPorTipo(nomeDigitado);
+        let title = isSearch ? `🔎 Resultados para "${currentSearchTerm}" (${productsArray.length})` : 
+            (sourceCategory === 'carneMoida' ? "🥩 Personalize sua Carne Moída" : 
+            (sourceCategory === 'aves' ? "🐔 Aves - Tabela Completa" : 
+            (sourceCategory === 'suinos' ? "🐷 Cortes Suínos" : 
+            (sourceCategory === 'bovinos' ? "🐂 Cortes Bovinos" : 
+            (sourceCategory === 'kits' ? "🎁 Kits Especiais - Skala" : 
+            (sourceCategory === 'premium' ? "⭐ Linha Premium" : 
+            (sourceCategory === 'variedades' ? "🍖 Variedades" : "🔥 Destaques da Semana")))))));
+        document.getElementById('sectionTitle').innerHTML = title;
+        
+        let productsHTML = productsArray.map(p => {
+            if (p.isSpecial) {
+                return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div><span class="product-price-kg">a partir de ${formatCurrency(p.basePrice)}/kg</span><button class="customize-btn" data-id="${p.id}"><span>⚙️</span> Personalizar</button></div></div></div>`;
+            } else if (p.unit === 'KIT') {
+                return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div style="display:flex; justify-content:flex-end;"><span class="product-price">${formatCurrency(p.basePrice)}</span><button class="add-btn kit-add" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;
+            } else {
+                return `<div class="product-card" data-id="${p.id}">
+                            <div class="product-image" style="background-image:url('${p.image}')"></div>
+                            <div class="product-info">
+                                <div>
+                                    <h4 class="product-title">${p.name}</h4>
+                                    <p class="product-desc">${p.desc}</p>
+                                </div>
+                                <div class="weight-input-area">
+                                    <label>⚖️ Peso (kg):</label>
+                                    <input type="number" class="weight-input" id="weight-${p.id}" step="0.1" min="0.1" value="1.0">
+                                </div>
+                                <div>
+                                    <span class="product-price-kg">${formatCurrency(p.basePrice)}/kg</span>
+                                    <div class="product-subtotal">Subtotal: <span id="subtotal-${p.id}">${formatCurrency(p.basePrice)}</span></div>
+                                </div>
+                                <button class="add-btn" data-id="${p.id}"><span>+</span> Pedir</button>
+                            </div>
+                        </div>`;
+            }
+        }).join('');
+        if (!isSearch && (sourceCategory === 'bovinos' || sourceCategory === 'aves' || sourceCategory === 'carneMoida')) {
+            productsHTML += getInlineAdsHTML();
         }
-        return getPrecoPorTipo(tipo) || 29.90;
+        feed.innerHTML = productsHTML;
+        
+        productsArray.forEach(p => {
+            if (!p.isSpecial && p.unit !== 'KIT') {
+                const card = document.querySelector(`.product-card[data-id="${p.id}"]`);
+                if(card){
+                    const weightInput = card.querySelector('.weight-input');
+                    const subtotalSpan = document.getElementById(`subtotal-${p.id}`);
+                    const addButton = card.querySelector('.add-btn');
+                    const updateSubtotal = () => {
+                        let w = parseFloat(weightInput.value);
+                        if (isNaN(w) || w <= 0) w = 1.0;
+                        subtotalSpan.innerText = formatCurrency(p.basePrice * w);
+                    };
+                    weightInput.addEventListener('input', updateSubtotal);
+                    updateSubtotal();
+                    addButton.addEventListener('click', () => {
+                        let w = parseFloat(weightInput.value);
+                        if (isNaN(w) || w <= 0) { alert("⚠️ Digite um peso válido"); return; }
+                        if (addToCart(p, w)) {
+                            const toast = document.createElement('div');
+                            toast.textContent = `✅ ${p.name} adicionado!`;
+                            toast.style.cssText = 'position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#2ecc71; color:#1A1A1A; padding:8px 16px; border-radius:30px; z-index:3000; font-weight:bold;';
+                            document.body.appendChild(toast);
+                            setTimeout(() => toast.remove(), 1500);
+                        }
+                    });
+                }
+            } else if (p.unit === 'KIT') {
+                const addButton = document.querySelector(`.product-card[data-id="${p.id}"] .kit-add`);
+                if(addButton) addButton.addEventListener('click', () => { if(addToCart(p,1)){ const toast = document.createElement('div'); toast.textContent = `✅ ${p.name} adicionado!`; toast.style.cssText = 'position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#2ecc71; color:#1A1A1A; padding:8px 16px; border-radius:30px; z-index:3000;'; document.body.appendChild(toast); setTimeout(() => toast.remove(), 1500); } });
+            } else if (p.isSpecial) {
+                const customizeBtn = document.querySelector('.customize-btn');
+                if(customizeBtn) customizeBtn.addEventListener('click', () => {
+                    currentEditingCustomIndex = null;
+                    document.getElementById('moedaKg').value = '1.0';
+                    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
+                    document.querySelector('.type-btn[data-tipo="Patinho"]').classList.add('active-type');
+                    document.getElementById('outroTipoField').classList.add('hidden-field');
+                    document.querySelectorAll('.moagem-btn').forEach(b => { if(parseInt(b.dataset.vezes) === 1) b.classList.add('active-moagem'); else b.classList.remove('active-moagem'); });
+                    document.getElementById('moedaVezes').value = '1';
+                    atualizarPrecoPersonalizacao();
+                    document.getElementById('customModal').style.display = 'flex';
+                });
+            }
+        });
+        document.querySelectorAll('.ad-card-16x9').forEach(ad => ad.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank')));
     }
-
-    function addCarneMoidaToCart(tipo, kg, vezes, precoPorKg, editIndex = null) {
-        let q = parseFloat(kg);
-        if (isNaN(q) || q <= 0) return false;
-        let total = precoPorKg * q;
-        let desc = `${tipo} - ${q.toString().replace('.',',')} kg - moer ${vezes} vez${vezes>1?'es':''} - ${formatCurrency(precoPorKg)}/kg`;
-        let item = {
-            id: "cm1", name: "Carne Moída", descricaoCustom: desc, tipo: tipo, kg: q, vezes: vezes, precoKg: precoPorKg,
-            basePrice: precoPorKg, unit: "KG", quantityValue: q, quantityLabel: `${q.toString().replace('.',',')} kg`,
-            totalPrice: total, image: productsData.carneMoida[0].image, isCustom: true
-        };
-        if (editIndex !== null) cart[editIndex] = item;
-        else cart.push(item);
-        updateCartBadge();
-        return true;
+    
+    function renderProducts(category) { 
+        const prods = productsData[category]; 
+        if(prods) renderProductsFromSource(prods, category, false); 
     }
-
-    function addToCart(product, selectedValue) {
-        let q = parseFloat(selectedValue);
-        if (isNaN(q) || q <= 0) return false;
-        let label = product.unit === 'KG' ? `${q.toString().replace('.',',')} kg` : `${selectedValue} ${product.unit}${q>1?'s':''}`;
-        cart.push({ ...product, quantityValue: q, quantityLabel: label, totalPrice: product.basePrice * q, isCustom: false });
-        updateCartBadge();
-        return true;
+    
+    function performSearch(term) { 
+        currentSearchTerm = term; 
+        const clearBtn = document.getElementById('clearSearchBtn');
+        if(!term.trim()){
+            clearBtn.style.display = 'none';
+            document.getElementById('searchResultsCount').innerHTML = '';
+            renderProducts(currentActiveCategory);
+            document.querySelectorAll('.category-btn').forEach(btn => { if(btn.dataset.category === currentActiveCategory) btn.classList.add('active'); else btn.classList.remove('active'); });
+            return;
+        }
+        clearBtn.style.display = 'block';
+        const results = filterProductsBySearch(term);
+        if(results.length){
+            document.getElementById('searchResultsCount').innerHTML = `${results.length} resultado(s) encontrado(s)`;
+            renderProductsFromSource(results, null, true);
+        } else {
+            document.getElementById('searchResultsCount').innerHTML = 'Nenhum resultado';
+            renderProductsFromSource([], null, true);
+        }
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
     }
-
-    // ====================== FUNÇÕES DO CARRINHO ======================
+    
+    function smoothScrollToTitle() { requestAnimationFrame(() => { const sectionTitle = document.getElementById('sectionTitle'); if (sectionTitle) { const navbar = document.querySelector('.category-nav-container'); const navbarHeight = navbar ? navbar.offsetHeight : 0; const elementPosition = sectionTitle.getBoundingClientRect().top + window.scrollY; const offsetPosition = elementPosition - navbarHeight - 10; window.scrollTo({ top: offsetPosition, behavior: 'smooth' }); } }); }
+    
+    // Funções de preço e personalização (mantidas)
+    function atualizarPrecoPersonalizacao() { 
+        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo; 
+        if (tipo === 'Outro') { 
+            const nomeDigitado = document.getElementById('outroTipoInput').value.trim(); 
+            if (nomeDigitado === "") { document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: aguardando digitar o corte...`; return; } 
+            const preco = getPrecoPorTipo(nomeDigitado); 
+            if (preco !== null) document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`; 
+            else document.getElementById('precoDinamicoDisplay').innerHTML = `❌ Corte não encontrado.`; 
+            return; 
+        } 
+        const preco = getPrecoPorTipo(tipo); 
+        if (preco) document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`; 
+        else document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: R$ 29,90 / kg (estimado)`; 
+    }
+    function getPrecoPorTipo(tipo) { 
+        const map = new Map(); 
+        const cats = ['bovinos','suinos','aves','premium','variedades']; 
+        for(let cat of cats) if(productsData[cat]) productsData[cat].forEach(p=>{map.set(p.name,p.basePrice); map.set(p.name.toLowerCase(),p.basePrice);}); 
+        if(map.has(tipo)) return map.get(tipo); 
+        if(map.has(tipo.toLowerCase())) return map.get(tipo.toLowerCase()); 
+        return null; 
+    }
+    function addCarneMoidaToCart(tipo, kg, vezes, precoPorKg, editIndex = null) { 
+        let q = parseFloat(kg); if (isNaN(q) || q <= 0) return false; 
+        let total = precoPorKg * q; 
+        let desc = `${tipo} - ${q.toString().replace('.',',')} kg - moer ${vezes} vez${vezes>1?'es':''} - ${formatCurrency(precoPorKg)}/kg`; 
+        let item = { id: "cm1", name: "Carne Moída", descricaoCustom: desc, tipo: tipo, kg: q, vezes: vezes, precoKg: precoPorKg, basePrice: precoPorKg, unit: "KG", quantityValue: q, quantityLabel: `${q.toString().replace('.',',')} kg`, totalPrice: total, image: productsData.carneMoida[0].image, isCustom: true }; 
+        if (editIndex !== null) cart[editIndex] = item; else cart.push(item); 
+        updateCartBadge(); return true; 
+    }
+    function getPrecoAtualPersonalizacao() { 
+        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo; 
+        if (tipo === 'Outro') { const nomeDigitado = document.getElementById('outroTipoInput').value.trim(); if (nomeDigitado === "") return null; return getPrecoPorTipo(nomeDigitado); } 
+        return getPrecoPorTipo(tipo) || 29.90; 
+    }
+    
+    // Funções do carrinho (mantidas)
     function renderCartModal() {
         const container = document.getElementById('cartItemsContainer');
         if (!container) return;
@@ -498,114 +672,47 @@
         });
         container.innerHTML = html;
         document.getElementById('cartTotalDisplay').innerHTML = `💰 TOTAL: ${formatCurrency(totalSum)}`;
-        attachCartEvents();
+        document.querySelectorAll('.delete-item').forEach(btn => btn.addEventListener('click', () => { const idx = parseInt(btn.dataset.index); cart.splice(idx, 1); renderCartModal(); updateCartBadge(); }));
+        document.querySelectorAll('.edit-item').forEach(btn => btn.addEventListener('click', () => { const idx = parseInt(btn.dataset.index); const item = cart[idx]; if (item.isCustom) { currentEditingCustomIndex = idx; document.getElementById('moedaKg').value = item.kg; document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type')); let found = false; document.querySelectorAll('.type-btn').forEach(b => { if (b.dataset.tipo === item.tipo) { b.classList.add('active-type'); found = true; } }); if (!found) { document.querySelector('.type-btn[data-tipo="Outro"]').classList.add('active-type'); document.getElementById('outroTipoField').classList.remove('hidden-field'); document.getElementById('outroTipoInput').value = item.tipo; } else document.getElementById('outroTipoField').classList.add('hidden-field'); document.querySelectorAll('.moagem-btn').forEach(b => { if (parseInt(b.dataset.vezes) === item.vezes) b.classList.add('active-moagem'); else b.classList.remove('active-moagem'); }); document.getElementById('moedaVezes').value = item.vezes; atualizarPrecoPersonalizacao(); document.getElementById('customModal').style.display = 'flex'; } else { currentEditIndex = idx; const select = document.getElementById('editQuantitySelect'); let opts = item.unit === 'KG' ? [0.5, 1, 1.5, 2, 2.5, 3] : [1, 2, 3, 4, 5]; let options = ''; opts.forEach(v => { options += `<option value="${v}" ${item.quantityValue == v ? 'selected' : ''}>${item.unit === 'KG' ? v.toString().replace('.',',')+' kg' : v+' '+item.unit+(v>1?'s':'')}</option>`; }); select.innerHTML = options; document.getElementById('editModal').style.display = 'flex'; } }));
     }
+    function updateTotalDisplay() { let sum = cart.reduce((a, i) => a + i.totalPrice, 0); const totalDiv = document.getElementById('cartTotalDisplay'); if (totalDiv) totalDiv.innerHTML = `💰 TOTAL: ${formatCurrency(sum)}`; }
+    function setupOrderForm() { const changeDiv = document.getElementById('changeField'); const addressDiv = document.getElementById('addressField'); const updateChange = () => changeDiv.classList.toggle('hidden-field', document.querySelector('input[name="payment"]:checked')?.value !== 'Dinheiro'); const updateAddress = () => addressDiv.classList.toggle('hidden-field', document.querySelector('input[name="delivery"]:checked')?.value !== 'Delivery'); document.querySelectorAll('input[name="payment"]').forEach(r => r.addEventListener('change', updateChange)); document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', updateAddress)); updateChange(); updateAddress(); }
+    function isValidName() { const nome = document.getElementById('customerName').value.trim(); const nameError = document.getElementById('nameError'); if (nome === '') { if (nameError) nameError.style.display = 'block'; return false; } else { if (nameError) nameError.style.display = 'none'; return true; } }
+    function validateAndSend() { if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; } if (!isValidName()) { alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido."); return false; } const payment = document.querySelector('input[name="payment"]:checked')?.value; if (payment === 'Dinheiro') { const changeRaw = document.getElementById('changeAmount').value; if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; } } const delivery = document.querySelector('input[name="delivery"]:checked')?.value; if (delivery === 'Delivery') { const addr = document.getElementById('deliveryAddress').value.trim(); if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; } } return true; }
 
-    function updateTotalDisplay() {
-        let sum = cart.reduce((a, i) => a + i.totalPrice, 0);
-        const totalDiv = document.getElementById('cartTotalDisplay');
-        if (totalDiv) totalDiv.innerHTML = `💰 TOTAL: ${formatCurrency(sum)}`;
-    }
-
-    function attachCartEvents() {
-        document.querySelectorAll('.delete-item').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const idx = parseInt(btn.dataset.index);
-                cart.splice(idx, 1);
-                renderCartModal();
-                updateCartBadge();
-            });
-        });
-        document.querySelectorAll('.edit-item').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const idx = parseInt(btn.dataset.index);
-                const item = cart[idx];
-                if (item.isCustom) {
-                    currentEditingCustomIndex = idx;
-                    document.getElementById('moedaKg').value = item.kg;
-                    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
-                    let found = false;
-                    document.querySelectorAll('.type-btn').forEach(b => {
-                        if (b.dataset.tipo === item.tipo) { b.classList.add('active-type'); found = true; }
-                    });
-                    if (!found) {
-                        document.querySelector('.type-btn[data-tipo="Outro"]').classList.add('active-type');
-                        document.getElementById('outroTipoField').classList.remove('hidden-field');
-                        document.getElementById('outroTipoInput').value = item.tipo;
-                    } else document.getElementById('outroTipoField').classList.add('hidden-field');
-                    document.querySelectorAll('.moagem-btn').forEach(b => {
-                        if (parseInt(b.dataset.vezes) === item.vezes) b.classList.add('active-moagem');
-                        else b.classList.remove('active-moagem');
-                    });
-                    document.getElementById('moedaVezes').value = item.vezes;
-                    atualizarPrecoPersonalizacao();
-                    document.getElementById('customModal').style.display = 'flex';
-                } else {
-                    currentEditIndex = idx;
-                    const select = document.getElementById('editQuantitySelect');
-                    let opts = item.unit === 'KG' ? [0.5, 1, 1.5, 2, 2.5, 3] : [1, 2, 3, 4, 5];
-                    let options = '';
-                    opts.forEach(v => { options += `<option value="${v}" ${item.quantityValue == v ? 'selected' : ''}>${item.unit === 'KG' ? v.toString().replace('.',',')+' kg' : v+' '+item.unit+(v>1?'s':'')}</option>`; });
-                    select.innerHTML = options;
-                    document.getElementById('editModal').style.display = 'flex';
-                }
-            });
-        });
-    }
-
-    function showQuantityModal(product) {
-        pendingTipProduct = product;
-        document.getElementById('quantityProductName').innerHTML = `<strong>${product.name}</strong> - ${formatCurrency(product.basePrice)}/kg`;
-        const grid = document.getElementById('weightGrid');
-        const opts = [0.5, 1, 1.5, 2, 2.5, 3];
-        grid.innerHTML = opts.map(w => `<div class="weight-option" data-weight="${w}">${w.toString().replace('.',',')} kg</div>`).join('');
-        document.querySelectorAll('.weight-option').forEach(opt => opt.classList.remove('active-weight-option'));
-        if (opts.length) document.querySelector('.weight-option').classList.add('active-weight-option');
-        document.getElementById('quantityModal').style.display = 'flex';
-    }
-
-    function isValidName() {
-        const nomeInput = document.getElementById('customerName');
-        const nome = nomeInput ? nomeInput.value.trim() : '';
-        const nameError = document.getElementById('nameError');
-        if (nome === '') {
-            if (nameError) nameError.style.display = 'block';
-            if (nomeInput) nomeInput.classList.add('required-field');
-            return false;
-        } else {
-            if (nameError) nameError.style.display = 'none';
-            if (nomeInput) nomeInput.classList.remove('required-field');
-            return true;
-        }
-    }
-
+    // 🔧 MENSAGEM DO WHATSAPP REFORMATADA (ORGANIZADA COM NEGRITO E ESPAÇAMENTO)
     function sendOrderToWhatsApp(isScheduled = false, scheduleDatetime = null, scheduleObs = '') {
         if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; }
         if (!isValidName()) { alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido."); return false; }
+        
         const nomeCliente = document.getElementById('customerName').value.trim();
         const payment = document.querySelector('input[name="payment"]:checked')?.value;
         let changeText = '';
         if (payment === 'Dinheiro') {
             const changeRaw = document.getElementById('changeAmount').value;
             if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; }
-            changeText = `\n💰 Troco para: ${changeRaw}`;
+            changeText = `\n*Troco para:* ${changeRaw}`;
         }
         const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
         let addressText = '';
         if (delivery === 'Delivery') {
             const addr = document.getElementById('deliveryAddress').value.trim();
             if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; }
-            addressText = `\n📍 Endereço: ${addr}`;
+            addressText = `\n*Endereço:* ${addr}`;
         }
-        let message = ``;
+        
+        let message = '';
+        
         if (isScheduled) {
             message += `⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;
             message += `📅 *Agendamento solicitado:* ${scheduleDatetime || 'A combinar'}\n`;
             if (scheduleObs) message += `✏️ *Observações:* ${scheduleObs}\n`;
             message += `🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;
         }
+        
         message += `🍖 *CENTER CARNES SKALA* 🍖\n`;
         message += `👤 *Cliente:* ${nomeCliente}\n\n`;
+        message += `📋 *ITENS DO PEDIDO:*\n`;
         let total = 0;
         cart.forEach(item => {
             let nome = item.name;
@@ -613,181 +720,113 @@
             message += `• ${nome} - ${item.quantityLabel} = ${formatCurrency(item.totalPrice)}\n`;
             total += item.totalPrice;
         });
-        message += `\n📦 *TOTAL: ${formatCurrency(total)}*`;
-        message += `\n💳 Pagamento: ${payment}${changeText}`;
-        message += `\n🚚 Entrega: ${delivery}${addressText}`;
-        message += `\n\n🔔 Peço que confirmem meu pedido.`;
+        message += `\n📦 *TOTAL:* ${formatCurrency(total)}\n\n`;
+        message += `💳 *Pagamento:* ${payment}${changeText}\n`;
+        message += `🚚 *Entrega:* ${delivery}${addressText}\n\n`;
+        message += `🔔 Peço que confirmem meu pedido.`;
+        
         window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`, '_blank');
         return true;
     }
-
-    function setupOrderForm() {
-        const changeDiv = document.getElementById('changeField');
-        const addressDiv = document.getElementById('addressField');
-        const updateChange = () => changeDiv.classList.toggle('hidden-field', document.querySelector('input[name="payment"]:checked')?.value !== 'Dinheiro');
-        const updateAddress = () => addressDiv.classList.toggle('hidden-field', document.querySelector('input[name="delivery"]:checked')?.value !== 'Delivery');
-        document.querySelectorAll('input[name="payment"]').forEach(r => r.addEventListener('change', updateChange));
-        document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', updateAddress));
-        updateChange(); updateAddress();
-        const nomeInput = document.getElementById('customerName');
-        if (nomeInput) nomeInput.addEventListener('input', () => { const err = document.getElementById('nameError'); if (nomeInput.value.trim() !== '') { if (err) err.style.display = 'none'; nomeInput.classList.remove('required-field'); } });
-    }
-
-    function validateAndSend() {
-        if (cart.length === 0) { alert("Adicione itens ao pedido."); return false; }
-        if (!isValidName()) { alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido."); return false; }
-        const payment = document.querySelector('input[name="payment"]:checked')?.value;
-        if (payment === 'Dinheiro') { const changeRaw = document.getElementById('changeAmount').value; if (!changeRaw.trim()) { alert("⚠️ Para pagamento em dinheiro, informe o valor do troco."); return false; } }
-        const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
-        if (delivery === 'Delivery') { const addr = document.getElementById('deliveryAddress').value.trim(); if (!addr) { alert("⚠️ Para delivery, informe o endereço completo."); return false; } }
-        return true;
-    }
-
-    function smoothScrollToTitle() {
-        requestAnimationFrame(() => {
-            const sectionTitle = document.getElementById('sectionTitle');
-            if (sectionTitle) {
-                const navbar = document.querySelector('.category-nav-container');
-                const navbarHeight = navbar ? navbar.offsetHeight : 0;
-                const elementPosition = sectionTitle.getBoundingClientRect().top + window.scrollY;
-                const offsetPosition = elementPosition - navbarHeight - 10;
-                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-            }
-        });
-    }
-
-    // ====================== ANÚNCIOS 16:9 (APENAS NAS SEÇÕES SOLICITADAS) ======================
-    function getInlineAdsHTML() {
-        return `
-            <div class="inline-ads-container">
-                <div class="ad-card-16x9" data-ad="1">
-                    <div>
-                        <div class="ad-icon">🚀</div>
-                        <div class="ad-title">Destaque sua Marca</div>
-                        <div class="ad-description">Seu negócio visto por milhares de clientes.</div>
-                        <div class="ad-cta">Quero Anunciar →</div>
-                    </div>
-                </div>
-                <div class="ad-card-16x9" data-ad="2">
-                    <div>
-                        <div class="ad-icon">📈</div>
-                        <div class="ad-title">Aumente suas Vendas</div>
-                        <div class="ad-description">Público fiel e engajado.</div>
-                        <div class="ad-cta">Saiba Mais →</div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    function renderProducts(category) {
-        const feed = document.getElementById('productFeed');
-        let products = productsData[category];
-        if (!products) return;
-        let title = "🔥 Destaques da Semana";
-        if (category === 'carneMoida') title = "🥩 Personalize sua Carne Moída";
-        else if (category === 'aves') title = "🐔 Aves - Tabela Completa";
-        else if (category === 'suinos') title = "🐷 Cortes Suínos";
-        else if (category === 'bovinos') title = "🐂 Cortes Bovinos";
-        else if (category === 'kits') title = "🎁 Kits Especiais - Skala";
-        else if (category === 'premium') title = "⭐ Linha Premium";
-        else if (category === 'variedades') title = "🍖 Variedades";
-        document.getElementById('sectionTitle').innerHTML = title;
+    
+    // ===== LETREIRO DESLIZANTE CORRIGIDO =====
+    // Explicação: 
+    // - Mensagem 1: "📢 dia 19/06 horário normal" aparece desde 01/06 até 19/06 20:00.
+    // - Mensagem 2: "📢 dia 24/06 até 18:20 h" aparece desde 01/06 até 24/06 18:20.
+    // As duas podem aparecer juntas (ex: entre 01/06 e 19/06 antes das 20h).
+    // Após 20h do dia 19, a primeira some; a segunda continua até 24/06 18:20.
+    // Após 18:20 do dia 24, ambas somem (letreiro desaparece).
+    function updateTicker() {
+        const now = new Date();
+        const month = now.getMonth(); // 0-11
+        const day = now.getDate();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
         
-        let productsHTML = products.map(p => {
-            if (p.isSpecial) {
-                return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div><span class="product-price">a partir de ${formatCurrency(p.basePrice)}/kg</span><button class="customize-btn" data-id="${p.id}"><span>⚙️</span> Personalizar</button></div></div></div>`;
-            } else if (p.unit === 'KIT') {
-                return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div style="display:flex; justify-content:flex-end;"><span class="product-price">${formatCurrency(p.basePrice)}</span><button class="add-btn kit-add" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;
-            } else {
-                return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div class="weight-input-area"><label>⚖️ Peso (kg):</label><input type="number" class="weight-input" id="weight-${p.id}" step="0.1" min="0.1" value="1.0"></div><div style="display:flex; justify-content:space-between;"><span class="product-price" id="price-${p.id}">${formatCurrency(p.basePrice)}</span><button class="add-btn" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;
-            }
-        }).join('');
+        const isJune = (month === 5); // junho = mês 5
         
-        // ADICIONA ANÚNCIOS 16:9 APENAS NAS SEÇÕES BOVINOS, AVES E CARNE MOÍDA
-        if (category === 'bovinos' || category === 'aves' || category === 'carneMoida') {
-            productsHTML += getInlineAdsHTML();
-        }
-        feed.innerHTML = productsHTML;
-        
-        // Eventos para produtos comuns (KG)
-        if (category !== 'carneMoida' && category !== 'kits') {
-            products.forEach(p => {
-                if (p.unit === 'KG') {
-                    const card = document.querySelector(`.product-card[data-id="${p.id}"]`);
-                    if (!card) return;
-                    const weightInput = card.querySelector('.weight-input');
-                    const priceSpan = document.getElementById(`price-${p.id}`);
-                    const addButton = card.querySelector('.add-btn');
-                    const updatePrice = () => {
-                        let w = parseFloat(weightInput.value);
-                        if (isNaN(w) || w <= 0) w = 1.0;
-                        priceSpan.innerText = formatCurrency(p.basePrice * w);
-                    };
-                    weightInput.addEventListener('input', updatePrice);
-                    updatePrice();
-                    addButton.addEventListener('click', () => {
-                        let w = parseFloat(weightInput.value);
-                        if (isNaN(w) || w <= 0) { alert("⚠️ Digite um peso válido"); return; }
-                        if (addToCart(p, w)) {
-                            const toast = document.createElement('div');
-                            toast.textContent = `✅ ${p.name} adicionado!`;
-                            toast.style.cssText = 'position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#2ecc71; color:#1A1A1A; padding:8px 16px; border-radius:30px; z-index:3000; font-weight:bold;';
-                            document.body.appendChild(toast);
-                            setTimeout(() => toast.remove(), 1500);
-                        }
-                    });
+        // Mensagem 1: válida até 19/06 20:00
+        let showMsg1 = false;
+        if (isJune && day <= 19) {
+            if (day < 19) {
+                showMsg1 = true; // antes do dia 19, mostra o dia todo
+            } else if (day === 19) {
+                // mostra apenas se horário < 20:00
+                if (hours < 20 || (hours === 20 && minutes === 0)) {
+                    showMsg1 = true;
                 }
-            });
-        } else if (category === 'kits') {
-            products.forEach(p => {
-                const addButton = document.querySelector(`.product-card[data-id="${p.id}"] .kit-add`);
-                if (addButton) {
-                    addButton.addEventListener('click', () => {
-                        if (addToCart(p, 1)) {
-                            const toast = document.createElement('div');
-                            toast.textContent = `✅ ${p.name} adicionado!`;
-                            toast.style.cssText = 'position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:#2ecc71; color:#1A1A1A; padding:8px 16px; border-radius:30px; z-index:3000;';
-                            document.body.appendChild(toast);
-                            setTimeout(() => toast.remove(), 1500);
-                        }
-                    });
-                }
-            });
-        } else if (category === 'carneMoida') {
-            const customizeBtn = document.querySelector('.customize-btn');
-            if (customizeBtn) {
-                customizeBtn.addEventListener('click', () => {
-                    currentEditingCustomIndex = null;
-                    document.getElementById('moedaKg').value = '1.0';
-                    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
-                    document.querySelector('.type-btn[data-tipo="Patinho"]').classList.add('active-type');
-                    document.getElementById('outroTipoField').classList.add('hidden-field');
-                    document.querySelectorAll('.moagem-btn').forEach(b => {
-                        if (parseInt(b.dataset.vezes) === 1) b.classList.add('active-moagem');
-                        else b.classList.remove('active-moagem');
-                    });
-                    document.getElementById('moedaVezes').value = '1';
-                    atualizarPrecoPersonalizacao();
-                    document.getElementById('customModal').style.display = 'flex';
-                });
             }
         }
         
-        // Eventos de clique para os anúncios (abrir WhatsApp do anunciante)
-        document.querySelectorAll('.ad-card-16x9').forEach(ad => {
-            ad.addEventListener('click', () => window.open('https://wa.me/5534991058994', '_blank'));
+        // Mensagem 2: válida até 24/06 18:20
+        let showMsg2 = false;
+        if (isJune && day <= 24) {
+            if (day < 24) {
+                showMsg2 = true; // antes do dia 24, mostra o dia todo
+            } else if (day === 24) {
+                // mostra apenas se horário < 18:20
+                if (hours < 18 || (hours === 18 && minutes < 20)) {
+                    showMsg2 = true;
+                }
+            }
+        }
+        
+        const messages = [];
+        if (showMsg1) messages.push("📢 dia 19/06 horário normal");
+        if (showMsg2) messages.push("📢 dia 24/06 até 18:20 h");
+        
+        const tickerDiv = document.getElementById('tickerContent');
+        const wrapper = document.getElementById('tickerWrapper');
+        
+        if (messages.length === 0) {
+            wrapper.style.display = 'none';
+            return;
+        }
+        wrapper.style.display = 'block';
+        
+        // Cria o conteúdo repetido para rolagem infinita
+        let contentHtml = '';
+        messages.forEach(msg => {
+            contentHtml += `<span>🔹 ${msg} 🔹</span>`;
         });
+        // Repete 3 vezes para garantir preenchimento
+        let repeated = '';
+        for (let i = 0; i < 3; i++) {
+            repeated += contentHtml;
+        }
+        tickerDiv.innerHTML = repeated;
+        // Remove classe específica, pois a animação padrão funciona bem para qualquer quantidade
+        tickerDiv.classList.remove('single-item');
     }
-
-    // ====================== INICIALIZAÇÃO ======================
+    
+    // Inicialização
     window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-            document.getElementById('splashScreen').style.opacity = '0';
-            document.getElementById('splashScreen').style.visibility = 'hidden';
-            document.getElementById('appContainer').style.opacity = '1';
-        }, 2500);
+        setTimeout(() => { document.getElementById('splashScreen').style.opacity = '0'; document.getElementById('splashScreen').style.visibility = 'hidden'; document.getElementById('appContainer').style.opacity = '1'; }, 2500);
         renderProducts('bovinos');
+        currentActiveCategory = 'bovinos';
+        
+        // Inicializa e atualiza o letreiro a cada minuto
+        updateTicker();
+        setInterval(updateTicker, 60000);
+        
+        const searchInput = document.getElementById('globalSearchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        searchInput.addEventListener('input', (e) => { performSearch(e.target.value); });
+        clearBtn.addEventListener('click', () => { searchInput.value = ''; performSearch(''); clearBtn.style.display = 'none'; document.querySelectorAll('.category-btn').forEach(btn => { if(btn.dataset.category === currentActiveCategory) btn.classList.add('active'); else btn.classList.remove('active'); }); renderProducts(currentActiveCategory); smoothScrollToTitle(); });
+        
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cat = btn.dataset.category;
+                currentActiveCategory = cat;
+                searchInput.value = '';
+                performSearch('');
+                clearBtn.style.display = 'none';
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProducts(cat);
+                smoothScrollToTitle();
+            });
+        });
         
         const tipsGrid = document.getElementById('tipsGrid');
         tipsGrid.innerHTML = dicasPreparo.map(d => `<div class="tip-card" data-dica="${d.nome}"><div class="tip-icon">${d.icone}</div><div class="tip-name">${d.nome}</div><div class="tip-cuts">${d.cortes.join(', ')}</div></div>`).join('');
@@ -799,8 +838,8 @@
                 const listDiv = document.getElementById('tipsModalList');
                 listDiv.innerHTML = dica.cortes.map(corte => {
                     let produto = findProductByName(corte);
-                    if (produto) return `<div class="tips-list-item"><span>🥩 ${produto.name}</span><button onclick="addProdutoDireto('${produto.id}')">Adicionar</button></div>`;
-                    else return `<div class="tips-list-item"><span>❌ ${corte}</span><button disabled>Indisponível</button></div>`;
+                    if (produto) return `<div class="tips-list-item" style="display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #333;"><span>🥩 ${produto.name}</span><button onclick="addProdutoDireto('${produto.id}')" style="background:#E65100; border:none; color:white; padding:4px 12px; border-radius:20px; cursor:pointer;">Adicionar</button></div>`;
+                    else return `<div class="tips-list-item" style="padding:10px; border-bottom:1px solid #333;"><span>❌ ${corte}</span><button disabled style="background:#555; border:none; color:#aaa; padding:4px 12px; border-radius:20px;">Indisponível</button></div>`;
                 }).join('');
                 document.getElementById('tipsModal').style.display = 'flex';
             });
@@ -813,14 +852,15 @@
             else alert("Erro");
         };
         
-        document.getElementById('weightGrid').addEventListener('click', (e) => {
+        // Modais de quantidade
+        document.getElementById('weightGrid')?.addEventListener('click', (e) => {
             if (e.target.classList.contains('weight-option')) {
                 document.querySelectorAll('.weight-option').forEach(el => el.classList.remove('active-weight-option'));
                 e.target.classList.add('active-weight-option');
                 selectedQuantity = parseFloat(e.target.dataset.weight);
             }
         });
-        document.getElementById('confirmQuantityBtn').addEventListener('click', () => {
+        document.getElementById('confirmQuantityBtn')?.addEventListener('click', () => {
             if (!pendingTipProduct) return;
             let qty = selectedQuantity;
             if (!qty) { const first = document.querySelector('.weight-option'); if (first) qty = parseFloat(first.dataset.weight); else { alert("Selecione o peso."); return; } }
@@ -830,20 +870,9 @@
                 selectedQuantity = null;
             }
         });
-        document.getElementById('cancelQuantityBtn').addEventListener('click', () => {
-            document.getElementById('quantityModal').style.display = 'none';
-            pendingTipProduct = null;
-        });
+        document.getElementById('cancelQuantityBtn')?.addEventListener('click', () => { document.getElementById('quantityModal').style.display = 'none'; pendingTipProduct = null; });
         
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderProducts(btn.dataset.category);
-                smoothScrollToTitle();
-            });
-        });
-        
+        // Modais de personalização
         document.querySelectorAll('.type-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
@@ -853,8 +882,8 @@
                 atualizarPrecoPersonalizacao();
             });
         });
-        document.getElementById('outroTipoInput')?.addEventListener('input', () => atualizarPrecoPersonalizacao());
-        document.getElementById('moedaKg')?.addEventListener('input', () => atualizarPrecoPersonalizacao());
+        document.getElementById('outroTipoInput')?.addEventListener('input', atualizarPrecoPersonalizacao);
+        document.getElementById('moedaKg')?.addEventListener('input', atualizarPrecoPersonalizacao);
         document.getElementById('cancelCustomBtn')?.addEventListener('click', () => document.getElementById('customModal').style.display = 'none');
         document.getElementById('confirmCustomBtn')?.addEventListener('click', () => {
             const kg = parseFloat(document.getElementById('moedaKg').value);
@@ -882,6 +911,7 @@
             });
         });
         
+        // Botão do carrinho e modais
         const orderBtn = document.getElementById('orderBtn');
         const cartModal = document.getElementById('cartModal');
         const closeCart = document.getElementById('closeCartModal');
@@ -891,7 +921,6 @@
         const closeSchedule = document.getElementById('closeScheduleModal');
         const cancelSchedule = document.getElementById('cancelScheduleBtn');
         const confirmSchedule = document.getElementById('confirmScheduleBtn');
-        
         orderBtn.addEventListener('click', (e) => { e.preventDefault(); renderCartModal(); setupOrderForm(); cartModal.style.display = 'flex'; });
         closeCart.addEventListener('click', () => cartModal.style.display = 'none');
         continueBtn.addEventListener('click', () => cartModal.style.display = 'none');
@@ -912,7 +941,6 @@
                 }
             } else { sendOrderToWhatsApp(true, datetime, obs); scheduleModal.style.display = 'none'; }
         });
-        
         document.getElementById('confirmEditBtn').addEventListener('click', () => {
             if (currentEditIndex !== null) {
                 const newVal = parseFloat(document.getElementById('editQuantitySelect').value);
@@ -926,10 +954,7 @@
                 currentEditIndex = null;
             }
         });
-        document.getElementById('cancelEditBtn').addEventListener('click', () => {
-            document.getElementById('editModal').style.display = 'none';
-            currentEditIndex = null;
-        });
+        document.getElementById('cancelEditBtn').addEventListener('click', () => { document.getElementById('editModal').style.display = 'none'; currentEditIndex = null; });
         updateCartBadge();
     });
 </script>
