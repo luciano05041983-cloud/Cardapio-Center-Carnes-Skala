@@ -443,8 +443,8 @@
         .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
 
         /* MODAIS */
-        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.75); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content { background: #FFFFFF; width: 90%; max-width: 440px; max-height: 90vh; border-radius: 28px; border-top: 4px solid #D4AF37; padding: 24px; overflow-y: auto; animation: zoomIn 0.3s ease; color: #1A1A1A; }
+        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal, .search-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.75); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content, .search-modal-content { background: #FFFFFF; width: 90%; max-width: 440px; max-height: 90vh; border-radius: 28px; border-top: 4px solid #D4AF37; padding: 24px; overflow-y: auto; animation: zoomIn 0.3s ease; color: #1A1A1A; }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .cart-modal-header, .custom-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .close-modal { font-size: 28px; cursor: pointer; color: #888; }
@@ -493,6 +493,67 @@
         .custom-field label { display: block; margin-bottom: 8px; font-weight: 600; color: #1A1A1A; }
         .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #F5F5F5; border: 1px solid #DDD; border-radius: 30px; color: #1A1A1A; font-family: inherit; }
         .error-message { color: #E65100; font-size: 0.7rem; display: block; margin-top: 4px; }
+
+        /* ESTILOS DO MODAL DE PESQUISA */
+        .search-result-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #EEEEEE;
+            align-items: center;
+        }
+        .search-result-item:last-child { border-bottom: none; }
+        .search-result-image {
+            width: 60px;
+            height: 60px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .search-result-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .search-result-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1A1A1A;
+        }
+        .search-result-name .highlight {
+            background-color: #FFE082;
+            font-weight: 900;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+        .search-result-price {
+            font-weight: 600;
+            color: #E65100;
+            font-size: 0.85rem;
+        }
+        .search-result-add {
+            background-color: #E65100;
+            border: none;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .search-result-add:active { transform: scale(0.95); background-color: #2ecc71; }
+        .search-modal-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #888;
+            font-size: 1rem;
+        }
+        .search-modal-empty span { font-size: 3rem; display: block; margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -618,6 +679,17 @@
 
 <div id="quantityModal" class="quantity-modal"><div class="quantity-modal-content"><h3>⚖️ Selecione o peso</h3><div id="quantityProductName" style="margin-bottom:10px;"></div><div class="weight-grid" id="weightGrid"></div><div class="quantity-modal-buttons"><button id="cancelQuantityBtn" class="btn-cancel">Cancelar</button><button id="confirmQuantityBtn" class="btn-confirm">Adicionar ao carrinho</button></div></div></div>
 
+<!-- MODAL DE PESQUISA EM TEMPO REAL -->
+<div id="searchModal" class="search-modal">
+    <div class="search-modal-content">
+        <div class="cart-modal-header">
+            <h2>🔎 Resultados da pesquisa</h2>
+            <span class="close-modal" id="closeSearchModal">&times;</span>
+        </div>
+        <div id="searchResultsContainer" style="max-height: 60vh; overflow-y: auto;"></div>
+    </div>
+</div>
+
 <script>
     // ====================== FUNÇÕES AUXILIARES ======================
     function formatCurrency(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
@@ -663,7 +735,127 @@
     function getInlineAdsHTML(){return `<div class="inline-ads-container"><div class="ad-card-16x9" data-ad="1"><div><div class="ad-icon">🚀</div><div class="ad-title">Destaque sua Marca</div><div class="ad-description">Seu negócio visto por milhares de clientes.</div><div class="ad-cta">Quero Anunciar →</div></div></div></div>`;}
     function renderProductsFromSource(productsArray,sourceCategory=null,isSearch=false){const feed=document.getElementById('productFeed');if(!productsArray.length){feed.innerHTML='<div style="text-align:center; padding:40px;">🔎 Nenhum produto encontrado para sua busca.</div>';document.getElementById('sectionTitle').innerHTML=isSearch?`🔎 Resultados para "${currentSearchTerm}"`:"🔥 Destaques da Semana";return;}let title=isSearch?`🔎 Resultados para "${currentSearchTerm}" (${productsArray.length})`:(sourceCategory==='carneMoida'?"🥩 Personalize sua Carne Moída":(sourceCategory==='aves'?"🐔 Aves - Tabela Completa":(sourceCategory==='suinos'?"🐷 Cortes Suínos":(sourceCategory==='bovinos'?"🐂 Cortes Bovinos":(sourceCategory==='kits'?"🎁 Kits Especiais - Skala":(sourceCategory==='premium'?"⭐ Linha Premium":(sourceCategory==='variedades'?"🍖 Variedades":"🔥 Destaques da Semana")))))));document.getElementById('sectionTitle').innerHTML=title;let productsHTML=productsArray.map(p=>{if(p.isSpecial){return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div><span class="product-price-kg">a partir de ${formatCurrency(p.basePrice)}/kg</span><button class="customize-btn" data-id="${p.id}"><span>⚙️</span> Personalizar</button></div></div></div>`;}else if(p.unit==='KIT'){return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div style="display:flex; justify-content:flex-end;"><span class="product-price">${formatCurrency(p.basePrice)}</span><button class="add-btn kit-add" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;}else{return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div class="weight-subtotal-row"><div class="weight-input-area"><label>⚖️ Peso (kg):</label><input type="number" class="weight-input" id="weight-${p.id}" step="0.1" min="0.1" value="1.0"></div><div class="product-subtotal">Subtotal: <span id="subtotal-${p.id}">${formatCurrency(p.basePrice)}</span></div></div><div class="price-btn-row"><span class="product-price-kg">${formatCurrency(p.basePrice)}/kg</span><button class="add-btn" data-id="${p.id}">+ Pedir</button></div></div></div>`;}}).join('');if(!isSearch&&(sourceCategory==='bovinos'||sourceCategory==='aves'||sourceCategory==='carneMoida')){productsHTML+=getInlineAdsHTML();}feed.innerHTML=productsHTML;productsArray.forEach(p=>{if(!p.isSpecial&&p.unit!=='KIT'){const card=document.querySelector(`.product-card[data-id="${p.id}"]`);if(card){const weightInput=card.querySelector('.weight-input');const subtotalSpan=document.getElementById(`subtotal-${p.id}`);const addButton=card.querySelector('.add-btn');const updateSubtotal=()=>{let w=parseFloat(weightInput.value);if(isNaN(w)||w<=0)w=1.0;subtotalSpan.innerText=formatCurrency(p.basePrice*w);};weightInput.addEventListener('input',updateSubtotal);updateSubtotal();addButton.addEventListener('click',()=>{let w=parseFloat(weightInput.value);if(isNaN(w)||w<=0){alert("⚠️ Digite um peso válido");return;}if(addToCart(p,w)){}});}}else if(p.unit==='KIT'){const addButton=document.querySelector(`.product-card[data-id="${p.id}"] .kit-add`);if(addButton)addButton.addEventListener('click',()=>{if(addToCart(p,1)){}});}else if(p.isSpecial){const customizeBtn=document.querySelector('.customize-btn');if(customizeBtn)customizeBtn.addEventListener('click',()=>{currentEditingCustomIndex=null;document.getElementById('moedaKg').value='1.0';document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));document.querySelector('.type-btn[data-tipo="Patinho"]').classList.add('active-type');document.getElementById('outroTipoField').classList.add('hidden-field');document.querySelectorAll('.moagem-btn').forEach(b=>{if(parseInt(b.dataset.vezes)===1)b.classList.add('active-moagem');else b.classList.remove('active-moagem');});document.getElementById('moedaVezes').value='1';atualizarPrecoPersonalizacao();document.getElementById('customModal').style.display='flex';});}});document.querySelectorAll('.ad-card-16x9').forEach(ad=>ad.addEventListener('click',()=>window.open('https://wa.me/5534991058994','_blank')));}
     function renderProducts(category){const prods=productsData[category];if(prods)renderProductsFromSource(prods,category,false);}
-    function performSearch(term){currentSearchTerm=term;const clearBtn=document.getElementById('clearSearchBtn');if(!term.trim()){clearBtn.style.display='none';document.getElementById('searchResultsCount').innerHTML='';renderProducts(currentActiveCategory);document.querySelectorAll('.category-btn').forEach(btn=>{if(btn.dataset.category===currentActiveCategory)btn.classList.add('active');else btn.classList.remove('active');});return;}clearBtn.style.display='block';const results=filterProductsBySearch(term);if(results.length){document.getElementById('searchResultsCount').innerHTML=`${results.length} resultado(s) encontrado(s)`;renderProductsFromSource(results,null,true);}else{document.getElementById('searchResultsCount').innerHTML='Nenhum resultado';renderProductsFromSource([],null,true);}document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));}
+    
+    // ========== FUNÇÕES DO MODAL DE PESQUISA ==========
+    function highlightText(text, term) {
+        const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escaped})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function renderSearchResults(term) {
+        const container = document.getElementById('searchResultsContainer');
+        if (!term || term.trim() === '') {
+            container.innerHTML = '';
+            document.getElementById('searchModal').style.display = 'none';
+            return;
+        }
+        const results = filterProductsBySearch(term);
+        if (results.length === 0) {
+            container.innerHTML = `
+                <div class="search-modal-empty">
+                    <span>🔍</span>
+                    Nenhum produto encontrado para "<strong>${term}</strong>".
+                </div>
+            `;
+        } else {
+            let html = '';
+            results.forEach(p => {
+                const highlightedName = highlightText(p.name, term);
+                html += `
+                    <div class="search-result-item">
+                        <div class="search-result-image" style="background-image:url('${p.image}')"></div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">${highlightedName}</div>
+                            <div class="search-result-price">${formatCurrency(p.basePrice)}${p.unit==='KIT'?' (kit)':'/kg'}</div>
+                        </div>
+                        <button class="search-result-add" data-id="${p.id}" data-category="${p.originalCategory}" data-unit="${p.unit}" data-isspecial="${p.isSpecial||false}">+</button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            // Adicionar eventos aos botões de adicionar
+            container.querySelectorAll('.search-result-add').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = this.dataset.id;
+                    const isSpecial = this.dataset.isspecial === 'true';
+                    const unit = this.dataset.unit;
+                    // Encontrar o produto completo
+                    let product = null;
+                    for (let cat in productsData) {
+                        const found = productsData[cat].find(p => p.id === id);
+                        if (found) { product = found; break; }
+                    }
+                    if (!product) return;
+                    
+                    // Fechar o modal de pesquisa antes de abrir o modal de quantidade
+                    document.getElementById('searchModal').style.display = 'none';
+
+                    if (product.isSpecial) {
+                        // Abrir modal de personalização
+                        currentEditingCustomIndex = null;
+                        document.getElementById('moedaKg').value = '1.0';
+                        document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
+                        document.querySelector('.type-btn[data-tipo="Patinho"]').classList.add('active-type');
+                        document.getElementById('outroTipoField').classList.add('hidden-field');
+                        document.querySelectorAll('.moagem-btn').forEach(b => {
+                            if (parseInt(b.dataset.vezes) === 1) b.classList.add('active-moagem');
+                            else b.classList.remove('active-moagem');
+                        });
+                        document.getElementById('moedaVezes').value = '1';
+                        atualizarPrecoPersonalizacao();
+                        document.getElementById('customModal').style.display = 'flex';
+                        return;
+                    }
+                    if (product.unit === 'KIT') {
+                        // Adiciona direto 1 unidade
+                        if (addToCart(product, 1)) {
+                            // Mantém modal fechado
+                        }
+                        return;
+                    }
+                    // Para carnes normais (KG), abre o modal de quantidade
+                    showQuantityModal(product);
+                });
+            });
+        }
+        // Exibir o modal (já está visível, mas garantimos)
+        document.getElementById('searchModal').style.display = 'flex';
+    }
+
+    // Fechar modal de pesquisa
+    function closeSearchModal() {
+        document.getElementById('searchModal').style.display = 'none';
+        // Não limpa o campo de pesquisa para permitir nova busca ao digitar novamente
+    }
+
+    // ===== FIM FUNÇÕES MODAL PESQUISA =====
+
+    function performSearch(term) {
+        currentSearchTerm = term;
+        const clearBtn = document.getElementById('clearSearchBtn');
+        const countDiv = document.getElementById('searchResultsCount');
+        if (!term.trim()) {
+            clearBtn.style.display = 'none';
+            countDiv.innerHTML = '';
+            renderProducts(currentActiveCategory);
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.dataset.category === currentActiveCategory) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            closeSearchModal();
+            return;
+        }
+        clearBtn.style.display = 'block';
+        const results = filterProductsBySearch(term);
+        countDiv.innerHTML = results.length ? `${results.length} resultado(s) encontrado(s)` : 'Nenhum resultado';
+        // Renderizar no modal
+        renderSearchResults(term);
+        // A categoria ativa não é alterada, mantém a visualização do feed inalterada
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+    }
+
     function smoothScrollToTitle(){requestAnimationFrame(()=>{const sectionTitle=document.getElementById('sectionTitle');if(sectionTitle){const navbar=document.querySelector('.category-nav-container');const navbarHeight=navbar?navbar.offsetHeight:0;const elementPosition=sectionTitle.getBoundingClientRect().top+window.scrollY;const offsetPosition=elementPosition-navbarHeight-10;window.scrollTo({top:offsetPosition,behavior:'smooth'});}});}
     
     // Função para atualizar preço por kg (já existente)
@@ -732,7 +924,231 @@
     function validateAndSend(){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const payment=document.querySelector('input[name="payment"]:checked')?.value;if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}}return true;}
     function sendOrderToWhatsApp(isScheduled=false,scheduleDatetime=null,scheduleObs=''){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const nomeCliente=document.getElementById('customerName').value.trim();const payment=document.querySelector('input[name="payment"]:checked')?.value;let changeText='';if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}changeText=`\n*Troco para:* ${changeRaw}`;}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;let addressText='';if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}addressText=`\n*Endereço:* ${addr}`;}let message='';if(isScheduled){message+=`⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;message+=`📅 *Agendamento solicitado:* ${scheduleDatetime||'A combinar'}\n`;if(scheduleObs)message+=`✏️ *Observações:* ${scheduleObs}\n`;message+=`🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;}message+=`🍖 *CENTER CARNES SKALA* 🍖\n`;message+=`👤 *Cliente:* ${nomeCliente}\n\n`;message+=`📋 *ITENS DO PEDIDO:*\n`;let total=0;cart.forEach(item=>{let nome=item.name;if(item.isCustom)nome=`Carne Moída (${item.descricaoCustom})`;message+=`• ${nome} - ${item.quantityLabel} = ${formatCurrency(item.totalPrice)}\n`;total+=item.totalPrice;});message+=`\n📦 *TOTAL:* ${formatCurrency(total)}\n\n`;message+=`💳 *Pagamento:* ${payment}${changeText}\n`;message+=`🚚 *Entrega:* ${delivery}${addressText}\n\n`;message+=`🔔 Peço que confirmem meu pedido.`;window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`,'_blank');return true;}
     function updateTicker(){const now=new Date();const month=now.getMonth();const day=now.getDate();const hours=now.getHours();const minutes=now.getMinutes();const isJune=(month===5);let showMsg1=false;if(isJune&&day<=19){if(day<19){showMsg1=true;}else if(day===19){if(hours<20||(hours===20&&minutes===0)){showMsg1=true;}}}let showMsg2=false;if(isJune&&day<=24){if(day<24){showMsg2=true;}else if(day===24){if(hours<18||(hours===18&&minutes<20)){showMsg2=true;}}}const messages=[];if(showMsg1)messages.push("📢 dia 19/06 horário normal");if(showMsg2)messages.push("📢 dia 24/06 até 18:20 h");const tickerDiv=document.getElementById('tickerContent');const wrapper=document.getElementById('tickerWrapper');if(messages.length===0){wrapper.style.display='none';return;}wrapper.style.display='block';let contentHtml='';messages.forEach(msg=>{contentHtml+=`<span>🔹 ${msg} 🔹</span>`;});let repeated='';for(let i=0;i<3;i++){repeated+=contentHtml;}tickerDiv.innerHTML=repeated;}
-    window.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{document.getElementById('splashScreen').style.opacity='0';document.getElementById('splashScreen').style.visibility='hidden';document.getElementById('appContainer').style.opacity='1';},2500);renderProducts('bovinos');currentActiveCategory='bovinos';updateTicker();setInterval(updateTicker,60000);const searchInput=document.getElementById('globalSearchInput');const clearBtn=document.getElementById('clearSearchBtn');searchInput.addEventListener('input',(e)=>{performSearch(e.target.value);});clearBtn.addEventListener('click',()=>{searchInput.value='';performSearch('');clearBtn.style.display='none';document.querySelectorAll('.category-btn').forEach(btn=>{if(btn.dataset.category===currentActiveCategory)btn.classList.add('active');else btn.classList.remove('active');});renderProducts(currentActiveCategory);smoothScrollToTitle();});document.querySelectorAll('.category-btn').forEach(btn=>{btn.addEventListener('click',()=>{const cat=btn.dataset.category;currentActiveCategory=cat;searchInput.value='';performSearch('');clearBtn.style.display='none';document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderProducts(cat);smoothScrollToTitle();});});const tipsGrid=document.getElementById('tipsGrid');tipsGrid.innerHTML=dicasPreparo.map(d=>`<div class="tip-card" data-dica="${d.nome}"><div class="tip-icon">${d.icone}</div><div class="tip-name">${d.nome}</div><div class="tip-cuts">${d.cortes.join(', ')}</div></div>`).join('');document.querySelectorAll('.tip-card').forEach(card=>{card.addEventListener('click',()=>{const nome=card.dataset.dica;const dica=dicasPreparo.find(d=>d.nome===nome);document.getElementById('tipsModalTitle').innerHTML=`${dica.icone} ${dica.nome} - Cortes recomendados`;const listDiv=document.getElementById('tipsModalList');listDiv.innerHTML=dica.cortes.map(corte=>{let produto=findProductByName(corte);if(produto){return `<div style="margin-bottom:20px; border-bottom:1px solid #EEE; padding-bottom:12px;"><div><strong>${produto.name}</strong></div><div>Preço: ${formatCurrency(produto.basePrice)}/kg</div><div class="weight-input-area" style="margin-top:8px;"><label>Quantidade (kg):</label><input type="number" step="0.1" min="0.1" value="1.0" class="tip-weight-input" data-price="${produto.basePrice}" data-product-id="${produto.id}"></div><div class="tip-subtotal" style="margin-top:4px; font-weight:bold; color:#E65100;">Subtotal: ${formatCurrency(produto.basePrice)}</div><button class="tip-add-btn" data-id="${produto.id}" style="background:#E65100; border:none; color:white; padding:6px 12px; border-radius:20px; margin-top:8px; cursor:pointer;">Adicionar</button></div>`;}else{return `<div style="margin-bottom:20px;"><span>❌ ${corte}</span><br><span style="font-size:0.8rem; color:#999;">Indisponível</span></div>`;}}).join('');document.getElementById('tipsModal').style.display='flex';setTimeout(()=>{document.querySelectorAll('.tip-weight-input').forEach(input=>{const updateSubtotal=()=>{let kg=parseFloat(input.value);if(isNaN(kg)||kg<=0)kg=1.0;let price=parseFloat(input.dataset.price);let total=kg*price;const subtotalSpan=input.parentElement.parentElement.querySelector('.tip-subtotal');if(subtotalSpan)subtotalSpan.innerText=`Subtotal: ${formatCurrency(total)}`;};input.addEventListener('input',updateSubtotal);updateSubtotal();});document.querySelectorAll('.tip-add-btn').forEach(btn=>{btn.addEventListener('click',()=>{const productId=btn.dataset.id;let produto=null;for(let cat in productsData){produto=productsData[cat].find(p=>p.id===productId);if(produto)break;}if(produto){const cardDiv=btn.parentElement;const weightInput=cardDiv.querySelector('.tip-weight-input');let kg=parseFloat(weightInput.value);if(isNaN(kg)||kg<=0)kg=1.0;if(addToCart(produto,kg)){}}document.getElementById('tipsModal').style.display='none';});});},100);});});document.getElementById('closeTipsModal')?.addEventListener('click',()=>document.getElementById('tipsModal').style.display='none');window.addProdutoDireto=(id)=>{let produto=null;for(let cat in productsData){produto=productsData[cat].find(p=>p.id===id);if(produto)break;}if(produto){showQuantityModal(produto);document.getElementById('tipsModal').style.display='none';}else alert("Erro");};document.getElementById('weightGrid')?.addEventListener('click',(e)=>{if(e.target.classList.contains('weight-option')){document.querySelectorAll('.weight-option').forEach(el=>el.classList.remove('active-weight-option'));e.target.classList.add('active-weight-option');selectedQuantity=parseFloat(e.target.dataset.weight);}});document.getElementById('confirmQuantityBtn')?.addEventListener('click',()=>{if(!pendingTipProduct)return;let qty=selectedQuantity;if(!qty){const first=document.querySelector('.weight-option');if(first)qty=parseFloat(first.dataset.weight);else{alert("Selecione o peso.");return;}}if(addToCart(pendingTipProduct,qty)){document.getElementById('quantityModal').style.display='none';pendingTipProduct=null;selectedQuantity=null;}});document.getElementById('cancelQuantityBtn')?.addEventListener('click',()=>{document.getElementById('quantityModal').style.display='none';pendingTipProduct=null;});document.querySelectorAll('.type-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));btn.classList.add('active-type');if(btn.dataset.tipo==='Outro')document.getElementById('outroTipoField').classList.remove('hidden-field');else document.getElementById('outroTipoField').classList.add('hidden-field');atualizarPrecoPersonalizacao();});});document.getElementById('outroTipoInput')?.addEventListener('input',atualizarPrecoPersonalizacao);document.getElementById('cancelCustomBtn')?.addEventListener('click',()=>document.getElementById('customModal').style.display='none');document.getElementById('confirmCustomBtn')?.addEventListener('click',()=>{const kg=parseFloat(document.getElementById('moedaKg').value);if(isNaN(kg)||kg<0.5){alert("Mínimo 0.5 kg.");return;}let tipo=document.querySelector('.type-btn.active-type')?.dataset.tipo;let precoKg=getPrecoAtualPersonalizacao();if(tipo==='Outro'){tipo=document.getElementById('outroTipoInput').value.trim();if(!tipo){alert("Digite o tipo de carne.");return;}if(precoKg===null||precoKg===undefined){alert("Corte não encontrado. Verifique o nome ou escolha um da lista.");return;}}else{if(precoKg===null||precoKg===undefined)precoKg=29.90;}const vezes=parseInt(document.getElementById('moedaVezes').value);if(addCarneMoidaToCart(tipo,kg,vezes,precoKg,currentEditingCustomIndex)){document.getElementById('customModal').style.display='none';renderCartModal();updateCartBadge();}currentEditingCustomIndex=null;});document.querySelectorAll('.moagem-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.moagem-btn').forEach(b=>b.classList.remove('active-moagem'));btn.classList.add('active-moagem');document.getElementById('moedaVezes').value=btn.dataset.vezes;});});const orderBtn=document.getElementById('orderBtn');const cartModal=document.getElementById('cartModal');const closeCart=document.getElementById('closeCartModal');const continueBtn=document.getElementById('continueShoppingBtn');const sendOrderBtn=document.getElementById('sendOrderBtn');const scheduleModal=document.getElementById('scheduleModal');const closeSchedule=document.getElementById('closeScheduleModal');const cancelSchedule=document.getElementById('cancelScheduleBtn');const confirmSchedule=document.getElementById('confirmScheduleBtn');orderBtn.addEventListener('click',(e)=>{e.preventDefault();renderCartModal();setupOrderForm();cartModal.style.display='flex';});closeCart.addEventListener('click',()=>cartModal.style.display='none');continueBtn.addEventListener('click',()=>cartModal.style.display='none');sendOrderBtn.addEventListener('click',()=>{if(!validateAndSend())return;if(isWithinBusinessHours()){sendOrderToWhatsApp(false);cartModal.style.display='none';}else{cartModal.style.display='none';scheduleModal.style.display='flex';}});closeSchedule.addEventListener('click',()=>scheduleModal.style.display='none');cancelSchedule.addEventListener('click',()=>scheduleModal.style.display='none');confirmSchedule.addEventListener('click',()=>{const datetime=document.getElementById('scheduleDatetime').value;const obs=document.getElementById('scheduleObs').value;if(!datetime){if(confirm("Você não selecionou uma data/hora. Deseja enviar o pedido mesmo assim para agendamento?")){sendOrderToWhatsApp(true,"A combinar com o estabelecimento",obs);scheduleModal.style.display='none';}}else{sendOrderToWhatsApp(true,datetime,obs);scheduleModal.style.display='none';}});document.getElementById('confirmEditBtn').addEventListener('click',()=>{if(currentEditIndex!==null){const newVal=parseFloat(document.getElementById('editQuantitySelect').value);const item=cart[currentEditIndex];item.quantityValue=newVal;item.quantityLabel=item.unit==='KG'?`${newVal.toString().replace('.',',')} kg`:`${newVal} ${item.unit}${newVal>1?'s':''}`;item.totalPrice=item.basePrice*newVal;renderCartModal();updateCartBadge();document.getElementById('editModal').style.display='none';currentEditIndex=null;}});document.getElementById('cancelEditBtn').addEventListener('click',()=>{document.getElementById('editModal').style.display='none';currentEditIndex=null;});updateCartBadge();});
+    window.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{document.getElementById('splashScreen').style.opacity='0';document.getElementById('splashScreen').style.visibility='hidden';document.getElementById('appContainer').style.opacity='1';},2500);renderProducts('bovinos');currentActiveCategory='bovinos';updateTicker();setInterval(updateTicker,60000);const searchInput=document.getElementById('globalSearchInput');const clearBtn=document.getElementById('clearSearchBtn');
+        // Evento de input para pesquisa em tempo real
+        searchInput.addEventListener('input',(e)=>{
+            const term = e.target.value;
+            performSearch(term);
+        });
+        clearBtn.addEventListener('click',()=>{
+            searchInput.value = '';
+            performSearch('');
+            clearBtn.style.display = 'none';
+            document.querySelectorAll('.category-btn').forEach(btn=>{
+                if(btn.dataset.category === currentActiveCategory) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+            renderProducts(currentActiveCategory);
+            smoothScrollToTitle();
+            closeSearchModal();
+        });
+        document.querySelectorAll('.category-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                const cat=btn.dataset.category;
+                currentActiveCategory=cat;
+                searchInput.value='';
+                performSearch('');
+                clearBtn.style.display='none';
+                document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProducts(cat);
+                smoothScrollToTitle();
+                closeSearchModal();
+            });
+        });
+        const tipsGrid=document.getElementById('tipsGrid');
+        tipsGrid.innerHTML=dicasPreparo.map(d=>`<div class="tip-card" data-dica="${d.nome}"><div class="tip-icon">${d.icone}</div><div class="tip-name">${d.nome}</div><div class="tip-cuts">${d.cortes.join(', ')}</div></div>`).join('');
+        document.querySelectorAll('.tip-card').forEach(card=>{
+            card.addEventListener('click',()=>{
+                const nome=card.dataset.dica;
+                const dica=dicasPreparo.find(d=>d.nome===nome);
+                document.getElementById('tipsModalTitle').innerHTML=`${dica.icone} ${dica.nome} - Cortes recomendados`;
+                const listDiv=document.getElementById('tipsModalList');
+                listDiv.innerHTML=dica.cortes.map(corte=>{
+                    let produto=findProductByName(corte);
+                    if(produto){
+                        return `<div style="margin-bottom:20px; border-bottom:1px solid #EEE; padding-bottom:12px;"><div><strong>${produto.name}</strong></div><div>Preço: ${formatCurrency(produto.basePrice)}/kg</div><div class="weight-input-area" style="margin-top:8px;"><label>Quantidade (kg):</label><input type="number" step="0.1" min="0.1" value="1.0" class="tip-weight-input" data-price="${produto.basePrice}" data-product-id="${produto.id}"></div><div class="tip-subtotal" style="margin-top:4px; font-weight:bold; color:#E65100;">Subtotal: ${formatCurrency(produto.basePrice)}</div><button class="tip-add-btn" data-id="${produto.id}" style="background:#E65100; border:none; color:white; padding:6px 12px; border-radius:20px; margin-top:8px; cursor:pointer;">Adicionar</button></div>`;
+                    }else{
+                        return `<div style="margin-bottom:20px;"><span>❌ ${corte}</span><br><span style="font-size:0.8rem; color:#999;">Indisponível</span></div>`;
+                    }
+                }).join('');
+                document.getElementById('tipsModal').style.display='flex';
+                setTimeout(()=>{
+                    document.querySelectorAll('.tip-weight-input').forEach(input=>{
+                        const updateSubtotal=()=>{
+                            let kg=parseFloat(input.value);
+                            if(isNaN(kg)||kg<=0)kg=1.0;
+                            let price=parseFloat(input.dataset.price);
+                            let total=kg*price;
+                            const subtotalSpan=input.parentElement.parentElement.querySelector('.tip-subtotal');
+                            if(subtotalSpan)subtotalSpan.innerText=`Subtotal: ${formatCurrency(total)}`;
+                        };
+                        input.addEventListener('input',updateSubtotal);
+                        updateSubtotal();
+                    });
+                    document.querySelectorAll('.tip-add-btn').forEach(btn=>{
+                        btn.addEventListener('click',()=>{
+                            const productId=btn.dataset.id;
+                            let produto=null;
+                            for(let cat in productsData){
+                                produto=productsData[cat].find(p=>p.id===productId);
+                                if(produto)break;
+                            }
+                            if(produto){
+                                const cardDiv=btn.parentElement;
+                                const weightInput=cardDiv.querySelector('.tip-weight-input');
+                                let kg=parseFloat(weightInput.value);
+                                if(isNaN(kg)||kg<=0)kg=1.0;
+                                if(addToCart(produto,kg)){}
+                            }
+                            document.getElementById('tipsModal').style.display='none';
+                        });
+                    });
+                },100);
+            });
+        });
+        document.getElementById('closeTipsModal')?.addEventListener('click',()=>document.getElementById('tipsModal').style.display='none');
+        window.addProdutoDireto=(id)=>{
+            let produto=null;
+            for(let cat in productsData){
+                produto=productsData[cat].find(p=>p.id===id);
+                if(produto)break;
+            }
+            if(produto){
+                showQuantityModal(produto);
+                document.getElementById('tipsModal').style.display='none';
+            }else alert("Erro");
+        };
+        document.getElementById('weightGrid')?.addEventListener('click',(e)=>{
+            if(e.target.classList.contains('weight-option')){
+                document.querySelectorAll('.weight-option').forEach(el=>el.classList.remove('active-weight-option'));
+                e.target.classList.add('active-weight-option');
+                selectedQuantity=parseFloat(e.target.dataset.weight);
+            }
+        });
+        document.getElementById('confirmQuantityBtn')?.addEventListener('click',()=>{
+            if(!pendingTipProduct)return;
+            let qty=selectedQuantity;
+            if(!qty){
+                const first=document.querySelector('.weight-option');
+                if(first)qty=parseFloat(first.dataset.weight);
+                else{alert("Selecione o peso.");return;}
+            }
+            if(addToCart(pendingTipProduct,qty)){
+                document.getElementById('quantityModal').style.display='none';
+                pendingTipProduct=null;
+                selectedQuantity=null;
+            }
+        });
+        document.getElementById('cancelQuantityBtn')?.addEventListener('click',()=>{
+            document.getElementById('quantityModal').style.display='none';
+            pendingTipProduct=null;
+        });
+        document.querySelectorAll('.type-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));
+                btn.classList.add('active-type');
+                if(btn.dataset.tipo==='Outro') document.getElementById('outroTipoField').classList.remove('hidden-field');
+                else document.getElementById('outroTipoField').classList.add('hidden-field');
+                atualizarPrecoPersonalizacao();
+            });
+        });
+        document.getElementById('outroTipoInput')?.addEventListener('input',atualizarPrecoPersonalizacao);
+        document.getElementById('cancelCustomBtn')?.addEventListener('click',()=>document.getElementById('customModal').style.display='none');
+        document.getElementById('confirmCustomBtn')?.addEventListener('click',()=>{
+            const kg=parseFloat(document.getElementById('moedaKg').value);
+            if(isNaN(kg)||kg<0.5){alert("Mínimo 0.5 kg.");return;}
+            let tipo=document.querySelector('.type-btn.active-type')?.dataset.tipo;
+            let precoKg=getPrecoAtualPersonalizacao();
+            if(tipo==='Outro'){
+                tipo=document.getElementById('outroTipoInput').value.trim();
+                if(!tipo){alert("Digite o tipo de carne.");return;}
+                if(precoKg===null||precoKg===undefined){alert("Corte não encontrado. Verifique o nome ou escolha um da lista.");return;}
+            }else{
+                if(precoKg===null||precoKg===undefined)precoKg=29.90;
+            }
+            const vezes=parseInt(document.getElementById('moedaVezes').value);
+            if(addCarneMoidaToCart(tipo,kg,vezes,precoKg,currentEditingCustomIndex)){
+                document.getElementById('customModal').style.display='none';
+                renderCartModal();
+                updateCartBadge();
+            }
+            currentEditingCustomIndex=null;
+        });
+        document.querySelectorAll('.moagem-btn').forEach(btn=>{
+            btn.addEventListener('click',()=>{
+                document.querySelectorAll('.moagem-btn').forEach(b=>b.classList.remove('active-moagem'));
+                btn.classList.add('active-moagem');
+                document.getElementById('moedaVezes').value=btn.dataset.vezes;
+            });
+        });
+        const orderBtn=document.getElementById('orderBtn');
+        const cartModal=document.getElementById('cartModal');
+        const closeCart=document.getElementById('closeCartModal');
+        const continueBtn=document.getElementById('continueShoppingBtn');
+        const sendOrderBtn=document.getElementById('sendOrderBtn');
+        const scheduleModal=document.getElementById('scheduleModal');
+        const closeSchedule=document.getElementById('closeScheduleModal');
+        const cancelSchedule=document.getElementById('cancelScheduleBtn');
+        const confirmSchedule=document.getElementById('confirmScheduleBtn');
+        orderBtn.addEventListener('click',(e)=>{
+            e.preventDefault();
+            renderCartModal();
+            setupOrderForm();
+            cartModal.style.display='flex';
+        });
+        closeCart.addEventListener('click',()=>cartModal.style.display='none');
+        continueBtn.addEventListener('click',()=>cartModal.style.display='none');
+        sendOrderBtn.addEventListener('click',()=>{
+            if(!validateAndSend())return;
+            if(isWithinBusinessHours()){
+                sendOrderToWhatsApp(false);
+                cartModal.style.display='none';
+            }else{
+                cartModal.style.display='none';
+                scheduleModal.style.display='flex';
+            }
+        });
+        closeSchedule.addEventListener('click',()=>scheduleModal.style.display='none');
+        cancelSchedule.addEventListener('click',()=>scheduleModal.style.display='none');
+        confirmSchedule.addEventListener('click',()=>{
+            const datetime=document.getElementById('scheduleDatetime').value;
+            const obs=document.getElementById('scheduleObs').value;
+            if(!datetime){
+                if(confirm("Você não selecionou uma data/hora. Deseja enviar o pedido mesmo assim para agendamento?")){
+                    sendOrderToWhatsApp(true,"A combinar com o estabelecimento",obs);
+                    scheduleModal.style.display='none';
+                }
+            }else{
+                sendOrderToWhatsApp(true,datetime,obs);
+                scheduleModal.style.display='none';
+            }
+        });
+        document.getElementById('confirmEditBtn').addEventListener('click',()=>{
+            if(currentEditIndex!==null){
+                const newVal=parseFloat(document.getElementById('editQuantitySelect').value);
+                const item=cart[currentEditIndex];
+                item.quantityValue=newVal;
+                item.quantityLabel=item.unit==='KG'?`${newVal.toString().replace('.',',')} kg`:`${newVal} ${item.unit}${newVal>1?'s':''}`;
+                item.totalPrice=item.basePrice*newVal;
+                renderCartModal();
+                updateCartBadge();
+                document.getElementById('editModal').style.display='none';
+                currentEditIndex=null;
+            }
+        });
+        document.getElementById('cancelEditBtn').addEventListener('click',()=>{
+            document.getElementById('editModal').style.display='none';
+            currentEditIndex=null;
+        });
+        // Fechar modal de pesquisa com o X
+        document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModal);
+        // Fechar modal de pesquisa clicando fora
+        document.getElementById('searchModal')?.addEventListener('click', function(e) {
+            if (e.target === this) closeSearchModal();
+        });
+        updateCartBadge();
+    });
 </script>
 </body>
 </html>
