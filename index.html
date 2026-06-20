@@ -442,9 +442,69 @@
         .whatsapp-float:hover { transform: scale(1.05); background-color: #20b359; }
         .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
 
+        /* BOTÃO DE COMPARTILHAMENTO DISCRETO */
+        .share-float {
+            position: fixed;
+            bottom: 240px;      /* acima do WhatsApp */
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background-color: #FFFFFF;
+            border: 1px solid #DDD;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #555555;
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+        .share-float:hover {
+            transform: scale(1.05);
+            border-color: #D4AF37;
+            background-color: #FFF9E6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .share-float svg {
+            width: 24px;
+            height: 24px;
+            fill: #555555;
+            transition: fill 0.2s;
+        }
+        .share-float:hover svg {
+            fill: #D4AF37;
+        }
+
         /* MODAIS */
-        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal, .search-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.75); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
-        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content, .search-modal-content { background: #FFFFFF; width: 90%; max-width: 440px; max-height: 90vh; border-radius: 28px; border-top: 4px solid #D4AF37; padding: 24px; overflow-y: auto; animation: zoomIn 0.3s ease; color: #1A1A1A; }
+        .cart-modal, .custom-modal, .edit-modal, .tips-modal, .quantity-modal, .schedule-modal, .search-modal, .share-modal { 
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0,0,0,0.75); 
+            z-index: 2000; 
+            justify-content: center; 
+            align-items: center; 
+            backdrop-filter: blur(5px); 
+        }
+        .cart-modal-content, .custom-modal-content, .edit-modal-box, .tips-modal-content, .quantity-modal-content, .schedule-modal-content, .search-modal-content, .share-modal-content { 
+            background: #FFFFFF; 
+            width: 90%; 
+            max-width: 440px; 
+            max-height: 90vh; 
+            border-radius: 28px; 
+            border-top: 4px solid #D4AF37; 
+            padding: 24px; 
+            overflow-y: auto; 
+            animation: zoomIn 0.3s ease; 
+            color: #1A1A1A; 
+        }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .cart-modal-header, .custom-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .close-modal { font-size: 28px; cursor: pointer; color: #888; }
@@ -554,6 +614,34 @@
             font-size: 1rem;
         }
         .search-modal-empty span { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+        /* ESTILOS DO MODAL DE COMPARTILHAMENTO */
+        .share-modal-content {
+            text-align: center;
+        }
+        .share-modal-content .share-icon-big {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .share-modal-content p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .share-modal-content .btn-ok {
+            background: #D4AF37;
+            color: #1A1A1A;
+            border: none;
+            padding: 10px 40px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .share-modal-content .btn-ok:hover {
+            background: #C09A2A;
+        }
     </style>
 </head>
 <body>
@@ -624,6 +712,14 @@
     </div>
 </div>
 
+<!-- BOTÃO DE COMPARTILHAMENTO (discreto, acima do WhatsApp) -->
+<div class="share-float" id="shareButton" title="Compartilhar cardápio">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="#555555">
+        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+    </svg>
+</div>
+
+<!-- BOTÃO WHATSAPP (já existente) -->
 <a href="https://wa.me/5534991273427" class="whatsapp-float" target="_blank">
     <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
         <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.8 3.08 1.24 4.74 1.24 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.91-9.91-9.91zm0 18.2c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-3.12.82.83-3.04-.2-.31c-.86-1.35-1.32-2.88-1.32-4.44 0-4.58 3.73-8.31 8.31-8.31 4.58 0 8.31 3.73 8.31 8.31 0 4.58-3.73 8.31-8.31 8.31zm4.56-6.21c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.13-.57.13-.17.26-.66.81-.81.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.24-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.78-1.89-.21-.51-.42-.44-.57-.44h-.49c-.17 0-.45.06-.69.31-.24.25-.91.89-.91 2.17 0 1.28.93 2.52 1.06 2.69.13.17 1.83 2.8 4.44 3.92.62.27 1.11.43 1.49.55.63.2 1.2.17 1.65.1.5-.08 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.17-.5-.3z"/>
@@ -687,6 +783,15 @@
             <span class="close-modal" id="closeSearchModal">&times;</span>
         </div>
         <div id="searchResultsContainer" style="max-height: 60vh; overflow-y: auto;"></div>
+    </div>
+</div>
+
+<!-- MODAL DE COMPARTILHAMENTO -->
+<div id="shareModal" class="share-modal">
+    <div class="share-modal-content">
+        <div class="share-icon-big">🔗</div>
+        <p><strong>Link do cardápio digital copiado!</strong><br>Compartilhe com seus familiares e amigos.</p>
+        <button class="btn-ok" id="shareOkBtn">OK</button>
     </div>
 </div>
 
@@ -924,7 +1029,62 @@
     function validateAndSend(){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const payment=document.querySelector('input[name="payment"]:checked')?.value;if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}}return true;}
     function sendOrderToWhatsApp(isScheduled=false,scheduleDatetime=null,scheduleObs=''){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const nomeCliente=document.getElementById('customerName').value.trim();const payment=document.querySelector('input[name="payment"]:checked')?.value;let changeText='';if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}changeText=`\n*Troco para:* ${changeRaw}`;}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;let addressText='';if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}addressText=`\n*Endereço:* ${addr}`;}let message='';if(isScheduled){message+=`⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;message+=`📅 *Agendamento solicitado:* ${scheduleDatetime||'A combinar'}\n`;if(scheduleObs)message+=`✏️ *Observações:* ${scheduleObs}\n`;message+=`🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;}message+=`🍖 *CENTER CARNES SKALA* 🍖\n`;message+=`👤 *Cliente:* ${nomeCliente}\n\n`;message+=`📋 *ITENS DO PEDIDO:*\n`;let total=0;cart.forEach(item=>{let nome=item.name;if(item.isCustom)nome=`Carne Moída (${item.descricaoCustom})`;message+=`• ${nome} - ${item.quantityLabel} = ${formatCurrency(item.totalPrice)}\n`;total+=item.totalPrice;});message+=`\n📦 *TOTAL:* ${formatCurrency(total)}\n\n`;message+=`💳 *Pagamento:* ${payment}${changeText}\n`;message+=`🚚 *Entrega:* ${delivery}${addressText}\n\n`;message+=`🔔 Peço que confirmem meu pedido.`;window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`,'_blank');return true;}
     function updateTicker(){const now=new Date();const month=now.getMonth();const day=now.getDate();const hours=now.getHours();const minutes=now.getMinutes();const isJune=(month===5);let showMsg1=false;if(isJune&&day<=19){if(day<19){showMsg1=true;}else if(day===19){if(hours<20||(hours===20&&minutes===0)){showMsg1=true;}}}let showMsg2=false;if(isJune&&day<=24){if(day<24){showMsg2=true;}else if(day===24){if(hours<18||(hours===18&&minutes<20)){showMsg2=true;}}}const messages=[];if(showMsg1)messages.push("📢 dia 19/06 horário normal");if(showMsg2)messages.push("📢 dia 24/06 até 18:20 h");const tickerDiv=document.getElementById('tickerContent');const wrapper=document.getElementById('tickerWrapper');if(messages.length===0){wrapper.style.display='none';return;}wrapper.style.display='block';let contentHtml='';messages.forEach(msg=>{contentHtml+=`<span>🔹 ${msg} 🔹</span>`;});let repeated='';for(let i=0;i<3;i++){repeated+=contentHtml;}tickerDiv.innerHTML=repeated;}
-    window.addEventListener('DOMContentLoaded',()=>{setTimeout(()=>{document.getElementById('splashScreen').style.opacity='0';document.getElementById('splashScreen').style.visibility='hidden';document.getElementById('appContainer').style.opacity='1';},2500);renderProducts('bovinos');currentActiveCategory='bovinos';updateTicker();setInterval(updateTicker,60000);const searchInput=document.getElementById('globalSearchInput');const clearBtn=document.getElementById('clearSearchBtn');
+    
+    // ========== FUNÇÃO PARA COMPARTILHAR ==========
+    function shareCardapio() {
+        const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
+        // Copiar link para a área de transferência
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(link).then(() => {
+                mostrarModalCompartilhamento();
+            }).catch(() => {
+                fallbackCopiarLink(link);
+            });
+        } else {
+            fallbackCopiarLink(link);
+        }
+    }
+
+    function fallbackCopiarLink(link) {
+        // Fallback para navegadores mais antigos
+        const textArea = document.createElement('textarea');
+        textArea.value = link;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const success = document.execCommand('copy');
+            if (success) {
+                mostrarModalCompartilhamento();
+            } else {
+                alert('Não foi possível copiar o link. Copie manualmente: ' + link);
+            }
+        } catch (e) {
+            alert('Não foi possível copiar o link. Copie manualmente: ' + link);
+        }
+        document.body.removeChild(textArea);
+    }
+
+    function mostrarModalCompartilhamento() {
+        document.getElementById('shareModal').style.display = 'flex';
+    }
+
+    // ===== INICIALIZAÇÃO =====
+    window.addEventListener('DOMContentLoaded',()=>{
+        setTimeout(()=>{
+            document.getElementById('splashScreen').style.opacity='0';
+            document.getElementById('splashScreen').style.visibility='hidden';
+            document.getElementById('appContainer').style.opacity='1';
+        },2500);
+        renderProducts('bovinos');
+        currentActiveCategory='bovinos';
+        updateTicker();
+        setInterval(updateTicker,60000);
+        const searchInput=document.getElementById('globalSearchInput');
+        const clearBtn=document.getElementById('clearSearchBtn');
         // Evento de input para pesquisa em tempo real
         searchInput.addEventListener('input',(e)=>{
             const term = e.target.value;
@@ -1147,6 +1307,19 @@
         document.getElementById('searchModal')?.addEventListener('click', function(e) {
             if (e.target === this) closeSearchModal();
         });
+        // Fechar modal de compartilhamento
+        document.getElementById('shareOkBtn')?.addEventListener('click', function() {
+            document.getElementById('shareModal').style.display = 'none';
+        });
+        document.getElementById('shareModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+
+        // Evento do botão de compartilhamento
+        document.getElementById('shareButton')?.addEventListener('click', shareCardapio);
+
         updateCartBadge();
     });
 </script>
