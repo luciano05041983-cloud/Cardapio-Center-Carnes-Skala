@@ -642,6 +642,45 @@
         .share-modal-content .btn-ok:hover {
             background: #C09A2A;
         }
+
+        /* ESTILO PARA O CAMPO PIX */
+        .pix-copy-area {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 4px;
+        }
+        .pix-copy-area input {
+            flex: 1;
+            background: #F5F5F5;
+            border: 1px solid #DDD;
+            padding: 10px 16px;
+            border-radius: 30px;
+            color: #1A1A1A;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+        }
+        .pix-copy-btn {
+            background: #D4AF37;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .pix-copy-btn:hover {
+            background: #C09A2A;
+        }
+        .pix-copy-btn:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -734,7 +773,32 @@
 </div>
 
 <!-- MODAIS -->
-<div id="cartModal" class="cart-modal"><div class="cart-modal-content"><div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div><div id="cartItemsContainer" class="cart-items-list"></div><div class="order-details-area" id="orderDetailsArea"><div class="detail-section" id="nameSection"><div class="section-header"><span>👤</span> Identificação</div><div class="custom-field" style="margin-bottom:0;"><label for="customerName">Nome completo <span style="color:#E65100;">*</span></label><input type="text" id="customerName" placeholder="Digite seu nome completo"><span id="nameError" class="error-message" style="display:none;">⚠️ O nome é obrigatório.</span></div></div><div class="detail-section"><div class="section-header"><span>💳</span> Forma de Pagamento</div><div class="payment-option"><label><input type="radio" name="payment" value="Pix" checked> Pix</label><label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão Crédito</label><label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label></div><div id="changeField" class="conditional-field hidden-field"><label>💰 Troco para quanto?</label><input type="text" id="changeAmount" placeholder="Ex: R$ 100,00"></div></div><div class="detail-section"><div class="section-header"><span>🚚</span> Entrega</div><div class="delivery-option"><label><input type="radio" name="delivery" value="Retirada no Balcão" checked> Retirada no Balcão</label><label><input type="radio" name="delivery" value="Delivery"> Delivery</label></div><div id="addressField" class="conditional-field hidden-field"><label>🏠 Endereço completo</label><input type="text" id="deliveryAddress" placeholder="Rua, número, bairro"></div></div></div><div class="cart-total" id="cartTotalDisplay">💰 TOTAL: R$ 0,00</div><div class="cart-buttons"><button id="continueShoppingBtn" class="cart-btn cart-btn-secondary">➕ Continuar</button><button id="sendOrderBtn" class="cart-btn cart-btn-primary">📲 Enviar Pedido</button></div></div></div>
+<div id="cartModal" class="cart-modal"><div class="cart-modal-content"><div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div><div id="cartItemsContainer" class="cart-items-list"></div><div class="order-details-area" id="orderDetailsArea"><div class="detail-section" id="nameSection"><div class="section-header"><span>👤</span> Identificação</div><div class="custom-field" style="margin-bottom:0;"><label for="customerName">Nome completo <span style="color:#E65100;">*</span></label><input type="text" id="customerName" placeholder="Digite seu nome completo"><span id="nameError" class="error-message" style="display:none;">⚠️ O nome é obrigatório.</span></div></div>
+
+<!-- SEÇÃO DE PAGAMENTO COM CAMPO PIX -->
+<div class="detail-section">
+    <div class="section-header"><span>💳</span> Forma de Pagamento</div>
+    <div class="payment-option">
+        <label><input type="radio" name="payment" value="Pix" checked> Pix</label>
+        <label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão Crédito</label>
+        <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
+    </div>
+    <!-- Campo para troco (Dinheiro) -->
+    <div id="changeField" class="conditional-field hidden-field">
+        <label>💰 Troco para quanto?</label>
+        <input type="text" id="changeAmount" placeholder="Ex: R$ 100,00">
+    </div>
+    <!-- Campo para exibir chave Pix e copiar -->
+    <div id="pixField" class="conditional-field hidden-field">
+        <label>🔑 Chave Pix (CNPJ):</label>
+        <div class="pix-copy-area">
+            <input type="text" id="pixKey" value="54233092000189" readonly>
+            <button class="pix-copy-btn" id="copyPixBtn" title="Copiar chave Pix">📋</button>
+        </div>
+    </div>
+</div>
+
+<div class="detail-section"><div class="section-header"><span>🚚</span> Entrega</div><div class="delivery-option"><label><input type="radio" name="delivery" value="Retirada no Balcão" checked> Retirada no Balcão</label><label><input type="radio" name="delivery" value="Delivery"> Delivery</label></div><div id="addressField" class="conditional-field hidden-field"><label>🏠 Endereço completo</label><input type="text" id="deliveryAddress" placeholder="Rua, número, bairro"></div></div></div><div class="cart-total" id="cartTotalDisplay">💰 TOTAL: R$ 0,00</div><div class="cart-buttons"><button id="continueShoppingBtn" class="cart-btn cart-btn-secondary">➕ Continuar</button><button id="sendOrderBtn" class="cart-btn cart-btn-primary">📲 Enviar Pedido</button></div></div></div>
 
 <div id="scheduleModal" class="schedule-modal"><div class="schedule-modal-content"><div class="cart-modal-header"><h2>📅 Agendamento de Pedido</h2><span class="close-modal" id="closeScheduleModal">&times;</span></div><p style="margin-bottom:16px;">⚠️ No momento estamos fora do horário de funcionamento. Deseja agendar este pedido?</p><div class="custom-field"><label>📅 Data e Hora desejada:</label><input type="datetime-local" id="scheduleDatetime"></div><div class="custom-field"><label>📝 Observações:</label><textarea id="scheduleObs" rows="2"></textarea></div><div class="custom-buttons"><button id="cancelScheduleBtn" class="btn-cancel">Voltar</button><button id="confirmScheduleBtn" class="btn-confirm">Confirmar Agendamento</button></div></div></div>
 
@@ -1024,7 +1088,36 @@
     function getPrecoAtualPersonalizacao(){let tipo=document.querySelector('.type-btn.active-type')?.dataset.tipo;if(tipo==='Outro'){const nomeDigitado=document.getElementById('outroTipoInput').value.trim();if(nomeDigitado==="")return null;return getPrecoPorTipo(nomeDigitado);}return getPrecoPorTipo(tipo)||29.90;}
     function renderCartModal(){const container=document.getElementById('cartItemsContainer');if(!container)return;if(cart.length===0){container.innerHTML='<div class="empty-cart">🛒 Seu pedido está vazio.</div>';updateTotalDisplay();return;}let html='',totalSum=0;cart.forEach((item,idx)=>{totalSum+=item.totalPrice;let displayName=item.name;if(item.isCustom)displayName=`🥩 Carne Moída (${item.descricaoCustom})`;html+=`<div class="cart-item"><div class="cart-item-img" style="background-image:url('${item.image}')"></div><div class="cart-item-details"><div class="cart-item-name">${displayName}</div><div class="cart-item-qty">📦 ${item.quantityLabel}</div><div class="cart-item-price">${formatCurrency(item.totalPrice)}</div></div><div class="cart-item-actions"><button class="cart-icon-btn edit-item" data-index="${idx}" data-custom="${item.isCustom}">✏️</button><button class="cart-icon-btn delete-item" data-index="${idx}">🗑️</button></div></div>`;});container.innerHTML=html;document.getElementById('cartTotalDisplay').innerHTML=`💰 TOTAL: ${formatCurrency(totalSum)}`;document.querySelectorAll('.delete-item').forEach(btn=>btn.addEventListener('click',()=>{const idx=parseInt(btn.dataset.index);cart.splice(idx,1);renderCartModal();updateCartBadge();}));document.querySelectorAll('.edit-item').forEach(btn=>btn.addEventListener('click',()=>{const idx=parseInt(btn.dataset.index);const item=cart[idx];if(item.isCustom){currentEditingCustomIndex=idx;document.getElementById('moedaKg').value=item.kg;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));let found=false;document.querySelectorAll('.type-btn').forEach(b=>{if(b.dataset.tipo===item.tipo){b.classList.add('active-type');found=true;}});if(!found){document.querySelector('.type-btn[data-tipo="Outro"]').classList.add('active-type');document.getElementById('outroTipoField').classList.remove('hidden-field');document.getElementById('outroTipoInput').value=item.tipo;}else document.getElementById('outroTipoField').classList.add('hidden-field');document.querySelectorAll('.moagem-btn').forEach(b=>{if(parseInt(b.dataset.vezes)===item.vezes)b.classList.add('active-moagem');else b.classList.remove('active-moagem');});document.getElementById('moedaVezes').value=item.vezes;atualizarPrecoPersonalizacao();document.getElementById('customModal').style.display='flex';}else{currentEditIndex=idx;const select=document.getElementById('editQuantitySelect');let opts=item.unit==='KG'?[0.5,1,1.5,2,2.5,3]:[1,2,3,4,5];let options='';opts.forEach(v=>{options+=`<option value="${v}" ${item.quantityValue==v?'selected':''}>${item.unit==='KG'?v.toString().replace('.',',')+' kg':v+' '+item.unit+(v>1?'s':'')}</option>`;});select.innerHTML=options;document.getElementById('editModal').style.display='flex';}}));}
     function updateTotalDisplay(){let sum=cart.reduce((a,i)=>a+i.totalPrice,0);const totalDiv=document.getElementById('cartTotalDisplay');if(totalDiv)totalDiv.innerHTML=`💰 TOTAL: ${formatCurrency(sum)}`;}
-    function setupOrderForm(){const changeDiv=document.getElementById('changeField');const addressDiv=document.getElementById('addressField');const updateChange=()=>changeDiv.classList.toggle('hidden-field',document.querySelector('input[name="payment"]:checked')?.value!=='Dinheiro');const updateAddress=()=>addressDiv.classList.toggle('hidden-field',document.querySelector('input[name="delivery"]:checked')?.value!=='Delivery');document.querySelectorAll('input[name="payment"]').forEach(r=>r.addEventListener('change',updateChange));document.querySelectorAll('input[name="delivery"]').forEach(r=>r.addEventListener('change',updateAddress));updateChange();updateAddress();}
+    function setupOrderForm(){
+        const changeDiv = document.getElementById('changeField');
+        const addressDiv = document.getElementById('addressField');
+        const pixField = document.getElementById('pixField');
+        
+        const updateChange = () => {
+            const payment = document.querySelector('input[name="payment"]:checked')?.value;
+            changeDiv.classList.toggle('hidden-field', payment !== 'Dinheiro');
+        };
+        const updateAddress = () => {
+            addressDiv.classList.toggle('hidden-field', document.querySelector('input[name="delivery"]:checked')?.value !== 'Delivery');
+        };
+        const updatePix = () => {
+            const payment = document.querySelector('input[name="payment"]:checked')?.value;
+            pixField.classList.toggle('hidden-field', payment !== 'Pix');
+        };
+        
+        document.querySelectorAll('input[name="payment"]').forEach(r => {
+            r.addEventListener('change', () => {
+                updateChange();
+                updatePix();
+            });
+        });
+        document.querySelectorAll('input[name="delivery"]').forEach(r => r.addEventListener('change', updateAddress));
+        
+        updateChange();
+        updateAddress();
+        updatePix();
+    }
+
     function isValidName(){const nome=document.getElementById('customerName').value.trim();const nameError=document.getElementById('nameError');if(nome===''){if(nameError)nameError.style.display='block';return false;}else{if(nameError)nameError.style.display='none';return true;}}
     function validateAndSend(){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const payment=document.querySelector('input[name="payment"]:checked')?.value;if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}}return true;}
     function sendOrderToWhatsApp(isScheduled=false,scheduleDatetime=null,scheduleObs=''){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const nomeCliente=document.getElementById('customerName').value.trim();const payment=document.querySelector('input[name="payment"]:checked')?.value;let changeText='';if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}changeText=`\n*Troco para:* ${changeRaw}`;}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;let addressText='';if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}addressText=`\n*Endereço:* ${addr}`;}let message='';if(isScheduled){message+=`⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;message+=`📅 *Agendamento solicitado:* ${scheduleDatetime||'A combinar'}\n`;if(scheduleObs)message+=`✏️ *Observações:* ${scheduleObs}\n`;message+=`🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;}message+=`🍖 *CENTER CARNES SKALA* 🍖\n`;message+=`👤 *Cliente:* ${nomeCliente}\n\n`;message+=`📋 *ITENS DO PEDIDO:*\n`;let total=0;cart.forEach(item=>{let nome=item.name;if(item.isCustom)nome=`Carne Moída (${item.descricaoCustom})`;message+=`• ${nome} - ${item.quantityLabel} = ${formatCurrency(item.totalPrice)}\n`;total+=item.totalPrice;});message+=`\n📦 *TOTAL:* ${formatCurrency(total)}\n\n`;message+=`💳 *Pagamento:* ${payment}${changeText}\n`;message+=`🚚 *Entrega:* ${delivery}${addressText}\n\n`;message+=`🔔 Peço que confirmem meu pedido.`;window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`,'_blank');return true;}
@@ -1033,7 +1126,6 @@
     // ========== FUNÇÃO PARA COMPARTILHAR ==========
     function shareCardapio() {
         const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
-        // Copiar link para a área de transferência
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(link).then(() => {
                 mostrarModalCompartilhamento();
@@ -1046,7 +1138,6 @@
     }
 
     function fallbackCopiarLink(link) {
-        // Fallback para navegadores mais antigos
         const textArea = document.createElement('textarea');
         textArea.value = link;
         textArea.style.position = 'fixed';
@@ -1070,6 +1161,42 @@
 
     function mostrarModalCompartilhamento() {
         document.getElementById('shareModal').style.display = 'flex';
+    }
+
+    // ========== FUNÇÃO PARA COPIAR CHAVE PIX ==========
+    function copiarChavePix() {
+        const chave = document.getElementById('pixKey').value;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(chave).then(() => {
+                alert('✅ Chave Pix copiada!');
+            }).catch(() => {
+                fallbackCopiarPix(chave);
+            });
+        } else {
+            fallbackCopiarPix(chave);
+        }
+    }
+
+    function fallbackCopiarPix(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        textArea.style.top = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            const success = document.execCommand('copy');
+            if (success) {
+                alert('✅ Chave Pix copiada!');
+            } else {
+                alert('Não foi possível copiar a chave. Copie manualmente: ' + text);
+            }
+        } catch (e) {
+            alert('Não foi possível copiar a chave. Copie manualmente: ' + text);
+        }
+        document.body.removeChild(textArea);
     }
 
     // ===== INICIALIZAÇÃO =====
@@ -1319,6 +1446,9 @@
 
         // Evento do botão de compartilhamento
         document.getElementById('shareButton')?.addEventListener('click', shareCardapio);
+
+        // Evento do botão copiar Pix
+        document.getElementById('copyPixBtn')?.addEventListener('click', copiarChavePix);
 
         updateCartBadge();
     });
