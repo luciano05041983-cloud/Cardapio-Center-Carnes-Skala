@@ -615,32 +615,97 @@
         }
         .search-modal-empty span { font-size: 3rem; display: block; margin-bottom: 12px; }
 
-        /* ESTILOS DO MODAL DE COMPARTILHAMENTO */
+        /* ESTILOS DO MODAL DE COMPARTILHAMENTO - TEXTO REFORMULADO (SEM OFERTAS) */
         .share-modal-content {
             text-align: center;
+            padding: 30px 24px;
         }
         .share-modal-content .share-icon-big {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 10px;
+            display: block;
         }
-        .share-modal-content p {
+        .share-modal-content .share-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #E65100;
+            margin-bottom: 12px;
+        }
+        .share-modal-content .share-subtitle {
             font-size: 1rem;
-            line-height: 1.5;
+            line-height: 1.6;
+            color: #333;
             margin-bottom: 20px;
         }
-        .share-modal-content .btn-ok {
-            background: #D4AF37;
-            color: #1A1A1A;
-            border: none;
-            padding: 10px 40px;
-            border-radius: 40px;
+        .share-modal-content .share-subtitle strong {
+            color: #D4AF37;
+        }
+        .share-modal-content .share-gatilhos {
+            background: #FFF9E6;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 24px;
+            border-left: 4px solid #D4AF37;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #444;
+        }
+        .share-modal-content .share-gatilhos span {
+            display: block;
+            margin-bottom: 6px;
+        }
+        .share-modal-content .share-gatilhos span:last-child {
+            margin-bottom: 0;
+        }
+        .share-modal-content .share-gatilhos .emoji {
+            margin-right: 8px;
+        }
+        .share-modal-content .share-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .share-modal-content .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 50px;
             font-weight: 700;
             font-size: 1rem;
+            border: none;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
+            width: 100%;
+            text-decoration: none;
+            color: #1A1A1A;
         }
-        .share-modal-content .btn-ok:hover {
-            background: #C09A2A;
+        .share-modal-content .share-btn-copy {
+            background: #F0F0F0;
+            border: 1px solid #CCCCCC;
+        }
+        .share-modal-content .share-btn-copy:hover {
+            background: #E0E0E0;
+        }
+        .share-modal-content .share-btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        .share-modal-content .share-btn-whatsapp:hover {
+            background: #1da851;
+        }
+        .share-modal-content .share-btn-close {
+            background: transparent;
+            border: none;
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 8px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .share-modal-content .share-btn-close:hover {
+            color: #555;
         }
 
         /* ESTILO PARA O CAMPO PIX */
@@ -850,12 +915,29 @@
     </div>
 </div>
 
-<!-- MODAL DE COMPARTILHAMENTO -->
+<!-- MODAL DE COMPARTILHAMENTO - TEXTO REFORMULADO (SEM OFERTAS) -->
 <div id="shareModal" class="share-modal">
     <div class="share-modal-content">
-        <div class="share-icon-big">🔗</div>
-        <p><strong>Link do cardápio digital copiado!</strong><br>Compartilhe com seus familiares e amigos.</p>
-        <button class="btn-ok" id="shareOkBtn">OK</button>
+        <span class="share-icon-big">📤</span>
+        <div class="share-title">Compartilhe com quem você ama!</div>
+        <div class="share-subtitle">
+            <strong>Center Carnes Skala</strong> – a melhor carne da região agora na palma da mão.<br>
+            Seus amigos e familiares vão adorar conhecer nosso cardápio.
+        </div>
+        <div class="share-gatilhos">
+            <span><span class="emoji">🔥</span> <strong>Mais de 500 famílias</strong> já compartilharam e aprovaram a qualidade dos nossos cortes.</span>
+            <span><span class="emoji">👨‍👩‍👧‍👦</span> Reúna a família, faça um churrasco inesquecível com a gente.</span>
+            <span><span class="emoji">📋</span> Cardápio atualizado semanalmente – sempre com novidades para você.</span>
+        </div>
+        <div class="share-buttons">
+            <button class="share-btn share-btn-copy" id="shareCopyLinkBtn">
+                📋 Copiar link do cardápio
+            </button>
+            <a class="share-btn share-btn-whatsapp" id="shareWhatsAppBtn" target="_blank">
+                📲 Compartilhar no WhatsApp
+            </a>
+            <button class="share-btn-close" id="shareCloseBtn">Fechar</button>
+        </div>
     </div>
 </div>
 
@@ -1123,9 +1205,10 @@
     function sendOrderToWhatsApp(isScheduled=false,scheduleDatetime=null,scheduleObs=''){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const nomeCliente=document.getElementById('customerName').value.trim();const payment=document.querySelector('input[name="payment"]:checked')?.value;let changeText='';if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}changeText=`\n*Troco para:* ${changeRaw}`;}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;let addressText='';if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}addressText=`\n*Endereço:* ${addr}`;}let message='';if(isScheduled){message+=`⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;message+=`📅 *Agendamento solicitado:* ${scheduleDatetime||'A combinar'}\n`;if(scheduleObs)message+=`✏️ *Observações:* ${scheduleObs}\n`;message+=`🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;}message+=`🍖 *CENTER CARNES SKALA* 🍖\n`;message+=`👤 *Cliente:* ${nomeCliente}\n\n`;message+=`📋 *ITENS DO PEDIDO:*\n`;let total=0;cart.forEach(item=>{let nome=item.name;if(item.isCustom)nome=`Carne Moída (${item.descricaoCustom})`;message+=`• ${nome} - ${item.quantityLabel} = ${formatCurrency(item.totalPrice)}\n`;total+=item.totalPrice;});message+=`\n📦 *TOTAL:* ${formatCurrency(total)}\n\n`;message+=`💳 *Pagamento:* ${payment}${changeText}\n`;message+=`🚚 *Entrega:* ${delivery}${addressText}\n\n`;message+=`🔔 Peço que confirmem meu pedido.`;window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`,'_blank');return true;}
     function updateTicker(){const now=new Date();const month=now.getMonth();const day=now.getDate();const hours=now.getHours();const minutes=now.getMinutes();const isJune=(month===5);let showMsg1=false;if(isJune&&day<=19){if(day<19){showMsg1=true;}else if(day===19){if(hours<20||(hours===20&&minutes===0)){showMsg1=true;}}}let showMsg2=false;if(isJune&&day<=24){if(day<24){showMsg2=true;}else if(day===24){if(hours<18||(hours===18&&minutes<20)){showMsg2=true;}}}const messages=[];if(showMsg1)messages.push("📢 dia 19/06 horário normal");if(showMsg2)messages.push("📢 dia 24/06 até 18:20 h");const tickerDiv=document.getElementById('tickerContent');const wrapper=document.getElementById('tickerWrapper');if(messages.length===0){wrapper.style.display='none';return;}wrapper.style.display='block';let contentHtml='';messages.forEach(msg=>{contentHtml+=`<span>🔹 ${msg} 🔹</span>`;});let repeated='';for(let i=0;i<3;i++){repeated+=contentHtml;}tickerDiv.innerHTML=repeated;}
     
-    // ========== FUNÇÃO PARA COMPARTILHAR ==========
+    // ========== FUNÇÃO PARA COMPARTILHAR (ATUALIZADA) ==========
     function shareCardapio() {
         const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
+        // Copia automaticamente
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(link).then(() => {
                 mostrarModalCompartilhamento();
@@ -1161,6 +1244,17 @@
 
     function mostrarModalCompartilhamento() {
         document.getElementById('shareModal').style.display = 'flex';
+    }
+
+    // Função para compartilhar via WhatsApp com mensagem personalizada (sem ofertas)
+    function compartilharWhatsApp() {
+        const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
+        const mensagem = `🍖 *Center Carnes Skala* – o melhor cardápio de carnes da região!\n\n` +
+                         `👨‍👩‍👧‍👦 Convido você a conhecer nosso cardápio digital e fazer o pedido perfeito para sua família.\n` +
+                         `Acesse: ${link}\n\n` +
+                         `📲 Compartilhe com quem também ama um bom churrasco!`;
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+        window.open(url, '_blank');
     }
 
     // ========== FUNÇÃO PARA COPIAR CHAVE PIX ==========
@@ -1434,8 +1528,30 @@
         document.getElementById('searchModal')?.addEventListener('click', function(e) {
             if (e.target === this) closeSearchModal();
         });
+        
+        // ---------- Eventos do modal de compartilhamento ----------
+        // Botão copiar link (dentro do modal)
+        document.getElementById('shareCopyLinkBtn')?.addEventListener('click', function() {
+            const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    alert('✅ Link copiado com sucesso!');
+                }).catch(() => {
+                    fallbackCopiarLink(link);
+                });
+            } else {
+                fallbackCopiarLink(link);
+            }
+        });
+
+        // Botão compartilhar no WhatsApp (dentro do modal)
+        document.getElementById('shareWhatsAppBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            compartilharWhatsApp();
+        });
+
         // Fechar modal de compartilhamento
-        document.getElementById('shareOkBtn')?.addEventListener('click', function() {
+        document.getElementById('shareCloseBtn')?.addEventListener('click', function() {
             document.getElementById('shareModal').style.display = 'none';
         });
         document.getElementById('shareModal')?.addEventListener('click', function(e) {
@@ -1444,7 +1560,7 @@
             }
         });
 
-        // Evento do botão de compartilhamento
+        // Evento do botão de compartilhamento (ícone flutuante)
         document.getElementById('shareButton')?.addEventListener('click', shareCardapio);
 
         // Evento do botão copiar Pix
