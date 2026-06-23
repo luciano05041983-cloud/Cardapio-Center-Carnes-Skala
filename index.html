@@ -20,6 +20,8 @@
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
+            /* CORREÇÃO PARA EVITAR ZOOM NO IOS */
+            -webkit-text-size-adjust: 100%;
         }
         /* Splash Screen - fundo branco sólido, sem textos extras */
         #splashScreen {
@@ -161,7 +163,7 @@
             background: transparent;
             border: none;
             color: #1A1A1A;
-            font-size: 0.9rem;
+            font-size: 16px; /* CORREÇÃO: mínimo 16px */
             font-family: 'Montserrat', sans-serif;
             outline: none;
         }
@@ -325,7 +327,7 @@
             padding: 5px 8px;
             border-radius: 20px;
             width: 100%;
-            font-size: 0.8rem;
+            font-size: 16px; /* CORREÇÃO: mínimo 16px */
         }
         .product-subtotal {
             font-size: 0.85rem;
@@ -675,7 +677,7 @@
         .payment-option label, .delivery-option label { background: #F0F0F0; padding: 6px 14px; border-radius: 40px; border: 1px solid #CCCCCC; font-size: 0.8rem; cursor: pointer; color: #1A1A1A; }
         .payment-option label:has(input:checked), .delivery-option label:has(input:checked) { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
         .conditional-field { margin-top: 12px; padding-top: 8px; border-top: 1px solid #DDD; }
-        .conditional-field input { width: 100%; padding: 10px; background: #FFFFFF; border: 1px solid #CCCCCC; border-radius: 30px; color: #1A1A1A; }
+        .conditional-field input { width: 100%; padding: 10px; background: #FFFFFF; border: 1px solid #CCCCCC; border-radius: 30px; color: #1A1A1A; font-size: 16px; } /* CORREÇÃO */
         .cart-total { text-align: right; font-size: 1.2rem; font-weight: 800; color: #E65100; padding: 12px 0; border-top: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; margin: 12px 0; }
         .cart-buttons { display: flex; gap: 12px; }
         .cart-btn { flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; border: none; }
@@ -702,7 +704,8 @@
         .type-btn.active-type { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
         .custom-field { margin-bottom: 20px; }
         .custom-field label { display: block; margin-bottom: 8px; font-weight: 600; color: #1A1A1A; }
-        .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #F5F5F5; border: 1px solid #DDD; border-radius: 30px; color: #1A1A1A; font-family: inherit; }
+        .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #F5F5F5; border: 1px solid #DDD; border-radius: 30px; color: #1A1A1A; font-family: inherit; font-size: 16px; } /* CORREÇÃO */
+        .custom-field textarea { font-size: 16px; } /* CORREÇÃO */
         .error-message { color: #E65100; font-size: 0.7rem; display: block; margin-top: 4px; }
 
         /* ESTILOS DO MODAL DE PESQUISA - COM CAMPO DE KG E SUBTOTAL */
@@ -764,7 +767,7 @@
             padding: 4px 6px;
             border: 1px solid #CCC;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 16px; /* CORREÇÃO */
             background: #F5F5F5;
             color: #1A1A1A;
             text-align: center;
@@ -985,7 +988,7 @@
             padding: 10px 16px;
             border-radius: 30px;
             color: #1A1A1A;
-            font-size: 0.9rem;
+            font-size: 16px; /* CORREÇÃO */
             font-family: 'Montserrat', sans-serif;
             outline: none;
         }
@@ -1023,6 +1026,29 @@
             height: auto;
             display: block;
         }
+
+        /* ===== CORREÇÃO GLOBAL PARA INPUTS NO IOS ===== */
+        input, 
+        textarea, 
+        select,
+        .search-input,
+        .weight-input-area input,
+        #customerName,
+        #deliveryAddress,
+        #changeAmount,
+        #moedaKg,
+        #outroTipoInput,
+        .pix-copy-area input,
+        .search-weight-input,
+        .conditional-field input,
+        .custom-field input,
+        .custom-field textarea,
+        .custom-field select {
+            font-size: 16px !important;
+        }
+
+        /* Ajuste para evitar que o !important quebre outros estilos */
+        .search-input { font-size: 16px !important; }
     </style>
 </head>
 <body>
