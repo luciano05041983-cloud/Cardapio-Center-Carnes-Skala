@@ -96,8 +96,45 @@
         .header { text-align: center; padding: 25px 20px 15px 20px; position: relative; z-index: 5; }
         .logo-container { width: 200px; margin: 0 auto 15px auto; }
         .welcome-text { font-size: 0.9rem; color: #555555; font-style: italic; }
-        .hero-banner { width: calc(100% - 30px); margin: 0 auto 15px auto; height: 170px; border-radius: 15px; background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('https://i.ibb.co/pjBKnNgd/file-00000000f54871f5a6158a58fbffd347.png') center center / cover no-repeat; background-size: cover; display: flex; align-items: flex-end; padding: 15px; }
-        .hero-banner h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+        .hero-banner { 
+            width: calc(100% - 30px); 
+            margin: 0 auto 15px auto; 
+            height: 170px; 
+            border-radius: 15px; 
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('https://i.ibb.co/pjBKnNgd/file-00000000f54871f5a6158a58fbffd347.png') center center / cover no-repeat; 
+            background-size: cover; 
+            display: flex; 
+            align-items: flex-end; 
+            padding: 15px;
+            position: relative;
+        }
+        .hero-banner h2 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.5rem; 
+            color: white; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-right: 10px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.3);
+            backdrop-filter: blur(2px);
+        }
+        .status-badge.aberto {
+            background-color: #2ecc71;
+        }
+        .status-badge.fechado {
+            background-color: #e74c3c;
+        }
         
         /* ESTILOS DO CAMPO DE PESQUISA 🔎 */
         .search-container {
@@ -327,7 +364,7 @@
             padding: 16px 14px;
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255,215,0,0.4);
             position: relative;
-            display: block; /* muda de flex para block para melhor controle */
+            display: block;
             transition: transform 0.25s ease, box-shadow 0.3s ease;
         }
         .product-card-special:hover {
@@ -420,7 +457,6 @@
         .product-card-special .customize-btn span {
             font-size: 1.3rem;
         }
-        /* Badge "Personalize" já incluso no ::before, então removemos o antigo se houver */
         .product-card-special .product-price-row {
             display: flex;
             justify-content: center;
@@ -557,7 +593,7 @@
         /* BOTÃO DE COMPARTILHAMENTO DISCRETO */
         .share-float {
             position: fixed;
-            bottom: 240px;      /* acima do WhatsApp */
+            bottom: 240px;
             right: 20px;
             width: 48px;
             height: 48px;
@@ -666,13 +702,14 @@
         .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #F5F5F5; border: 1px solid #DDD; border-radius: 30px; color: #1A1A1A; font-family: inherit; }
         .error-message { color: #E65100; font-size: 0.7rem; display: block; margin-top: 4px; }
 
-        /* ESTILOS DO MODAL DE PESQUISA */
+        /* ESTILOS DO MODAL DE PESQUISA - COM CAMPO DE KG E SUBTOTAL */
         .search-result-item {
             display: flex;
             gap: 12px;
             padding: 10px 0;
             border-bottom: 1px solid #EEEEEE;
-            align-items: center;
+            align-items: flex-start;
+            flex-wrap: wrap;
         }
         .search-result-item:last-child { border-bottom: none; }
         .search-result-image {
@@ -689,6 +726,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+            min-width: 120px;
         }
         .search-result-name {
             font-weight: 700;
@@ -706,17 +744,60 @@
             color: #E65100;
             font-size: 0.85rem;
         }
+        .search-result-weight {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .search-result-weight label {
+            font-size: 0.7rem;
+            color: #D4AF37;
+            font-weight: 600;
+        }
+        .search-result-weight input {
+            width: 60px;
+            padding: 4px 6px;
+            border: 1px solid #CCC;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: #F5F5F5;
+            color: #1A1A1A;
+            text-align: center;
+        }
+        .search-result-weight input:focus {
+            border-color: #D4AF37;
+            outline: none;
+        }
+        .search-result-subtotal {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #E65100;
+            margin-top: 4px;
+            background: #FFF9E6;
+            padding: 2px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid #FFE0B5;
+        }
+        .search-result-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+            flex-shrink: 0;
+        }
         .search-result-add {
             background-color: #E65100;
             border: none;
             color: white;
-            padding: 4px 14px;
+            padding: 6px 16px;
             border-radius: 30px;
             font-weight: 700;
             cursor: pointer;
             font-size: 0.8rem;
             transition: all 0.2s ease;
-            flex-shrink: 0;
+            align-self: center;
         }
         .search-result-add:active { transform: scale(0.95); background-color: #2ecc71; }
         .search-modal-empty {
@@ -726,6 +807,72 @@
             font-size: 1rem;
         }
         .search-modal-empty span { font-size: 3rem; display: block; margin-bottom: 12px; }
+
+        /* ESTILOS PARA SUGESTÕES NO MODAL PERSONALIZAR - ACIMA DO INPUT */
+        .suggestions-container {
+            position: relative;
+            width: 100%;
+        }
+        .suggestions-list {
+            position: absolute;
+            bottom: 100%;  /* aparece acima do input */
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            border: 1px solid #DDD;
+            border-radius: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 4px; /* espaço entre a lista e o input */
+        }
+        .suggestions-list.active {
+            display: block;
+        }
+        .suggestion-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #F0F0F0;
+            transition: background 0.2s;
+        }
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        .suggestion-item:hover {
+            background: #FFF9E6;
+        }
+        .suggestion-item .suggestion-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1A1A1A;
+        }
+        .suggestion-item .suggestion-price {
+            font-weight: 700;
+            color: #E65100;
+            font-size: 0.85rem;
+        }
+        .suggestion-empty {
+            padding: 12px 16px;
+            color: #999;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .search-query-display {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 4px;
+            font-weight: 500;
+            padding: 4px 0;
+        }
+        .search-query-display strong {
+            color: #E65100;
+            font-weight: 700;
+        }
 
         /* ESTILOS DO MODAL DE COMPARTILHAMENTO - TEXTO REFORMULADO (SEM OFERTAS) */
         .share-modal-content {
@@ -878,6 +1025,7 @@
 
     <div class="hero-banner">
         <h2>Seleção do Assador</h2>
+        <span class="status-badge" id="statusBadge">🟢 Aberto</span>
     </div>
 
     <div class="search-container">
@@ -918,12 +1066,10 @@
     
     <div class="footer-info">
         <p>📞 WhatsApp: <a href="https://wa.me/5534991273427" target="_blank">(34) 99127-3427</a></p>
-        <p>📸 Instagram: <a href="https://instagram.com/centercarnesskala2024" target="_blank">@centercarnesskala2024</a></p>
         <p>📍 Rua Saldanha Marinho, 300 - Bairro Pampulha, Uberlândia - MG</p>
         <p>🕒 Horário de Funcionamento: Segunda a Sábado, 08:00 às 20:00 | Domingo, 08:00 às 13:00</p>
         <div class="footer-social">
             <a href="https://wa.me/5534991273427" target="_blank">💬 WhatsApp</a>
-            <a href="https://instagram.com/centercarnesskala2024" target="_blank">📷 Instagram</a>
         </div>
     </div>
 </div>
@@ -979,7 +1125,7 @@
 
 <div id="scheduleModal" class="schedule-modal"><div class="schedule-modal-content"><div class="cart-modal-header"><h2>📅 Agendamento de Pedido</h2><span class="close-modal" id="closeScheduleModal">&times;</span></div><p style="margin-bottom:16px;">⚠️ No momento estamos fora do horário de funcionamento. Deseja agendar este pedido?</p><div class="custom-field"><label>📅 Data e Hora desejada:</label><input type="datetime-local" id="scheduleDatetime"></div><div class="custom-field"><label>📝 Observações:</label><textarea id="scheduleObs" rows="2"></textarea></div><div class="custom-buttons"><button id="cancelScheduleBtn" class="btn-cancel">Voltar</button><button id="confirmScheduleBtn" class="btn-confirm">Confirmar Agendamento</button></div></div></div>
 
-<!-- MODAL PERSONALIZAR CARNE MOÍDA COM SUBTOTAL DINÂMICO -->
+<!-- MODAL PERSONALIZAR CARNE MOÍDA COM SUBTOTAL DINÂMICO E SUGESTÕES ACIMA DO INPUT -->
 <div id="customModal" class="custom-modal">
     <div class="custom-modal-content">
         <h3>🥩 Personalizar Carne Moída</h3>
@@ -994,7 +1140,17 @@
                 <div data-tipo="Paleta" class="type-btn">Paleta</div>
                 <div data-tipo="Outro" class="type-btn">Outro</div>
             </div>
-            <div id="outroTipoField" class="custom-field hidden-field"><label>Digite o tipo:</label><input type="text" id="outroTipoInput" placeholder="Ex: Maminha, Peixinho, Lagarto, etc."></div>
+            <div id="outroTipoField" class="custom-field hidden-field">
+                <label>Digite o tipo:</label>
+                <div class="suggestions-container">
+                    <!-- Texto mostrando a palavra digitada -->
+                    <div id="searchQueryDisplay" class="search-query-display"></div>
+                    <!-- Lista de sugestões (aparece acima do input) -->
+                    <div class="suggestions-list" id="suggestionsList"></div>
+                    <!-- Campo de input -->
+                    <input type="text" id="outroTipoInput" placeholder="Ex: Músculo, Lagarto, Maminha..." autocomplete="off">
+                </div>
+            </div>
         </div>
         <div class="custom-field"><label>Moer quantas vezes?</label>
             <div class="moagem-buttons">
@@ -1016,7 +1172,7 @@
 
 <div id="quantityModal" class="quantity-modal"><div class="quantity-modal-content"><h3>⚖️ Selecione o peso</h3><div id="quantityProductName" style="margin-bottom:10px;"></div><div class="weight-grid" id="weightGrid"></div><div class="quantity-modal-buttons"><button id="cancelQuantityBtn" class="btn-cancel">Cancelar</button><button id="confirmQuantityBtn" class="btn-confirm">Adicionar ao carrinho</button></div></div></div>
 
-<!-- MODAL DE PESQUISA EM TEMPO REAL -->
+<!-- MODAL DE PESQUISA EM TEMPO REAL - COM CAMPO DE KG E SUBTOTAL -->
 <div id="searchModal" class="search-modal">
     <div class="search-modal-content">
         <div class="cart-modal-header">
@@ -1089,8 +1245,92 @@
         }, 2500);
     }
     
+    // Atualizar badge de status (Aberto/Fechado)
+    function updateStatusBadge() {
+        const badge = document.getElementById('statusBadge');
+        if (isWithinBusinessHours()) {
+            badge.textContent = '🟢 Aberto';
+            badge.className = 'status-badge aberto';
+        } else {
+            badge.textContent = '🔴 Fechado';
+            badge.className = 'status-badge fechado';
+        }
+    }
+    
     const dicasPreparo=[{nome:"🍲 Carne de Panela",icone:"🍲",cortes:["Músculo Dianteiro","Músculo Traseiro","Maçã de Peito"]},{nome:"🔥 Grelhar",icone:"🔥",cortes:["Ponta de Picanha","Alcatra","Contrafilé","Fraldinha"]},{nome:"🍖 Churrasco",icone:"🍖",cortes:["Coxão Mole","Ponta de Picanha","Paletão"]},{nome:"🥘 Ensopados",icone:"🥘",cortes:["Músculo Dianteiro","Acém","Peixinho"]}];
     const productsData={bovinos:[{id:"b1",name:"Coxão Mole",desc:"Corte macio e suculento, ideal para bifes e churrasco.",basePrice:49.99,unit:"KG",image:"https://i.ibb.co/93h6J63F/Screenshot-20260613-094752-Fotos.png"},{id:"b2",name:"Ponta de Picanha",desc:"Sabor incomparável, perfeita para grelha e assados.",basePrice:47.99,unit:"KG",image:"https://i.ibb.co/Zz8MVSyF/1780091522406.png"},{id:"b3",name:"Patinho",desc:"Versátil, ótimo para bifes, carne moída e refogados.",basePrice:47.99,unit:"KG",image:"https://i.ibb.co/FkKcf64W/1780092680484.png"},{id:"b4",name:"Alcatra",desc:"Corte nobre, macia e suculenta. Excelente para churrasco.",basePrice:59.99,unit:"KG",image:"https://i.ibb.co/Z1TPwXPP/Screenshot-20260530-080735-Fotos.png"},{id:"b5",name:"Contrafilé",desc:"Sabor marcante e marmorizado, ideal para grelha.",basePrice:59.99,unit:"KG",image:"https://i.ibb.co/QjdyVRVK/file-000000002798720e973507cc99d0a3c9.png"},{id:"b6",name:"Músculo Dianteiro",desc:"Perfeito para cozidos, caldos e carne de panela.",basePrice:32.99,unit:"KG",image:"https://i.ibb.co/tMgJ8rZP/1780109278994.png"},{id:"b7",name:"Músculo Traseiro",desc:"Ótimo para ensopados, suculento e cheio de sabor.",basePrice:37.99,unit:"KG",image:"https://i.ibb.co/qYb8s1bw/file-0000000073d4720e848b42607fecb7de.png"},{id:"b8",name:"Maçã de Peito",desc:"Corte com gordura entremeada, ideal para assar.",basePrice:37.98,unit:"KG",image:"https://i.ibb.co/FLG2rk00/1780110004482.png"},{id:"b9",name:"Acém",desc:"Muito saboroso, perfeito para churrasco e ensopados.",basePrice:32.99,unit:"KG",image:"https://i.ibb.co/r268tjw1/Screenshot-20260530-082358-Fotos.png"},{id:"b10",name:"Peixinho",desc:"Corte versátil, ótimo para bifes e refogados.",basePrice:37.99,unit:"KG",image:"https://i.ibb.co/39WSytqW/Screenshot-20260530-074409-Fotos.png"},{id:"b11",name:"Capa de Contrafilé",desc:"Marmorizada e suculenta, excelente para grelha.",basePrice:37.99,unit:"KG",image:"https://i.ibb.co/5XWqJRx8/Screenshot-20260529-163950-Instagram.png"},{id:"b12",name:"Paleta",desc:"Ideal para assar, desfiar ou cozinhar lentamente.",basePrice:35.99,unit:"KG",image:"https://i.ibb.co/S7wNbPMC/Screenshot-20260530-080027-Fotos.png"},{id:"b13",name:"Fraldinha",desc:"Muito saborosa, ótima para churrasco e grelha.",basePrice:47.99,unit:"KG",image:"https://i.ibb.co/7J99shzC/Screenshot-20260530-080253-Fotos.png"},{id:"b14",name:"Paletão",desc:"Corte com osso, perfeito para assados de longa duração.",basePrice:47.99,unit:"KG",image:"https://i.ibb.co/dwYGwgMc/Screenshot-20260530-081007-Fotos.png"}],suinos:[{id:"su1",name:"Pernil sem Osso",desc:"Corte magro e suculento, ideal para assar ou desfiar.",basePrice:22.99,unit:"KG",image:"https://i.ibb.co/xNj01km/Screenshot-20260530-083908-Instagram.png"},{id:"su2",name:"Costelinha",desc:"Defumada naturalmente, macia e cheia de sabor para churrasco.",basePrice:25.99,unit:"KG",image:"https://i.ibb.co/hFTZNMP7/Screenshot-20260530-084418-Fotos.png"},{id:"su3",name:"Lombo",desc:"Corte nobre, muito macio e versátil para grelhar ou assar.",basePrice:29.99,unit:"KG",image:"https://i.ibb.co/GvzLcPfD/Screenshot-20260530-141530-Fotos.png"},{id:"su4",name:"Miúdos para Feijoada",desc:"Conjunto com orelha, pé, rabo e outras partes para feijoada completa.",basePrice:17.99,unit:"KG",image:"https://i.ibb.co/CpQFNdSL/Screenshot-20260530-141547-Fotos.png"},{id:"su5",name:"Suã Especial",desc:"Paleta suína, ótima para assar ou cozinhar lentamente.",basePrice:9.99,unit:"KG",image:"https://i.ibb.co/v6pv07HH/Screenshot-20260530-142006-Fotos.png"},{id:"su6",name:"Bisteca",desc:"Bisteca suína com osso, perfeita para grelha ou frigideira.",basePrice:21.99,unit:"KG",image:"https://i.ibb.co/b5vkg8nn/Screenshot-20260530-142210-Fotos.png"},{id:"su7",name:"Rabo de Porco",desc:"Ideal para caldos, feijoadas e moquecas, sabor marcante.",basePrice:24.99,unit:"KG",image:"https://i.ibb.co/sZFttN8/Screenshot-20260530-144318-Fotos.png"}],aves:[{id:"a1",name:"Filé de Frango",desc:"Peito de frango sem osso, limpo e fresco.",basePrice:26.99,unit:"KG",image:"https://i.ibb.co/LdSN5xtT/Screenshot-20260530-213340-Fotos.png"},{id:"a2",name:"Coxa e Sobrecoxa",desc:"Parte suculenta da ave.",basePrice:14.99,unit:"KG",image:"https://i.ibb.co/39H641rT/Screenshot-20260530-213430-Fotos.png"},{id:"a3",name:"Coxinha da Asa",desc:"Asinhas de frango.",basePrice:19.99,unit:"KG",image:"https://i.ibb.co/84MCCF0y/Screenshot-20260530-213619-Fotos.png"},{id:"a4",name:"Tulipa",desc:"Sobrecoxa desossada enrolada.",basePrice:29.99,unit:"KG",image:"https://i.ibb.co/KpwvBk5K/Screenshot-20260530-213851-Fotos.png"},{id:"a5",name:"Tulipa na Mostarda",desc:"Temperada com mostarda.",basePrice:33.99,unit:"KG",image:"https://i.ibb.co/ZpZcM4XK/Screenshot-20260530-214026-Fotos.png"},{id:"a6",name:"Coxa Recheada",desc:"Recheada com presunto e queijo.",basePrice:27.99,unit:"KG",image:"https://i.ibb.co/qMQr1PMS/Screenshot-20260530-214206-Fotos.png"},{id:"a7",name:"Almôndega de Frango",desc:"Almôndegas artesanais.",basePrice:27.99,unit:"KG",image:"https://i.ibb.co/23dHC2h4/Screenshot-20260530-214422-Fotos.png"},{id:"a8",name:"Pé de Frango",desc:"Para caldos.",basePrice:10.99,unit:"KG",image:"https://i.ibb.co/fY1648wD/Screenshot-20260530-214556-Fotos.png"},{id:"a9",name:"Franbacon",desc:"Filé envolto em bacon.",basePrice:33.99,unit:"KG",image:"https://i.ibb.co/ZzVW4hzh/Screenshot-20260529-164029-Instagram.png"}],kits:[{id:"k1",name:"Kit Fitness",desc:"SKALA\n• 500g Patinho Moído\n• 500g Patinho Bife\n• 500g Filé de Frango (Bife)\n• 500g Filé de Frango (Estrogonofe)\n• 1kg Filé de Tilápia\n• 500g Peixinho (Pedaço)",basePrice:140.00,unit:"KIT",image:"https://i.ibb.co/Cp0f3Hqy/IMG-20260529-WA0003.jpg"},{id:"k2",name:"Kit Família",desc:"SKALA\n• 600g Coxão Mole Bife\n• 600g Filé de Frango Estrogonofe\n• 600g Filé de Frango Bife\n• 600g Coxinha da Asa\n• 600g Acém Moído\n• 600g Paleta Pedaço\n• 600g Almôndega Bovina\n• 600g Linguiça de Pernil\n• 1 Pct Farinha D' Rocha",basePrice:175.00,unit:"KIT",image:"https://i.ibb.co/pBXNFGvZ/IMG-20260529-WA0001.jpg"},{id:"k3",name:"Kit Super Econômico",desc:"SKALA\n• 800g Suã Especial\n• 800g Acém Moído\n• 800g Frango a Passarinho ou Coxa e Sobrecoxa\n• 800g Fígado\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Pernil (Bife ou Panela)",basePrice:115.00,unit:"KIT",image:"https://i.ibb.co/WNGrVP8T/IMG-20260529-WA0007.jpg"},{id:"k4",name:"Kit Econômico",desc:"SKALA\n• 800g Almôndega (Frango ou Bovina)\n• 800g Acém (Moído ou Panela)\n• 800g Coxão Duro Bife\n• 800g Costelinha Suína ou Costela Ripa\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Frango Passarinho ou Coxa e Sobrecoxa",basePrice:145.00,unit:"KIT",image:"https://i.ibb.co/1tyJ6CXF/IMG-20260529-WA0006.jpg"}],carneMoida:[{id:"cm1",name:"Carne Moída Personalizada",desc:"Escolha o corte, a quantidade e a moagem que preferir.",basePrice:29.90,unit:"KG",isSpecial:true,image:"https://i.ibb.co/HDW3pRZB/Screenshot-20260531-142140-Fotos.png"}],premium:[{id:"p1",name:"Cupim Grill",desc:"Marmorizado.",basePrice:69.99,unit:"KG",image:"https://i.ibb.co/htzsVWR/Screenshot-20260531-075929-Fotos.png"},{id:"p2",name:"Picanha",desc:"Corte nobre.",basePrice:79.99,unit:"KG",image:"https://i.ibb.co/k2Cz061k/Screenshot-20260531-074806-Fotos.png"},{id:"p3",name:"Filé Mignon",desc:"Maciez incomparável.",basePrice:74.99,unit:"KG",image:"https://i.ibb.co/jP04PfHL/Screenshot-20260531-074945-Fotos.png"},{id:"p4",name:"Bananinha",desc:"Macio e suculento.",basePrice:36.99,unit:"KG",image:"https://i.ibb.co/d4gwcfK1/Screenshot-20260531-075151-Fotos.png"}],variedades:[{id:"v1",name:"Costela Gaúcha",desc:"Tradicional.",basePrice:29.99,unit:"KG",image:"https://i.ibb.co/v48TrWC5/pexels-mohamed9380-36669802.jpg"},{id:"v2",name:"Costela Ripa",desc:"Corte achatado.",basePrice:27.99,unit:"KG",image:"https://i.ibb.co/4nGBFfT3/Screenshot-20260531-124812-Fotos.png"},{id:"v3",name:"Osso Buco",desc:"Com tutano.",basePrice:33.99,unit:"KG",image:"https://i.ibb.co/FqVZWzjG/Screenshot-20260531-124857-Fotos.png"},{id:"v4",name:"Rabada",desc:"Para ensopados.",basePrice:33.99,unit:"KG",image:"https://i.ibb.co/KxQ1wvch/Screenshot-20260531-125048-Fotos.png"},{id:"v5",name:"Mocotó",desc:"Pé bovino.",basePrice:21.99,unit:"KG",image:"https://i.ibb.co/0pqVPzLg/Screenshot-20260531-125347-Fotos.png"},{id:"v6",name:"Dobradinha",desc:"Bucho bovino.",basePrice:21.99,unit:"KG",image:"https://i.ibb.co/4Cm4rYv/Screenshot-20260531-130356-Fotos.png"},{id:"v7",name:"Fígado",desc:"Rico em ferro.",basePrice:21.99,unit:"KG",image:"https://i.ibb.co/gZgVkGYC/Screenshot-20260531-130438-Fotos.png"}]};
+    
+    // Função corrigida para buscar preço por tipo em TODAS as categorias
+    function getPrecoPorTipo(tipo){
+        if (!tipo) return null;
+        const tipoLower = tipo.toLowerCase().trim();
+        const map = new Map();
+        const todasCategorias = ['bovinos', 'suinos', 'aves', 'premium', 'variedades', 'kits'];
+        for (let cat of todasCategorias) {
+            if (productsData[cat]) {
+                productsData[cat].forEach(p => {
+                    map.set(p.name, p.basePrice);
+                    map.set(p.name.toLowerCase(), p.basePrice);
+                    const semAcento = p.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+                    map.set(semAcento, p.basePrice);
+                });
+            }
+        }
+        
+        if (map.has(tipoLower)) return map.get(tipoLower);
+        if (map.has(tipo)) return map.get(tipo);
+        
+        for (let [chave, valor] of map) {
+            if (chave.toLowerCase().includes(tipoLower)) {
+                return valor;
+            }
+        }
+        
+        const tipoNormalizado = tipoLower.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        for (let [chave, valor] of map) {
+            const chaveNormalizada = chave.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+            if (chaveNormalizada.includes(tipoNormalizado) || tipoNormalizado.includes(chaveNormalizada)) {
+                return valor;
+            }
+        }
+        
+        return null;
+    }
+    
+    // Função para buscar sugestões de cortes (para o campo "Outro") - mais robusta
+    function getSuggestions(query) {
+        if (!query || query.trim() === '') return [];
+        const lowerQuery = query.toLowerCase().trim();
+        const queryNorm = lowerQuery.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const results = [];
+        const todasCategorias = ['bovinos', 'suinos', 'aves', 'premium', 'variedades'];
+        for (let cat of todasCategorias) {
+            if (productsData[cat]) {
+                productsData[cat].forEach(p => {
+                    const nameLower = p.name.toLowerCase();
+                    const nameNorm = nameLower.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+                    // Verifica se o nome contém a query (com ou sem acentos)
+                    if (nameLower.includes(lowerQuery) || nameNorm.includes(queryNorm)) {
+                        results.push({
+                            name: p.name,
+                            price: p.basePrice
+                        });
+                    }
+                });
+            }
+        }
+        // Remove duplicatas (mesmo nome pode aparecer em várias categorias)
+        const unique = [];
+        const seen = new Set();
+        for (let item of results) {
+            if (!seen.has(item.name)) {
+                seen.add(item.name);
+                unique.push(item);
+            }
+        }
+        return unique;
+    }
+    
     function findProductByName(name){for(let cat in productsData){let found=productsData[cat].find(p=>p.name===name);if(found)return found;}return null;}
     function addToCart(product,selectedValue){let q=parseFloat(selectedValue);if(isNaN(q)||q<=0)return false;let label=product.unit==='KG'?`${q.toString().replace('.',',')} kg`:`${selectedValue} ${product.unit}${q>1?'s':''}`;cart.push({...product,quantityValue:q,quantityLabel:label,totalPrice:product.basePrice*q,isCustom:false});updateCartBadge();showFloatingToast(`✅ Você adicionou ${product.name}`);return true;}
     function showQuantityModal(product){pendingTipProduct=product;document.getElementById('quantityProductName').innerHTML=`<strong>${product.name}</strong> - ${formatCurrency(product.basePrice)}/kg`;const grid=document.getElementById('weightGrid');const opts=[0.5,1,1.5,2,2.5,3];grid.innerHTML=opts.map(w=>`<div class="weight-option" data-weight="${w}">${w.toString().replace('.',',')} kg</div>`).join('');document.querySelectorAll('.weight-option').forEach(opt=>opt.classList.remove('active-weight-option'));if(opts.length)document.querySelector('.weight-option').classList.add('active-weight-option');document.getElementById('quantityModal').style.display='flex';}
@@ -1099,7 +1339,7 @@
     function renderProductsFromSource(productsArray,sourceCategory=null,isSearch=false){const feed=document.getElementById('productFeed');if(!productsArray.length){feed.innerHTML='<div style="text-align:center; padding:40px;">🔎 Nenhum produto encontrado para sua busca.</div>';document.getElementById('sectionTitle').innerHTML=isSearch?`🔎 Resultados para "${currentSearchTerm}"`:"🔥 Destaques da Semana";return;}let title=isSearch?`🔎 Resultados para "${currentSearchTerm}" (${productsArray.length})`:(sourceCategory==='carneMoida'?"🥩 Personalize sua Carne Moída":(sourceCategory==='aves'?"🐔 Aves - Tabela Completa":(sourceCategory==='suinos'?"🐷 Cortes Suínos":(sourceCategory==='bovinos'?"🐂 Cortes Bovinos":(sourceCategory==='kits'?"🎁 Kits Especiais - Skala":(sourceCategory==='premium'?"⭐ Linha Premium":(sourceCategory==='variedades'?"🍖 Variedades":"🔥 Destaques da Semana")))))));document.getElementById('sectionTitle').innerHTML=title;let productsHTML=productsArray.map(p=>{if(p.isSpecial){return `<div class="product-card product-card-special" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div class="product-price-row"><span class="product-price-kg">a partir de ${formatCurrency(p.basePrice)}/kg</span><button class="customize-btn" data-id="${p.id}"><span>⚙️</span> Personalizar agora</button></div></div></div>`;}else if(p.unit==='KIT'){return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div style="display:flex; justify-content:flex-end;"><span class="product-price">${formatCurrency(p.basePrice)}</span><button class="add-btn kit-add" data-id="${p.id}"><span>+</span> Pedir</button></div></div></div>`;}else{return `<div class="product-card" data-id="${p.id}"><div class="product-image" style="background-image:url('${p.image}')"></div><div class="product-info"><div><h4 class="product-title">${p.name}</h4><p class="product-desc">${p.desc}</p></div><div class="weight-subtotal-row"><div class="weight-input-area"><label>⚖️ Peso (kg):</label><input type="number" class="weight-input" id="weight-${p.id}" step="0.1" min="0.1" value="1.0"></div><div class="product-subtotal">Subtotal: <span id="subtotal-${p.id}">${formatCurrency(p.basePrice)}</span></div></div><div class="price-btn-row"><span class="product-price-kg">${formatCurrency(p.basePrice)}/kg</span><button class="add-btn" data-id="${p.id}">+ Pedir</button></div></div></div>`;}}).join('');if(!isSearch&&(sourceCategory==='bovinos'||sourceCategory==='aves'||sourceCategory==='carneMoida')){productsHTML+=getInlineAdsHTML();}feed.innerHTML=productsHTML;productsArray.forEach(p=>{if(!p.isSpecial&&p.unit!=='KIT'){const card=document.querySelector(`.product-card[data-id="${p.id}"]`);if(card){const weightInput=card.querySelector('.weight-input');const subtotalSpan=document.getElementById(`subtotal-${p.id}`);const addButton=card.querySelector('.add-btn');const updateSubtotal=()=>{let w=parseFloat(weightInput.value);if(isNaN(w)||w<=0)w=1.0;subtotalSpan.innerText=formatCurrency(p.basePrice*w);};weightInput.addEventListener('input',updateSubtotal);updateSubtotal();addButton.addEventListener('click',()=>{let w=parseFloat(weightInput.value);if(isNaN(w)||w<=0){alert("⚠️ Digite um peso válido");return;}if(addToCart(p,w)){}});}}else if(p.unit==='KIT'){const addButton=document.querySelector(`.product-card[data-id="${p.id}"] .kit-add`);if(addButton)addButton.addEventListener('click',()=>{if(addToCart(p,1)){}});}else if(p.isSpecial){const customizeBtn=document.querySelector('.customize-btn');if(customizeBtn)customizeBtn.addEventListener('click',()=>{currentEditingCustomIndex=null;document.getElementById('moedaKg').value='1.0';document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));document.querySelector('.type-btn[data-tipo="Patinho"]').classList.add('active-type');document.getElementById('outroTipoField').classList.add('hidden-field');document.querySelectorAll('.moagem-btn').forEach(b=>{if(parseInt(b.dataset.vezes)===1)b.classList.add('active-moagem');else b.classList.remove('active-moagem');});document.getElementById('moedaVezes').value='1';atualizarPrecoPersonalizacao();document.getElementById('customModal').style.display='flex';});}});document.querySelectorAll('.ad-card-16x9').forEach(ad=>ad.addEventListener('click',()=>window.open('https://wa.me/5534991058994','_blank')));}
     function renderProducts(category){const prods=productsData[category];if(prods)renderProductsFromSource(prods,category,false);}
     
-    // ========== FUNÇÕES DO MODAL DE PESQUISA ==========
+    // ========== FUNÇÕES DO MODAL DE PESQUISA COM CAMPO DE KG E SUBTOTAL ==========
     function highlightText(text, term) {
         const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escaped})`, 'gi');
@@ -1125,18 +1365,46 @@
             let html = '';
             results.forEach(p => {
                 const highlightedName = highlightText(p.name, term);
+                const pricePerKg = p.basePrice;
                 html += `
-                    <div class="search-result-item">
+                    <div class="search-result-item" data-id="${p.id}" data-isspecial="${p.isSpecial||false}" data-unit="${p.unit}" data-price="${pricePerKg}">
                         <div class="search-result-image" style="background-image:url('${p.image}')"></div>
                         <div class="search-result-info">
                             <div class="search-result-name">${highlightedName}</div>
-                            <div class="search-result-price">${formatCurrency(p.basePrice)}${p.unit==='KIT'?' (kit)':'/kg'}</div>
+                            <div class="search-result-price">${formatCurrency(pricePerKg)}${p.unit==='KIT'?' (kit)':'/kg'}</div>
+                            ${p.unit === 'KIT' ? '' : `
+                            <div class="search-result-weight">
+                                <label>⚖️ kg:</label>
+                                <input type="number" class="search-weight-input" value="1.0" step="0.1" min="0.1" max="10" data-price="${pricePerKg}">
+                            </div>
+                            <div class="search-result-subtotal" id="subtotal-${p.id}">${formatCurrency(pricePerKg)}</div>
+                            `}
                         </div>
-                        <button class="search-result-add" data-id="${p.id}" data-category="${p.originalCategory}" data-unit="${p.unit}" data-isspecial="${p.isSpecial||false}">+</button>
+                        <div class="search-result-actions">
+                            <button class="search-result-add" data-id="${p.id}" data-category="${p.originalCategory}" data-unit="${p.unit}" data-isspecial="${p.isSpecial||false}">+</button>
+                        </div>
                     </div>
                 `;
             });
             container.innerHTML = html;
+            
+            // Adicionar eventos de atualização de subtotal para cada input de peso
+            container.querySelectorAll('.search-weight-input').forEach(input => {
+                const updateSubtotal = function() {
+                    const itemDiv = this.closest('.search-result-item');
+                    const price = parseFloat(this.dataset.price);
+                    let weight = parseFloat(this.value);
+                    if (isNaN(weight) || weight <= 0) weight = 1.0;
+                    const subtotal = price * weight;
+                    const subtotalSpan = itemDiv.querySelector('.search-result-subtotal');
+                    if (subtotalSpan) {
+                        subtotalSpan.textContent = `${weight.toString().replace('.',',')}kg × ${formatCurrency(price)} = ${formatCurrency(subtotal)}`;
+                    }
+                };
+                input.addEventListener('input', updateSubtotal);
+                setTimeout(updateSubtotal.bind(input), 0);
+            });
+            
             // Adicionar eventos aos botões de adicionar
             container.querySelectorAll('.search-result-add').forEach(btn => {
                 btn.addEventListener('click', function(e) {
@@ -1144,7 +1412,7 @@
                     const id = this.dataset.id;
                     const isSpecial = this.dataset.isspecial === 'true';
                     const unit = this.dataset.unit;
-                    // Encontrar o produto completo
+                    
                     let product = null;
                     for (let cat in productsData) {
                         const found = productsData[cat].find(p => p.id === id);
@@ -1152,11 +1420,9 @@
                     }
                     if (!product) return;
                     
-                    // Fechar o modal de pesquisa antes de abrir o modal de quantidade
                     document.getElementById('searchModal').style.display = 'none';
 
                     if (product.isSpecial) {
-                        // Abrir modal de personalização
                         currentEditingCustomIndex = null;
                         document.getElementById('moedaKg').value = '1.0';
                         document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active-type'));
@@ -1172,25 +1438,22 @@
                         return;
                     }
                     if (product.unit === 'KIT') {
-                        // Adiciona direto 1 unidade
-                        if (addToCart(product, 1)) {
-                            // Mantém modal fechado
-                        }
+                        if (addToCart(product, 1)) {}
                         return;
                     }
-                    // Para carnes normais (KG), abre o modal de quantidade
-                    showQuantityModal(product);
+                    const itemDiv = this.closest('.search-result-item');
+                    const weightInput = itemDiv.querySelector('.search-weight-input');
+                    let weight = parseFloat(weightInput ? weightInput.value : 1.0);
+                    if (isNaN(weight) || weight <= 0) weight = 1.0;
+                    if (addToCart(product, weight)) {}
                 });
             });
         }
-        // Exibir o modal (já está visível, mas garantimos)
         document.getElementById('searchModal').style.display = 'flex';
     }
 
-    // Fechar modal de pesquisa
     function closeSearchModal() {
         document.getElementById('searchModal').style.display = 'none';
-        // Não limpa o campo de pesquisa para permitir nova busca ao digitar novamente
     }
 
     // ===== FIM FUNÇÕES MODAL PESQUISA =====
@@ -1213,15 +1476,13 @@
         clearBtn.style.display = 'block';
         const results = filterProductsBySearch(term);
         countDiv.innerHTML = results.length ? `${results.length} resultado(s) encontrado(s)` : 'Nenhum resultado';
-        // Renderizar no modal
         renderSearchResults(term);
-        // A categoria ativa não é alterada, mantém a visualização do feed inalterada
         document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
     }
 
     function smoothScrollToTitle(){requestAnimationFrame(()=>{const sectionTitle=document.getElementById('sectionTitle');if(sectionTitle){const navbar=document.querySelector('.category-nav-container');const navbarHeight=navbar?navbar.offsetHeight:0;const elementPosition=sectionTitle.getBoundingClientRect().top+window.scrollY;const offsetPosition=elementPosition-navbarHeight-10;window.scrollTo({top:offsetPosition,behavior:'smooth'});}});}
     
-    // Função para atualizar preço por kg (já existente)
+    // Função para atualizar preço por kg (com suporte para sugestões)
     function atualizarPrecoPersonalizacao(){ 
         let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo; 
         if (tipo === 'Outro') { 
@@ -1232,17 +1493,17 @@
                 return; 
             } 
             const preco = getPrecoPorTipo(nomeDigitado); 
-            if (preco !== null) {
+            if (preco !== null && preco !== undefined) {
                 document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`;
                 atualizarSubtotalPersonalizacao(preco);
             } else {
-                document.getElementById('precoDinamicoDisplay').innerHTML = `❌ Corte não encontrado.`;
+                document.getElementById('precoDinamicoDisplay').innerHTML = `❌ Corte não encontrado. Tente "Músculo", "Acém", etc.`;
                 document.getElementById('subtotalDinamicoDisplay').innerHTML = `Subtotal: -`;
             }
             return; 
         } 
         const preco = getPrecoPorTipo(tipo); 
-        if (preco) {
+        if (preco !== null && preco !== undefined) {
             document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(preco)} / kg`;
             atualizarSubtotalPersonalizacao(preco);
         } else {
@@ -1254,7 +1515,7 @@
     function atualizarSubtotalPersonalizacao(precoKg) {
         let kg = parseFloat(document.getElementById('moedaKg').value);
         if (isNaN(kg) || kg <= 0) kg = 1.0;
-        if (!precoKg) {
+        if (!precoKg || isNaN(precoKg)) {
             let precoTexto = document.getElementById('precoDinamicoDisplay').innerText;
             let match = precoTexto.match(/R\$[\s]*([0-9]+[.,]?[0-9]*)/);
             if (match) {
@@ -1277,9 +1538,83 @@
         atualizarSubtotalPersonalizacao(precoKg);
     });
     
-    function getPrecoPorTipo(tipo){const map=new Map();const cats=['bovinos','suinos','aves','premium','variedades'];for(let cat of cats)if(productsData[cat])productsData[cat].forEach(p=>{map.set(p.name,p.basePrice);map.set(p.name.toLowerCase(),p.basePrice);});if(map.has(tipo))return map.get(tipo);if(map.has(tipo.toLowerCase()))return map.get(tipo.toLowerCase());return null;}
+    // ===== FUNÇÕES PARA SUGESTÕES NO CAMPO "OUTRO" (ACIMA DO INPUT) - CORRIGIDO =====
+    const outroInput = document.getElementById('outroTipoInput');
+    const suggestionsList = document.getElementById('suggestionsList');
+    const searchQueryDisplay = document.getElementById('searchQueryDisplay');
+
+    function updateSuggestions() {
+        const query = outroInput.value;
+        // Atualiza o texto mostrando a palavra digitada
+        if (!query || query.trim() === '') {
+            searchQueryDisplay.textContent = '';
+            suggestionsList.classList.remove('active');
+            return;
+        }
+        // Sempre mostra a palavra pesquisada
+        searchQueryDisplay.innerHTML = `🔍 Pesquisando: <strong>"${query}"</strong>`;
+        
+        const suggestions = getSuggestions(query);
+        // Garante que a lista fique visível mesmo que não haja resultados
+        if (suggestions.length === 0) {
+            suggestionsList.innerHTML = `<div class="suggestion-empty">Nenhum corte encontrado</div>`;
+            suggestionsList.classList.add('active'); // mantém ativa para mostrar a mensagem
+            return;
+        }
+        let html = '';
+        suggestions.forEach(item => {
+            html += `
+                <div class="suggestion-item" data-name="${item.name}" data-price="${item.price}">
+                    <span class="suggestion-name">${item.name}</span>
+                    <span class="suggestion-price">${formatCurrency(item.price)}/kg</span>
+                </div>
+            `;
+        });
+        suggestionsList.innerHTML = html;
+        suggestionsList.classList.add('active'); // garante que a lista seja exibida
+        
+        // Adicionar eventos de clique nas sugestões
+        document.querySelectorAll('.suggestion-item').forEach(el => {
+            el.addEventListener('click', function() {
+                const name = this.dataset.name;
+                const price = parseFloat(this.dataset.price);
+                outroInput.value = name;
+                // Atualizar preço
+                document.getElementById('precoDinamicoDisplay').innerHTML = `Preço: ${formatCurrency(price)} / kg`;
+                atualizarSubtotalPersonalizacao(price);
+                // Limpar a lista e o texto de pesquisa
+                suggestionsList.classList.remove('active');
+                searchQueryDisplay.textContent = '';
+            });
+        });
+    }
+
+    outroInput?.addEventListener('input', updateSuggestions);
+    // Fechar sugestões ao clicar fora
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.suggestions-container')) {
+            suggestionsList?.classList.remove('active');
+            // Não limpar o texto de pesquisa para que o cliente veja o que digitou
+        }
+    });
+    // Fechar sugestões ao pressionar ESC
+    outroInput?.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            suggestionsList.classList.remove('active');
+        }
+    });
+    
     function addCarneMoidaToCart(tipo,kg,vezes,precoPorKg,editIndex=null){let q=parseFloat(kg);if(isNaN(q)||q<=0)return false;let total=precoPorKg*q;let desc=`${tipo} - ${q.toString().replace('.',',')} kg - moer ${vezes} vez${vezes>1?'es':''} - ${formatCurrency(precoPorKg)}/kg`;let item={id:"cm1",name:"Carne Moída",descricaoCustom:desc,tipo:tipo,kg:q,vezes:vezes,precoKg:precoPorKg,basePrice:precoPorKg,unit:"KG",quantityValue:q,quantityLabel:`${q.toString().replace('.',',')} kg`,totalPrice:total,image:productsData.carneMoida[0].image,isCustom:true};if(editIndex!==null)cart[editIndex]=item;else cart.push(item);updateCartBadge();showFloatingToast(`✅ Você adicionou ${tipo} (Carne Moída)`);return true;}
-    function getPrecoAtualPersonalizacao(){let tipo=document.querySelector('.type-btn.active-type')?.dataset.tipo;if(tipo==='Outro'){const nomeDigitado=document.getElementById('outroTipoInput').value.trim();if(nomeDigitado==="")return null;return getPrecoPorTipo(nomeDigitado);}return getPrecoPorTipo(tipo)||29.90;}
+    function getPrecoAtualPersonalizacao(){
+        let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo;
+        if (tipo === 'Outro') {
+            const nomeDigitado = document.getElementById('outroTipoInput').value.trim();
+            if (nomeDigitado === "") return null;
+            const preco = getPrecoPorTipo(nomeDigitado);
+            return preco;
+        }
+        return getPrecoPorTipo(tipo) || 29.90;
+    }
     function renderCartModal(){const container=document.getElementById('cartItemsContainer');if(!container)return;if(cart.length===0){container.innerHTML='<div class="empty-cart">🛒 Seu pedido está vazio.</div>';updateTotalDisplay();return;}let html='',totalSum=0;cart.forEach((item,idx)=>{totalSum+=item.totalPrice;let displayName=item.name;if(item.isCustom)displayName=`🥩 Carne Moída (${item.descricaoCustom})`;html+=`<div class="cart-item"><div class="cart-item-img" style="background-image:url('${item.image}')"></div><div class="cart-item-details"><div class="cart-item-name">${displayName}</div><div class="cart-item-qty">📦 ${item.quantityLabel}</div><div class="cart-item-price">${formatCurrency(item.totalPrice)}</div></div><div class="cart-item-actions"><button class="cart-icon-btn edit-item" data-index="${idx}" data-custom="${item.isCustom}">✏️</button><button class="cart-icon-btn delete-item" data-index="${idx}">🗑️</button></div></div>`;});container.innerHTML=html;document.getElementById('cartTotalDisplay').innerHTML=`💰 TOTAL: ${formatCurrency(totalSum)}`;document.querySelectorAll('.delete-item').forEach(btn=>btn.addEventListener('click',()=>{const idx=parseInt(btn.dataset.index);cart.splice(idx,1);renderCartModal();updateCartBadge();}));document.querySelectorAll('.edit-item').forEach(btn=>btn.addEventListener('click',()=>{const idx=parseInt(btn.dataset.index);const item=cart[idx];if(item.isCustom){currentEditingCustomIndex=idx;document.getElementById('moedaKg').value=item.kg;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));let found=false;document.querySelectorAll('.type-btn').forEach(b=>{if(b.dataset.tipo===item.tipo){b.classList.add('active-type');found=true;}});if(!found){document.querySelector('.type-btn[data-tipo="Outro"]').classList.add('active-type');document.getElementById('outroTipoField').classList.remove('hidden-field');document.getElementById('outroTipoInput').value=item.tipo;}else document.getElementById('outroTipoField').classList.add('hidden-field');document.querySelectorAll('.moagem-btn').forEach(b=>{if(parseInt(b.dataset.vezes)===item.vezes)b.classList.add('active-moagem');else b.classList.remove('active-moagem');});document.getElementById('moedaVezes').value=item.vezes;atualizarPrecoPersonalizacao();document.getElementById('customModal').style.display='flex';}else{currentEditIndex=idx;const select=document.getElementById('editQuantitySelect');let opts=item.unit==='KG'?[0.5,1,1.5,2,2.5,3]:[1,2,3,4,5];let options='';opts.forEach(v=>{options+=`<option value="${v}" ${item.quantityValue==v?'selected':''}>${item.unit==='KG'?v.toString().replace('.',',')+' kg':v+' '+item.unit+(v>1?'s':'')}</option>`;});select.innerHTML=options;document.getElementById('editModal').style.display='flex';}}));}
     function updateTotalDisplay(){let sum=cart.reduce((a,i)=>a+i.totalPrice,0);const totalDiv=document.getElementById('cartTotalDisplay');if(totalDiv)totalDiv.innerHTML=`💰 TOTAL: ${formatCurrency(sum)}`;}
     function setupOrderForm(){
@@ -1320,7 +1655,6 @@
     // ========== FUNÇÃO PARA COMPARTILHAR (ATUALIZADA) ==========
     function shareCardapio() {
         const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
-        // Copia automaticamente
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(link).then(() => {
                 mostrarModalCompartilhamento();
@@ -1358,7 +1692,6 @@
         document.getElementById('shareModal').style.display = 'flex';
     }
 
-    // Função para compartilhar via WhatsApp com mensagem personalizada (sem ofertas)
     function compartilharWhatsApp() {
         const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
         const mensagem = `🍖 *Center Carnes Skala* – o melhor cardápio de carnes da região!\n\n` +
@@ -1369,7 +1702,6 @@
         window.open(url, '_blank');
     }
 
-    // ========== FUNÇÃO PARA COPIAR CHAVE PIX ==========
     function copiarChavePix() {
         const chave = document.getElementById('pixKey').value;
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1416,9 +1748,11 @@
         currentActiveCategory='bovinos';
         updateTicker();
         setInterval(updateTicker,60000);
+        updateStatusBadge();
+        setInterval(updateStatusBadge, 60000);
+        
         const searchInput=document.getElementById('globalSearchInput');
         const clearBtn=document.getElementById('clearSearchBtn');
-        // Evento de input para pesquisa em tempo real
         searchInput.addEventListener('input',(e)=>{
             const term = e.target.value;
             performSearch(term);
@@ -1541,9 +1875,19 @@
             btn.addEventListener('click',()=>{
                 document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active-type'));
                 btn.classList.add('active-type');
-                if(btn.dataset.tipo==='Outro') document.getElementById('outroTipoField').classList.remove('hidden-field');
-                else document.getElementById('outroTipoField').classList.add('hidden-field');
-                atualizarPrecoPersonalizacao();
+                if(btn.dataset.tipo==='Outro') {
+                    document.getElementById('outroTipoField').classList.remove('hidden-field');
+                    const input = document.getElementById('outroTipoInput');
+                    if (input && input.value.trim() !== '') {
+                        updateSuggestions();
+                    }
+                    atualizarPrecoPersonalizacao();
+                } else {
+                    document.getElementById('outroTipoField').classList.add('hidden-field');
+                    document.getElementById('suggestionsList').classList.remove('active');
+                    document.getElementById('searchQueryDisplay').textContent = '';
+                    atualizarPrecoPersonalizacao();
+                }
             });
         });
         document.getElementById('outroTipoInput')?.addEventListener('input',atualizarPrecoPersonalizacao);
@@ -1556,7 +1900,10 @@
             if(tipo==='Outro'){
                 tipo=document.getElementById('outroTipoInput').value.trim();
                 if(!tipo){alert("Digite o tipo de carne.");return;}
-                if(precoKg===null||precoKg===undefined){alert("Corte não encontrado. Verifique o nome ou escolha um da lista.");return;}
+                if(precoKg===null || precoKg===undefined || isNaN(precoKg)){
+                    alert("Corte não encontrado. Verifique o nome ou escolha um da lista.");
+                    return;
+                }
             }else{
                 if(precoKg===null||precoKg===undefined)precoKg=29.90;
             }
@@ -1634,15 +1981,12 @@
             document.getElementById('editModal').style.display='none';
             currentEditIndex=null;
         });
-        // Fechar modal de pesquisa com o X
         document.getElementById('closeSearchModal')?.addEventListener('click', closeSearchModal);
-        // Fechar modal de pesquisa clicando fora
         document.getElementById('searchModal')?.addEventListener('click', function(e) {
             if (e.target === this) closeSearchModal();
         });
         
-        // ---------- Eventos do modal de compartilhamento ----------
-        // Botão copiar link (dentro do modal)
+        // Eventos do modal de compartilhamento
         document.getElementById('shareCopyLinkBtn')?.addEventListener('click', function() {
             const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
             if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1655,14 +1999,10 @@
                 fallbackCopiarLink(link);
             }
         });
-
-        // Botão compartilhar no WhatsApp (dentro do modal)
         document.getElementById('shareWhatsAppBtn')?.addEventListener('click', function(e) {
             e.preventDefault();
             compartilharWhatsApp();
         });
-
-        // Fechar modal de compartilhamento
         document.getElementById('shareCloseBtn')?.addEventListener('click', function() {
             document.getElementById('shareModal').style.display = 'none';
         });
@@ -1671,11 +2011,7 @@
                 this.style.display = 'none';
             }
         });
-
-        // Evento do botão de compartilhamento (ícone flutuante)
         document.getElementById('shareButton')?.addEventListener('click', shareCardapio);
-
-        // Evento do botão copiar Pix
         document.getElementById('copyPixBtn')?.addEventListener('click', copiarChavePix);
 
         updateCartBadge();
