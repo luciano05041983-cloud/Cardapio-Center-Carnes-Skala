@@ -20,10 +20,9 @@
             min-height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
-            /* CORREÇÃO PARA EVITAR ZOOM NO IOS */
             -webkit-text-size-adjust: 100%;
         }
-        /* Splash Screen - fundo branco sólido, sem textos extras */
+        /* Splash Screen */
         #splashScreen {
             position: fixed;
             top: 0;
@@ -53,8 +52,6 @@
             justify-content: center;
             width: 100%;
         }
-        
-        /* Animação do logotipo: surge da base e sobe ao centro */
         .splash-logo {
             width: 220px;
             height: auto;
@@ -64,13 +61,10 @@
             filter: none;
             box-shadow: none;
         }
-        
         @keyframes slideUpLogo {
             0% { transform: translateY(100%); opacity: 0; }
             100% { transform: translateY(0); opacity: 1; }
         }
-        
-        /* Efeito CSS apenas para a logo no cabeçalho (já aprovado) */
         .logo-container img {
             filter: drop-shadow(0 0 2px rgba(255,255,255,0.9)) brightness(1.02);
             transform: scale(1.005);
@@ -79,8 +73,6 @@
             height: auto;
             display: block;
         }
-        
-        /* Badge e demais estilos */
         @keyframes badgePop { 0% { transform: scale(0.8); opacity: 0; } 50% { transform: scale(1.3); background-color: #ff4d00; box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.6); } 100% { transform: scale(1); opacity: 1; } }
         .badge-pulse { animation: badgePop 0.35s cubic-bezier(0.34, 1.2, 0.64, 1) forwards !important; }
         .app-container { 
@@ -131,14 +123,10 @@
             border: 1px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(2px);
         }
-        .status-badge.aberto {
-            background-color: #2ecc71;
-        }
-        .status-badge.fechado {
-            background-color: #e74c3c;
-        }
+        .status-badge.aberto { background-color: #2ecc71; }
+        .status-badge.fechado { background-color: #e74c3c; }
         
-        /* ESTILOS DO CAMPO DE PESQUISA 🔎 */
+        /* ESTILOS DO CAMPO DE PESQUISA */
         .search-container {
             width: calc(100% - 30px);
             margin: 0 auto 12px auto;
@@ -163,7 +151,7 @@
             background: transparent;
             border: none;
             color: #1A1A1A;
-            font-size: 16px; /* CORREÇÃO: mínimo 16px */
+            font-size: 16px;
             font-family: 'Montserrat', sans-serif;
             outline: none;
         }
@@ -281,7 +269,7 @@
             background-position: center;
             border-radius: 12px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            background-color: #f0f0f0; /* placeholder */
+            background-color: #f0f0f0;
             transition: background-image 0.3s ease;
         }
         .product-info {
@@ -327,7 +315,7 @@
             padding: 5px 8px;
             border-radius: 20px;
             width: 100%;
-            font-size: 16px; /* CORREÇÃO: mínimo 16px */
+            font-size: 16px;
         }
         .product-subtotal {
             font-size: 0.85rem;
@@ -360,7 +348,7 @@
         }
         .add-btn:active, .customize-btn:active { transform: scale(0.95); background-color: #2ecc71; }
         
-        /* ===== NOVO LAYOUT ATRAENTE PARA CARNE MOÍDA PERSONALIZADA ===== */
+        /* NOVO LAYOUT ATRAENTE PARA CARNE MOÍDA PERSONALIZADA */
         .product-card-special {
             background: linear-gradient(145deg, #FFF9E6 0%, #FFFFFF 60%, #FFF3D6 100%);
             border: 2px solid #D4AF37;
@@ -677,7 +665,7 @@
         .payment-option label, .delivery-option label { background: #F0F0F0; padding: 6px 14px; border-radius: 40px; border: 1px solid #CCCCCC; font-size: 0.8rem; cursor: pointer; color: #1A1A1A; }
         .payment-option label:has(input:checked), .delivery-option label:has(input:checked) { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
         .conditional-field { margin-top: 12px; padding-top: 8px; border-top: 1px solid #DDD; }
-        .conditional-field input { width: 100%; padding: 10px; background: #FFFFFF; border: 1px solid #CCCCCC; border-radius: 30px; color: #1A1A1A; font-size: 16px; } /* CORREÇÃO */
+        .conditional-field input { width: 100%; padding: 10px; background: #FFFFFF; border: 1px solid #CCCCCC; border-radius: 30px; color: #1A1A1A; font-size: 16px; }
         .cart-total { text-align: right; font-size: 1.2rem; font-weight: 800; color: #E65100; padding: 12px 0; border-top: 1px solid #E0E0E0; border-bottom: 1px solid #E0E0E0; margin: 12px 0; }
         .cart-buttons { display: flex; gap: 12px; }
         .cart-btn { flex: 1; padding: 10px; border-radius: 40px; font-weight: 700; cursor: pointer; border: none; }
@@ -704,11 +692,11 @@
         .type-btn.active-type { background: #D4AF37; color: #1A1A1A; border-color: #D4AF37; }
         .custom-field { margin-bottom: 20px; }
         .custom-field label { display: block; margin-bottom: 8px; font-weight: 600; color: #1A1A1A; }
-        .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #F5F5F5; border: 1px solid #DDD; border-radius: 30px; color: #1A1A1A; font-family: inherit; font-size: 16px; } /* CORREÇÃO */
-        .custom-field textarea { font-size: 16px; } /* CORREÇÃO */
+        .custom-field input, .custom-field select, .custom-field textarea { width: 100%; padding: 12px; background: #F5F5F5; border: 1px solid #DDD; border-radius: 30px; color: #1A1A1A; font-family: inherit; font-size: 16px; }
+        .custom-field textarea { font-size: 16px; }
         .error-message { color: #E65100; font-size: 0.7rem; display: block; margin-top: 4px; }
 
-        /* ESTILOS DO MODAL DE PESQUISA - COM CAMPO DE KG E SUBTOTAL */
+        /* ESTILOS DO MODAL DE PESQUISA */
         .search-result-item {
             display: flex;
             gap: 12px;
@@ -767,7 +755,7 @@
             padding: 4px 6px;
             border: 1px solid #CCC;
             border-radius: 20px;
-            font-size: 16px; /* CORREÇÃO */
+            font-size: 16px;
             background: #F5F5F5;
             color: #1A1A1A;
             text-align: center;
@@ -815,14 +803,14 @@
         }
         .search-modal-empty span { font-size: 3rem; display: block; margin-bottom: 12px; }
 
-        /* ESTILOS PARA SUGESTÕES NO MODAL PERSONALIZAR - ACIMA DO INPUT */
+        /* ESTILOS PARA SUGESTÕES NO MODAL PERSONALIZAR */
         .suggestions-container {
             position: relative;
             width: 100%;
         }
         .suggestions-list {
             position: absolute;
-            bottom: 100%;  /* aparece acima do input */
+            bottom: 100%;
             left: 0;
             right: 0;
             background: #FFFFFF;
@@ -833,7 +821,7 @@
             z-index: 100;
             display: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 4px; /* espaço entre a lista e o input */
+            margin-bottom: 4px;
         }
         .suggestions-list.active {
             display: block;
@@ -881,7 +869,7 @@
             font-weight: 700;
         }
 
-        /* ESTILOS DO MODAL DE COMPARTILHAMENTO - TEXTO REFORMULADO (SEM OFERTAS) */
+        /* ESTILOS DO MODAL DE COMPARTILHAMENTO */
         .share-modal-content {
             text-align: center;
             padding: 30px 24px;
@@ -988,7 +976,7 @@
             padding: 10px 16px;
             border-radius: 30px;
             color: #1A1A1A;
-            font-size: 16px; /* CORREÇÃO */
+            font-size: 16px;
             font-family: 'Montserrat', sans-serif;
             outline: none;
         }
@@ -1027,6 +1015,65 @@
             display: block;
         }
 
+        /* ===== NOVOS ESTILOS PARA LOCALIZAÇÃO E SLIDER ===== */
+        #localizacao {
+            scroll-margin-top: 80px;
+            padding: 20px 15px 30px;
+            background: #FFFFFF;
+            border-top: 2px solid #D4AF37;
+            margin-top: 10px;
+        }
+        #localizacao h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #E65100;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .map-container {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 280px;
+            border: 0;
+            display: block;
+        }
+        .slider-container {
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            margin-top: 10px;
+        }
+        .slides {
+            display: flex;
+            width: 300%; /* 3 imagens */
+            animation: slideAnimation 12s infinite ease-in-out;
+        }
+        .slide {
+            width: 33.333%;
+            flex-shrink: 0;
+        }
+        .slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        @keyframes slideAnimation {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(0); }
+            33.33% { transform: translateX(-33.333%); }
+            53.33% { transform: translateX(-33.333%); }
+            66.66% { transform: translateX(-66.666%); }
+            86.66% { transform: translateX(-66.666%); }
+            100% { transform: translateX(0); }
+        }
+
         /* ===== CORREÇÃO GLOBAL PARA INPUTS NO IOS ===== */
         input, 
         textarea, 
@@ -1046,8 +1093,6 @@
         .custom-field select {
             font-size: 16px !important;
         }
-
-        /* Ajuste para evitar que o !important quebre outros estilos */
         .search-input { font-size: 16px !important; }
     </style>
 </head>
@@ -1116,16 +1161,40 @@
             <a href="https://wa.me/5534991273427" target="_blank">💬 WhatsApp</a>
         </div>
     </div>
+
+    <!-- ===== NOVA SEÇÃO DE LOCALIZAÇÃO ===== -->
+    <div id="localizacao">
+        <h3>📍 Nossa Localização</h3>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps?q=Rua+Saldanha+Marinho+300+Pampulha+Uberlândia+MG&output=embed" 
+                    allowfullscreen="" 
+                    loading="lazy">
+            </iframe>
+        </div>
+        <div class="slider-container">
+            <div class="slides">
+                <div class="slide">
+                    <img src="https://i.ibb.co/sv8GpDLj/Screenshot-20260625-123039-Instagram.png" alt="Imagem 1">
+                </div>
+                <div class="slide">
+                    <img src="https://i.ibb.co/sd7bJgbF/Screenshot-20260625-123837-Instagram.png" alt="Imagem 2">
+                </div>
+                <div class="slide">
+                    <img src="https://i.ibb.co/1fzrk3Zv/Screenshot-20260625-123854-Instagram.png" alt="Imagem 3">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- BOTÃO DE COMPARTILHAMENTO (discreto, acima do WhatsApp) -->
+<!-- BOTÃO DE COMPARTILHAMENTO (discreto) -->
 <div class="share-float" id="shareButton" title="Compartilhar cardápio">
     <svg viewBox="0 0 24 24" width="24" height="24" fill="#555555">
         <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
     </svg>
 </div>
 
-<!-- BOTÃO WHATSAPP (já existente) -->
+<!-- BOTÃO WHATSAPP -->
 <a href="https://wa.me/5534991273427" class="whatsapp-float" target="_blank">
     <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
         <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.8 3.08 1.24 4.74 1.24 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.91-9.91-9.91zm0 18.2c-1.5 0-2.98-.4-4.26-1.16l-.3-.18-3.12.82.83-3.04-.2-.31c-.86-1.35-1.32-2.88-1.32-4.44 0-4.58 3.73-8.31 8.31-8.31 4.58 0 8.31 3.73 8.31 8.31 0 4.58-3.73 8.31-8.31 8.31zm4.56-6.21c-.25-.13-1.47-.73-1.7-.81-.23-.08-.4-.13-.57.13-.17.26-.66.81-.81.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.25-1.49-1.4-1.74-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.24-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.38-.78-1.89-.21-.51-.42-.44-.57-.44h-.49c-.17 0-.45.06-.69.31-.24.25-.91.89-.91 2.17 0 1.28.93 2.52 1.06 2.69.13.17 1.83 2.8 4.44 3.92.62.27 1.11.43 1.49.55.63.2 1.2.17 1.65.1.5-.08 1.55-.63 1.77-1.24.22-.61.22-1.13.15-1.24-.07-.11-.25-.17-.5-.3z"/>
@@ -1137,12 +1206,15 @@
         <span>🛒</span> Meu Pedido
         <span id="cartBadge" class="cart-badge" style="display: none;">0</span>
     </a>
+    <!-- NOVO BOTÃO LOCALIZAÇÃO -->
+    <a href="#" class="nav-btn" id="locationBtn">
+        <span>📍</span> Localização
+    </a>
 </div>
 
-<!-- MODAIS -->
+<!-- MODAIS (mantidos exatamente como estavam) -->
 <div id="cartModal" class="cart-modal"><div class="cart-modal-content"><div class="cart-modal-header"><h2>📋 Meu Pedido</h2><span class="close-modal" id="closeCartModal">&times;</span></div><div id="cartItemsContainer" class="cart-items-list"></div><div class="order-details-area" id="orderDetailsArea"><div class="detail-section" id="nameSection"><div class="section-header"><span>👤</span> Identificação</div><div class="custom-field" style="margin-bottom:0;"><label for="customerName">Nome completo <span style="color:#E65100;">*</span></label><input type="text" id="customerName" placeholder="Digite seu nome completo"><span id="nameError" class="error-message" style="display:none;">⚠️ O nome é obrigatório.</span></div></div>
 
-<!-- SEÇÃO DE PAGAMENTO COM CAMPO PIX -->
 <div class="detail-section">
     <div class="section-header"><span>💳</span> Forma de Pagamento</div>
     <div class="payment-option">
@@ -1150,12 +1222,10 @@
         <label><input type="radio" name="payment" value="Cartão de Crédito"> Cartão Crédito</label>
         <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
     </div>
-    <!-- Campo para troco (Dinheiro) -->
     <div id="changeField" class="conditional-field hidden-field">
         <label>💰 Troco para quanto?</label>
         <input type="text" id="changeAmount" placeholder="Ex: R$ 100,00">
     </div>
-    <!-- Campo para exibir chave Pix e copiar -->
     <div id="pixField" class="conditional-field hidden-field">
         <label>🔑 Chave Pix (CNPJ):</label>
         <div class="pix-copy-area">
@@ -1169,7 +1239,6 @@
 
 <div id="scheduleModal" class="schedule-modal"><div class="schedule-modal-content"><div class="cart-modal-header"><h2>📅 Agendamento de Pedido</h2><span class="close-modal" id="closeScheduleModal">&times;</span></div><p style="margin-bottom:16px;">⚠️ No momento estamos fora do horário de funcionamento. Deseja agendar este pedido?</p><div class="custom-field"><label>📅 Data e Hora desejada:</label><input type="datetime-local" id="scheduleDatetime"></div><div class="custom-field"><label>📝 Observações:</label><textarea id="scheduleObs" rows="2"></textarea></div><div class="custom-buttons"><button id="cancelScheduleBtn" class="btn-cancel">Voltar</button><button id="confirmScheduleBtn" class="btn-confirm">Confirmar Agendamento</button></div></div></div>
 
-<!-- MODAL PERSONALIZAR CARNE MOÍDA COM SUBTOTAL DINÂMICO E SUGESTÕES ACIMA DO INPUT -->
 <div id="customModal" class="custom-modal">
     <div class="custom-modal-content">
         <h3>🥩 Personalizar Carne Moída</h3>
@@ -1187,11 +1256,8 @@
             <div id="outroTipoField" class="custom-field hidden-field">
                 <label>Digite o tipo:</label>
                 <div class="suggestions-container">
-                    <!-- Texto mostrando a palavra digitada -->
                     <div id="searchQueryDisplay" class="search-query-display"></div>
-                    <!-- Lista de sugestões (aparece acima do input) -->
                     <div class="suggestions-list" id="suggestionsList"></div>
-                    <!-- Campo de input -->
                     <input type="text" id="outroTipoInput" placeholder="Ex: Músculo, Lagarto, Maminha..." autocomplete="off">
                 </div>
             </div>
@@ -1216,7 +1282,6 @@
 
 <div id="quantityModal" class="quantity-modal"><div class="quantity-modal-content"><h3>⚖️ Selecione o peso</h3><div id="quantityProductName" style="margin-bottom:10px;"></div><div class="weight-grid" id="weightGrid"></div><div class="quantity-modal-buttons"><button id="cancelQuantityBtn" class="btn-cancel">Cancelar</button><button id="confirmQuantityBtn" class="btn-confirm">Adicionar ao carrinho</button></div></div></div>
 
-<!-- MODAL DE PESQUISA EM TEMPO REAL - COM CAMPO DE KG E SUBTOTAL -->
 <div id="searchModal" class="search-modal">
     <div class="search-modal-content">
         <div class="cart-modal-header">
@@ -1227,7 +1292,6 @@
     </div>
 </div>
 
-<!-- MODAL DE COMPARTILHAMENTO - TEXTO REFORMULADO (SEM OFERTAS) -->
 <div id="shareModal" class="share-modal">
     <div class="share-modal-content">
         <span class="share-icon-big">📤</span>
@@ -1258,12 +1322,11 @@
     function formatCurrency(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});}
     function isWithinBusinessHours(){const now=new Date();const day=now.getDay();const hours=now.getHours();const minutes=now.getMinutes();const currentMinutes=hours*60+minutes;if(day===0){const open=8*60,close=13*60;return currentMinutes>=open && currentMinutes<close;}else if(day>=1&&day<=6){const open=8*60,close=20*60;return currentMinutes>=open && currentMinutes<close;}return false;}
     let cart=[],currentEditIndex=null,currentEditingCustomIndex=null,pendingTipProduct=null,selectedQuantity=null,currentSearchTerm="",currentActiveCategory="bovinos";
-    let lazyObserver = null; // para gerenciar o observer de lazy loading
+    let lazyObserver = null;
 
     function animateBadge(){const badge=document.getElementById('cartBadge');if(badge&&badge.style.display!=='none'){badge.classList.remove('badge-pulse');void badge.offsetWidth;badge.classList.add('badge-pulse');setTimeout(()=>badge.classList.remove('badge-pulse'),400);}}
     function updateCartBadge(){const badge=document.getElementById('cartBadge');if(badge){const count=cart.length;if(count>0){badge.style.display='flex';badge.textContent=count;animateBadge();}else badge.style.display='none';}}
     
-    // NOVO POP-UP FLUTUANTE AO LADO DO WHATSAPP
     function showFloatingToast(message) {
         const toast = document.createElement('div');
         toast.textContent = message;
@@ -1291,7 +1354,6 @@
         }, 2500);
     }
     
-    // Atualizar badge de status (Aberto/Fechado)
     function updateStatusBadge() {
         const badge = document.getElementById('statusBadge');
         if (isWithinBusinessHours()) {
@@ -1303,7 +1365,6 @@
         }
     }
     
-    // ===== LAZY LOADING DAS IMAGENS =====
     function lazyLoadBackgrounds() {
         if (lazyObserver) {
             lazyObserver.disconnect();
@@ -1329,15 +1390,12 @@
         lazyObserver = observer;
     }
     
-    // ===== ATUALIZAR TICKER =====
     function updateTicker(){
         const now = new Date();
-        const month = now.getMonth();      // 0-based (maio = 4, junho = 5)
+        const month = now.getMonth();
         const day = now.getDate();
         const hours = now.getHours();
-        const isJune = (month === 5);      // Junho = mês 5
-        
-        // Verifica se é dia 24 de junho e antes das 18:00
+        const isJune = (month === 5);
         const isDay24 = (isJune && day === 24);
         const isBefore18 = (hours < 18);
         const shouldShow = (isDay24 && isBefore18);
@@ -1349,11 +1407,8 @@
             wrapper.style.display = 'none';
             return;
         }
-        
-        // Exibe a mensagem única
         wrapper.style.display = 'block';
         const message = "📢 dia 24/06 espetinho das 12:00 h até 18:00 h";
-        // Repetir 3 vezes para efeito de rolagem contínua
         let repeated = '';
         for (let i = 0; i < 3; i++) {
             repeated += `<span>🔹 ${message} 🔹</span>`;
@@ -1364,19 +1419,17 @@
     const dicasPreparo=[{nome:"🍲 Carne de Panela",icone:"🍲",cortes:["Músculo Dianteiro","Músculo Traseiro","Maçã de Peito"]},{nome:"🔥 Grelhar",icone:"🔥",cortes:["Ponta de Picanha","Alcatra","Contrafilé","Fraldinha"]},{nome:"🍖 Churrasco",icone:"🍖",cortes:["Coxão Mole","Ponta de Picanha","Paletão"]},{nome:"🥘 Ensopados",icone:"🥘",cortes:["Músculo Dianteiro","Acém","Peixinho"]}];
     const productsData={bovinos:[{id:"b1",name:"Coxão Mole",desc:"Corte macio e suculento, ideal para bifes e churrasco.",basePrice:49.99,unit:"KG",image:""},{id:"b2",name:"Ponta de Picanha",desc:"Sabor incomparável, perfeita para grelha e assados.",basePrice:47.99,unit:"KG",image:""},{id:"b3",name:"Patinho",desc:"Versátil, ótimo para bifes, carne moída e refogados.",basePrice:47.99,unit:"KG",image:""},{id:"b4",name:"Alcatra",desc:"Corte nobre, macia e suculenta. Excelente para churrasco.",basePrice:59.99,unit:"KG",image:""},{id:"b5",name:"Contrafilé",desc:"Sabor marcante e marmorizado, ideal para grelha.",basePrice:59.99,unit:"KG",image:""},{id:"b6",name:"Músculo Dianteiro",desc:"Perfeito para cozidos, caldos e carne de panela.",basePrice:32.99,unit:"KG",image:""},{id:"b7",name:"Músculo Traseiro",desc:"Ótimo para ensopados, suculento e cheio de sabor.",basePrice:37.99,unit:"KG",image:""},{id:"b8",name:"Maçã de Peito",desc:"Corte com gordura entremeada, ideal para assar.",basePrice:37.98,unit:"KG",image:""},{id:"b9",name:"Acém",desc:"Muito saboroso, perfeito para churrasco e ensopados.",basePrice:32.99,unit:"KG",image:""},{id:"b10",name:"Peixinho",desc:"Corte versátil, ótimo para bifes e refogados.",basePrice:37.99,unit:"KG",image:""},{id:"b11",name:"Capa de Contrafilé",desc:"Marmorizada e suculenta, excelente para grelha.",basePrice:37.99,unit:"KG",image:""},{id:"b12",name:"Paleta",desc:"Ideal para assar, desfiar ou cozinhar lentamente.",basePrice:35.99,unit:"KG",image:""},{id:"b13",name:"Fraldinha",desc:"Muito saborosa, ótima para churrasco e grelha.",basePrice:47.99,unit:"KG",image:""},{id:"b14",name:"Paletão",desc:"Corte com osso, perfeito para assados de longa duração.",basePrice:47.99,unit:"KG",image:""}],suinos:[{id:"su1",name:"Pernil sem Osso",desc:"Corte magro e suculento, ideal para assar ou desfiar.",basePrice:22.99,unit:"KG",image:""},{id:"su2",name:"Costelinha",desc:"Defumada naturalmente, macia e cheia de sabor para churrasco.",basePrice:25.99,unit:"KG",image:""},{id:"su3",name:"Lombo",desc:"Corte nobre, muito macio e versátil para grelhar ou assar.",basePrice:29.99,unit:"KG",image:""},{id:"su4",name:"Miúdos para Feijoada",desc:"Conjunto com orelha, pé, rabo e outras partes para feijoada completa.",basePrice:17.99,unit:"KG",image:""},{id:"su5",name:"Suã Especial",desc:"Paleta suína, ótima para assar ou cozinhar lentamente.",basePrice:9.99,unit:"KG",image:""},{id:"su6",name:"Bisteca",desc:"Bisteca suína com osso, perfeita para grelha ou frigideira.",basePrice:21.99,unit:"KG",image:""},{id:"su7",name:"Rabo de Porco",desc:"Ideal para caldos, feijoadas e moquecas, sabor marcante.",basePrice:24.99,unit:"KG",image:""}],aves:[{id:"a1",name:"Filé de Frango",desc:"Peito de frango sem osso, limpo e fresco.",basePrice:26.99,unit:"KG",image:""},{id:"a2",name:"Coxa e Sobrecoxa",desc:"Parte suculenta da ave.",basePrice:14.99,unit:"KG",image:""},{id:"a3",name:"Coxinha da Asa",desc:"Asinhas de frango.",basePrice:19.99,unit:"KG",image:""},{id:"a4",name:"Tulipa",desc:"Sobrecoxa desossada enrolada.",basePrice:29.99,unit:"KG",image:""},{id:"a5",name:"Tulipa na Mostarda",desc:"Temperada com mostarda.",basePrice:33.99,unit:"KG",image:""},{id:"a6",name:"Coxa Recheada",desc:"Recheada com presunto e queijo.",basePrice:27.99,unit:"KG",image:""},{id:"a7",name:"Almôndega de Frango",desc:"Almôndegas artesanais.",basePrice:27.99,unit:"KG",image:""},{id:"a8",name:"Pé de Frango",desc:"Para caldos.",basePrice:10.99,unit:"KG",image:""},{id:"a9",name:"Franbacon",desc:"Filé envolto em bacon.",basePrice:33.99,unit:"KG",image:""}],kits:[{id:"k1",name:"Kit Fitness",desc:"SKALA\n• 500g Patinho Moído\n• 500g Patinho Bife\n• 500g Filé de Frango (Bife)\n• 500g Filé de Frango (Estrogonofe)\n• 1kg Filé de Tilápia\n• 500g Peixinho (Pedaço)",basePrice:140.00,unit:"KIT",image:"https://i.ibb.co/Cp0f3Hqy/IMG-20260529-WA0003.jpg"},{id:"k2",name:"Kit Família",desc:"SKALA\n• 600g Coxão Mole Bife\n• 600g Filé de Frango Estrogonofe\n• 600g Filé de Frango Bife\n• 600g Coxinha da Asa\n• 600g Acém Moído\n• 600g Paleta Pedaço\n• 600g Almôndega Bovina\n• 600g Linguiça de Pernil\n• 1 Pct Farinha D' Rocha",basePrice:175.00,unit:"KIT",image:"https://i.ibb.co/pBXNFGvZ/IMG-20260529-WA0001.jpg"},{id:"k3",name:"Kit Super Econômico",desc:"SKALA\n• 800g Suã Especial\n• 800g Acém Moído\n• 800g Frango a Passarinho ou Coxa e Sobrecoxa\n• 800g Fígado\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Pernil (Bife ou Panela)",basePrice:115.00,unit:"KIT",image:"https://i.ibb.co/WNGrVP8T/IMG-20260529-WA0007.jpg"},{id:"k4",name:"Kit Econômico",desc:"SKALA\n• 800g Almôndega (Frango ou Bovina)\n• 800g Acém (Moído ou Panela)\n• 800g Coxão Duro Bife\n• 800g Costelinha Suína ou Costela Ripa\n• 800g Filé de Frango (Bife ou Estrogonofe)\n• 800g Frango Passarinho ou Coxa e Sobrecoxa",basePrice:145.00,unit:"KIT",image:"https://i.ibb.co/1tyJ6CXF/IMG-20260529-WA0006.jpg"}],carneMoida:[{id:"cm1",name:"Carne Moída Personalizada",desc:"Escolha o corte, a quantidade e a moagem que preferir.",basePrice:29.90,unit:"KG",isSpecial:true,image:"https://i.ibb.co/HDW3pRZB/Screenshot-20260531-142140-Fotos.png"}],premium:[{id:"p1",name:"Cupim Grill",desc:"Marmorizado.",basePrice:69.99,unit:"KG",image:""},{id:"p2",name:"Picanha",desc:"Corte nobre.",basePrice:79.99,unit:"KG",image:""},{id:"p3",name:"Filé Mignon",desc:"Maciez incomparável.",basePrice:74.99,unit:"KG",image:""},{id:"p4",name:"Bananinha",desc:"Macio e suculento.",basePrice:36.99,unit:"KG",image:""}],variedades:[{id:"v1",name:"Costela Gaúcha",desc:"Tradicional.",basePrice:29.99,unit:"KG",image:""},{id:"v2",name:"Costela Ripa",desc:"Corte achatado.",basePrice:27.99,unit:"KG",image:""},{id:"v3",name:"Osso Buco",desc:"Com tutano.",basePrice:33.99,unit:"KG",image:""},{id:"v4",name:"Rabada",desc:"Para ensopados.",basePrice:33.99,unit:"KG",image:""},{id:"v5",name:"Mocotó",desc:"Pé bovino.",basePrice:21.99,unit:"KG",image:""},{id:"v6",name:"Dobradinha",desc:"Bucho bovino.",basePrice:21.99,unit:"KG",image:""},{id:"v7",name:"Fígado",desc:"Rico em ferro.",basePrice:21.99,unit:"KG",image:""}]};
     
-    // Função para obter a URL do banner de cada categoria
     function getBannerForCategory(category) {
         const banners = {
             'bovinos': 'https://i.ibb.co/QF0N18yH/IMG-20260623-WA0004-2.jpg',
             'suinos': 'https://i.ibb.co/cKrCK0jh/file-000000001cfc71f5836101487d6ee1e7-2.jpg',
             'aves': 'https://i.ibb.co/6RNwwTJR/IMG-20260623-WA0005-2.jpg',
-            'premium': 'https://i.ibb.co/hJYZz5d9/IMG-20260623-WA0006-3.jpg',  // NOVA IMAGEM
+            'premium': 'https://i.ibb.co/hJYZz5d9/IMG-20260623-WA0006-3.jpg',
             'variedades': 'https://i.ibb.co/8nYVkHnS/1780242483298-2.jpg'
         };
         return banners[category] || null;
     }
     
-    // Função corrigida para buscar preço por tipo em TODAS as categorias
     function getPrecoPorTipo(tipo){
         if (!tipo) return null;
         const tipoLower = tipo.toLowerCase().trim();
@@ -1439,7 +1492,6 @@
     function filterProductsBySearch(rawTerm){let term=rawTerm.trim();if(term==="")return[];const lowerTerm=term.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');const results=[];for(let cat in productsData){productsData[cat].forEach(p=>{const nameNorm=p.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');if(nameNorm.includes(lowerTerm)){results.push({...p,originalCategory:cat});}});}return results;}
     function getInlineAdsHTML(){return `<div class="inline-ads-container"><div class="ad-card-16x9" data-ad="1"><div><div class="ad-icon">🚀</div><div class="ad-title">Destaque sua Marca</div><div class="ad-description">Seu negócio visto por milhares de clientes.</div><div class="ad-cta">Quero Anunciar →</div></div></div></div>`;}
     
-    // FUNÇÃO RENDERIZAÇÃO DE PRODUTOS (COM BANNERS E SEM IMAGENS INDIVIDUAIS)
     function renderProductsFromSource(productsArray,sourceCategory=null,isSearch=false){
         const feed=document.getElementById('productFeed');
         if(!productsArray.length){
@@ -1450,7 +1502,6 @@
         let title=isSearch?`🔎 Resultados para "${currentSearchTerm}" (${productsArray.length})`:(sourceCategory==='carneMoida'?"🥩 Personalize sua Carne Moída":(sourceCategory==='aves'?"🐔 Aves - Tabela Completa":(sourceCategory==='suinos'?"🐷 Cortes Suínos":(sourceCategory==='bovinos'?"🐂 Cortes Bovinos":(sourceCategory==='kits'?"🎁 Kits Especiais - Skala":(sourceCategory==='premium'?"⭐ Linha Premium":(sourceCategory==='variedades'?"🍖 Variedades":"🔥 Destaques da Semana")))))));
         document.getElementById('sectionTitle').innerHTML=title;
         
-        // Se for uma categoria que deve ter banner e não for pesquisa, adiciona o banner
         let bannerHTML = '';
         if (!isSearch && sourceCategory && ['bovinos','suinos','aves','premium','variedades'].includes(sourceCategory)) {
             const bannerUrl = getBannerForCategory(sourceCategory);
@@ -1460,7 +1511,6 @@
         }
         
         let productsHTML = bannerHTML;
-        // Montar os cards de produtos
         productsHTML += productsArray.map(p=>{
             const shouldShowImage = (sourceCategory === 'kits' || sourceCategory === 'carneMoida' || p.isSpecial);
             const imageTag = shouldShowImage && p.image ? `<div class="product-image lazy-bg" data-background="url('${p.image}')" style="background-image: none;"></div>` : '';
@@ -1513,7 +1563,6 @@
         }
         feed.innerHTML=productsHTML;
         
-        // Configurar eventos e subtotais (apenas para produtos comuns)
         productsArray.forEach(p=>{
             if(!p.isSpecial && p.unit!=='KIT'){
                 const card=document.querySelector(`.product-card[data-id="${p.id}"]`);
@@ -1559,7 +1608,6 @@
         });
         
         document.querySelectorAll('.ad-card-16x9').forEach(ad=>ad.addEventListener('click',()=>window.open('https://wa.me/5534991058994?text=Como%20fa%C3%A7o%20para%20anunciar%20no%20card%C3%A1pio%20digital','_blank')));
-        // Ativar lazy loading apenas para as imagens que existem (kits e carne moída)
         lazyLoadBackgrounds();
     }
     
@@ -1568,7 +1616,6 @@
         if(prods) renderProductsFromSource(prods,category,false);
     }
     
-    // ========== FUNÇÕES DO MODAL DE PESQUISA COM CAMPO DE KG E SUBTOTAL ==========
     function highlightText(text, term) {
         const escaped = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escaped})`, 'gi');
@@ -1679,8 +1726,6 @@
         document.getElementById('searchModal').style.display = 'none';
     }
 
-    // ===== FIM FUNÇÕES MODAL PESQUISA =====
-
     function performSearch(term) {
         currentSearchTerm = term;
         const clearBtn = document.getElementById('clearSearchBtn');
@@ -1705,7 +1750,6 @@
 
     function smoothScrollToTitle(){requestAnimationFrame(()=>{const sectionTitle=document.getElementById('sectionTitle');if(sectionTitle){const navbar=document.querySelector('.category-nav-container');const navbarHeight=navbar?navbar.offsetHeight:0;const elementPosition=sectionTitle.getBoundingClientRect().top+window.scrollY;const offsetPosition=elementPosition-navbarHeight-10;window.scrollTo({top:offsetPosition,behavior:'smooth'});}});}
     
-    // Função para atualizar preço por kg (com suporte para sugestões)
     function atualizarPrecoPersonalizacao(){ 
         let tipo = document.querySelector('.type-btn.active-type')?.dataset.tipo; 
         if (tipo === 'Outro') { 
@@ -1761,7 +1805,6 @@
         atualizarSubtotalPersonalizacao(precoKg);
     });
     
-    // ===== FUNÇÕES PARA SUGESTÕES NO CAMPO "OUTRO" (ACIMA DO INPUT) - CORRIGIDO =====
     const outroInput = document.getElementById('outroTipoInput');
     const suggestionsList = document.getElementById('suggestionsList');
     const searchQueryDisplay = document.getElementById('searchQueryDisplay');
@@ -1865,7 +1908,6 @@
     function validateAndSend(){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const payment=document.querySelector('input[name="payment"]:checked')?.value;if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}}return true;}
     function sendOrderToWhatsApp(isScheduled=false,scheduleDatetime=null,scheduleObs=''){if(cart.length===0){alert("Adicione itens ao pedido.");return false;}if(!isValidName()){alert("⚠️ Por favor, preencha o seu nome completo antes de enviar o pedido.");return false;}const nomeCliente=document.getElementById('customerName').value.trim();const payment=document.querySelector('input[name="payment"]:checked')?.value;let changeText='';if(payment==='Dinheiro'){const changeRaw=document.getElementById('changeAmount').value;if(!changeRaw.trim()){alert("⚠️ Para pagamento em dinheiro, informe o valor do troco.");return false;}changeText=`\n*Troco para:* ${changeRaw}`;}const delivery=document.querySelector('input[name="delivery"]:checked')?.value;let addressText='';if(delivery==='Delivery'){const addr=document.getElementById('deliveryAddress').value.trim();if(!addr){alert("⚠️ Para delivery, informe o endereço completo.");return false;}addressText=`\n*Endereço:* ${addr}`;}let message='';if(isScheduled){message+=`⚠️ *PEDIDO FORA DO HORÁRIO DE FUNCIONAMENTO* ⚠️\n`;message+=`📅 *Agendamento solicitado:* ${scheduleDatetime||'A combinar'}\n`;if(scheduleObs)message+=`✏️ *Observações:* ${scheduleObs}\n`;message+=`🔔 *Por favor, entrar em contato para confirmar a disponibilidade do agendamento com o cliente.*\n\n`;}message+=`🍖 *CENTER CARNES SKALA* 🍖\n`;message+=`👤 *Cliente:* ${nomeCliente}\n\n`;message+=`📋 *ITENS DO PEDIDO:*\n`;let total=0;cart.forEach(item=>{let nome=item.name;if(item.isCustom)nome=`Carne Moída (${item.descricaoCustom})`;message+=`• ${nome} - ${item.quantityLabel} = ${formatCurrency(item.totalPrice)}\n`;total+=item.totalPrice;});message+=`\n📦 *TOTAL:* ${formatCurrency(total)}\n\n`;message+=`💳 *Pagamento:* ${payment}${changeText}\n`;message+=`🚚 *Entrega:* ${delivery}${addressText}\n\n`;message+=`🔔 Peço que confirmem meu pedido.`;window.open(`https://wa.me/5534991273427?text=${encodeURIComponent(message)}`,'_blank');return true;}
     
-    // ========== FUNÇÃO PARA COMPARTILHAR (ATUALIZADA) ==========
     function shareCardapio() {
         const link = 'https://luciano05041983-cloud.github.io/Cardapio-Center-Carnes-Skala/';
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -2225,6 +2267,15 @@
         });
         document.getElementById('shareButton')?.addEventListener('click', shareCardapio);
         document.getElementById('copyPixBtn')?.addEventListener('click', copiarChavePix);
+
+        // ===== NOVO: BOTÃO LOCALIZAÇÃO ROLA ATÉ A SEÇÃO =====
+        document.getElementById('locationBtn')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = document.getElementById('localizacao');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
 
         updateCartBadge();
     });
